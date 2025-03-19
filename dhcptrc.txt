@@ -1333,3 +1333,5 @@
 [03/19/2025 19:11:50] Adapter 1 with IP address 172.26.208.1 found but not used
 [03/19/2025 19:11:50] Adapter 2 with IP address 10.10.10.43 found but not used
 [03/19/2025 19:11:50] Adapter 3 with IP address 192.168.0.1 found but not used
+[03/19/2025 19:13:07] DHCP Server is terminating (ignore error messages that follow)
+[03/19/2025 19:13:07] DHCP Server terminated

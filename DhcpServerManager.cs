@@ -81,7 +81,7 @@ namespace RemoteBMC
                     MessageBox.Show(
                         "The selected network interface is using DHCP and has an IP address.\n" +
                         "Cannot act as DHCP server on this interface.\n" +
-                        "Please use a different interface or configure static IP.",
+                        "Please join the sub-net and use the \"As DHCP Client\" mode.",
                         "DHCP Configuration Error",
                         MessageBoxButton.OK,
                         MessageBoxImage.Error);

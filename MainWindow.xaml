@@ -16,11 +16,11 @@
                     <GroupBox Header="IP Address Configuration" Margin="0,0,0,5">
                         <StackPanel Margin="5">
                             <RadioButton x:Name="AutoDhcpRadio" 
-                                       Content="Search in Current Subnet (as DHCP Client)" 
+                                       Content="As DHCP Client" 
                                        IsChecked="True" 
                                        Margin="0,5"/>
                             <RadioButton x:Name="ManualDhcpRadio" 
-                                       Content="Act as DHCP Server" 
+                                       Content="As DHCP Server" 
                                        Margin="0,5"/>
                             <RadioButton x:Name="ManualIpRadio" 
                                        Content="Manual IP Setting" 

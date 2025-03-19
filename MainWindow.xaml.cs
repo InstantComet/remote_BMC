@@ -217,8 +217,7 @@ namespace RemoteBMC
                                 "To avoid conflicts, you cannot run as DHCP server on this interface.\n" +
                                 "Please either:\n" +
                                 "1. Select a different network interface\n" +
-                                "2. Change the interface to use static IP\n" +
-                                "3. Use automatic detection mode",
+                                "2. Change the interface to use static IP\n",
                                 "DHCP Configuration Warning",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Warning);
@@ -282,6 +281,58 @@ namespace RemoteBMC
                 {
                     // Save current network configuration
                     SaveNetworkConfiguration(selectedInterface);
+
+                    // 如果当前是静态IP，先尝试DHCP模式
+                    var ipv4Properties = selectedNic.GetIPProperties().GetIPv4Properties();
+                    if (!ipv4Properties.IsDhcpEnabled)
+                    {
+                        LogMessage("Interface is using static IP, trying DHCP client mode first...");
+                        
+                        // 设置为DHCP客户端模式
+                        var process = new Process
+                        {
+                            StartInfo = new ProcessStartInfo
+                            {
+                                FileName = "netsh",
+                                Arguments = $"interface ip set address \"{selectedInterface}\" dhcp",
+                                UseShellExecute = false,
+                                RedirectStandardOutput = true,
+                                RedirectStandardError = true,
+                                CreateNoWindow = true,
+                                Verb = "runas"
+                            }
+                        };
+                        
+                        process.Start();
+                        await WaitForProcessExit(process);
+                        
+                        // 等待一段时间看是否能获取到IP
+                        LogMessage("Waiting for DHCP IP assignment...(Waiting for 10s)");
+                        await Task.Delay(10000); // 等待10秒
+
+                        // 检查是否获取到了IP
+                        var newIpAddress = selectedNic.GetIPProperties().UnicastAddresses
+                            .FirstOrDefault(addr => addr.Address.AddressFamily == AddressFamily.InterNetwork);
+
+                        if (newIpAddress != null && !newIpAddress.Address.ToString().StartsWith("169.254"))
+                        {
+                            LogMessage($"Obtained IP from DHCP: {newIpAddress.Address}");
+                            MessageBox.Show(
+                                "The network interface obtained an IP address from an existing DHCP server.\n" +
+                                "To avoid conflicts, you cannot run as DHCP server on this interface.\n" +
+                                "Please join the sub-net and use the \"As DHCP Client\" mode.",
+                                "DHCP Configuration Warning",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                            
+                            await RestoreNetworkConfiguration();
+                            return null;
+                        }
+                        else
+                        {
+                            LogMessage("No valid IP obtained from DHCP, proceeding with DHCP server setup");
+                        }
+                    }
 
                     // Configure network interface IP address
                     if (!await dhcpManager.ConfigureInterface(selectedInterface))
