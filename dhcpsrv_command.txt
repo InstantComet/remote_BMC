@@ -1,0 +1,10 @@
+-install 	installs the DHCP Server as a service
+-remove 	removes the service
+-start 	starts the service
+-stop 	stops the service
+-control 	opens the above dialog box to control the service
+-help 	shows a help message dialog box
+-runapp 	runs the DHCP Server in application mode (regardless of service installs)
+-ini filename 	sets the pathname of the ini file to be used by the DHCP Server (default is dhcpsrv.ini). This works only in application mode
+-configfirewall 	Configures firewall exceptions for dhcpsrv.exe
+-removefirewall 	Removes firewall exceptions for dhcpsrv.exe
