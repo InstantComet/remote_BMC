@@ -16,6 +16,7 @@ namespace RemoteBMC
     public partial class MainWindow : Window
     {
         private const string SSH_PASSWORD = "remora";
+        private CancellationTokenSource _cancellationTokenSource;
         private const int LOCAL_HTTP_PORT = 8880;
         private const int LOCAL_HTTPS_PORT = 8443;
         private const int REMOTE_HTTP_PORT = 80;
@@ -156,13 +157,62 @@ namespace RemoteBMC
             RefreshNetworkInterfaces();
         }
 
+        private async void ClearIpConfigButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var selectedInterface = NetworkInterfaceCombo.SelectedItem?.ToString();
+                if (string.IsNullOrEmpty(selectedInterface))
+                {
+                    MessageBox.Show("Please select a network interface", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                var selectedNic = networkInterfaces.FirstOrDefault(ni => ni.Name == selectedInterface);
+                if (selectedNic == null)
+                {
+                    MessageBox.Show("Selected network interface not found", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                // 设置为DHCP客户端模式
+                var process = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = "netsh",
+                        Arguments = $"interface ip set address \"{selectedInterface}\" dhcp",
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        CreateNoWindow = true,
+                        Verb = "runas"
+                    }
+                };
+                
+                process.Start();
+                await WaitForProcessExit(process);
+                
+                LogMessage("Network interface has been set to DHCP client mode");
+                AutoDhcpRadio.IsChecked = true;
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Failed to clear IP configuration: {ex.Message}");
+                MessageBox.Show($"Failed to clear IP configuration: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         private async void StartButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 StartButton.IsEnabled = false;
-                ClearButton.IsEnabled = false;
+                ClearButton.Content = "Abort";
+                ClearButton.IsEnabled = true;
                 OpenBrowserButton.IsEnabled = false;
+                
+                _cancellationTokenSource = new CancellationTokenSource();
 
                 // Clean up existing connections
                 await CleanupExistingConnections();
@@ -172,6 +222,30 @@ namespace RemoteBMC
                 {
                     MessageBox.Show("Please select a network interface", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
+                }
+
+                // 只在用户选择作为DHCP服务器模式时检查DHCP状态
+                if (ManualDhcpRadio.IsChecked == true)
+                {
+                    var selectedNic = networkInterfaces.FirstOrDefault(ni => ni.Name == NetworkInterfaceCombo.SelectedItem.ToString());
+                    if (selectedNic != null)
+                    {
+                        bool hasIpFromDhcp;
+                        if (dhcpManager.IsInterfaceUsingDhcp(selectedNic, out hasIpFromDhcp) && hasIpFromDhcp)
+                        {
+                            LogMessage($"Warning: Selected interface {selectedNic.Name} is using DHCP and has a valid IP address");
+                            MessageBox.Show(
+                                "The selected network interface is currently using DHCP and has a valid IP address.\n" +
+                                "To avoid conflicts, you cannot run as DHCP server on this interface.\n" +
+                                "Please either:\n" +
+                                "1. Select a different network interface\n" +
+                                "2. Change the interface to use static IP\n",
+                                "DHCP Configuration Warning",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                            return;
+                        }
+                    }
                 }
 
                 string smcIp = await GetSmcIp();
@@ -190,11 +264,14 @@ namespace RemoteBMC
             finally
             {
                 StartButton.IsEnabled = true;
+                ClearButton.Content = "Clear Configuration";
                 ClearButton.IsEnabled = true;
+                _cancellationTokenSource?.Dispose();
+                _cancellationTokenSource = null;
             }
         }
 
-        private void NetworkInterfaceCombo_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void ManualDhcpRadio_Checked(object sender, RoutedEventArgs e)
         {
             if (NetworkInterfaceCombo.SelectedItem != null)
             {
@@ -202,49 +279,41 @@ namespace RemoteBMC
                 if (selectedNic != null)
                 {
                     bool hasIpFromDhcp;
-                    if (dhcpManager.IsInterfaceUsingDhcp(selectedNic, out hasIpFromDhcp))
+                    if (dhcpManager.IsInterfaceUsingDhcp(selectedNic, out hasIpFromDhcp) && hasIpFromDhcp)
                     {
-                        if (hasIpFromDhcp)
-                        {
-                            LogMessage($"Warning: Selected interface {selectedNic.Name} is using DHCP and has a valid IP address");
-                            ManualDhcpRadio.IsEnabled = false;
-                            if (ManualDhcpRadio.IsChecked == true)
-                            {
-                                AutoDhcpRadio.IsChecked = true;
-                            }
-                            MessageBox.Show(
-                                "The selected network interface is currently using DHCP and has a valid IP address.\n" +
-                                "To avoid conflicts, you cannot run as DHCP server on this interface.\n" +
-                                "Please either:\n" +
-                                "1. Select a different network interface\n" +
-                                "2. Change the interface to use static IP\n",
-                                "DHCP Configuration Warning",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Warning);
-                        }
-                        else
-                        {
-                            // 检查是否有IP地址
-                            var ipAddress = selectedNic.GetIPProperties().UnicastAddresses
-                                .FirstOrDefault(addr => addr.Address.AddressFamily == AddressFamily.InterNetwork);
-                            
-                            if (ipAddress != null && ipAddress.Address.ToString().StartsWith("169.254"))
-                            {
-                                LogMessage($"Note: Selected interface {selectedNic.Name} has an APIPA address, can be used as DHCP server");
-                                ManualDhcpRadio.IsEnabled = true;
-                            }
-                            else
-                            {
-                                LogMessage($"Note: Selected interface {selectedNic.Name} is set to use DHCP but has no IP address");
-                                ManualDhcpRadio.IsEnabled = true;
-                            }
-                        }
+                        LogMessage($"Warning: Selected interface {selectedNic.Name} is using DHCP and has a valid IP address");
+                        MessageBox.Show(
+                            "The selected network interface is currently using DHCP and has a valid IP address.\n" +
+                            "To avoid conflicts, you cannot run as DHCP server on this interface.\n" +
+                            "Please either:\n" +
+                            "1. Select a different network interface\n" +
+                            "2. Change the interface to use static IP\n",
+                            "DHCP Configuration Warning",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Warning);
+                        
+                        // Switch back to Auto DHCP mode and disable Manual DHCP mode
+                        AutoDhcpRadio.IsChecked = true;
+                        ManualDhcpRadio.IsEnabled = false;
                     }
                     else
                     {
+                        // If no DHCP conflict, ensure the radio button is enabled
                         ManualDhcpRadio.IsEnabled = true;
                     }
                 }
+            }
+        }
+
+        private void NetworkInterfaceCombo_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            // Re-enable Manual DHCP mode when interface changes
+            ManualDhcpRadio.IsEnabled = true;
+            
+            // If Manual DHCP is selected, check DHCP status for the new interface
+            if (ManualDhcpRadio.IsChecked == true)
+            {
+                ManualDhcpRadio_Checked(sender, new RoutedEventArgs());
             }
         }
 
@@ -284,7 +353,10 @@ namespace RemoteBMC
 
                     // 如果当前是静态IP，先尝试DHCP模式
                     var ipv4Properties = selectedNic.GetIPProperties().GetIPv4Properties();
-                    if (!ipv4Properties.IsDhcpEnabled)
+                    var ipAddress = selectedNic.GetIPProperties().UnicastAddresses
+                        .FirstOrDefault(ip => ip.Address.AddressFamily == AddressFamily.InterNetwork);
+                    
+                    if (!ipv4Properties.IsDhcpEnabled && ipAddress != null && ipAddress.Address.ToString() != "10.10.20.1")
                     {
                         LogMessage("Interface is using static IP, trying DHCP client mode first...");
                         
@@ -358,7 +430,14 @@ namespace RemoteBMC
                     
                     // Wait for DHCP server to assign IP
                     LogMessage("Waiting for SMC to obtain IP address...");
-                    await Task.Delay(30000); // Wait 30 seconds
+                    try {
+                        await Task.Delay(30000, _cancellationTokenSource.Token); // Wait 30 seconds
+                    } catch (OperationCanceledException) {
+                        LogMessage("Operation cancelled by user");
+                        await dhcpManager.StopDhcpServer();
+                        await RestoreNetworkConfiguration();
+                        return null;
+                    }
 
                     // Search for SMC device in subnet
                     var smcIp = await GetDhcpAssignedClientIp();
@@ -368,7 +447,14 @@ namespace RemoteBMC
                     {
                         LogMessage("First search found no device, retrying...");
                         await dhcpManager.StimulateSmcDhcpRequest(selectedInterface);
-                        await Task.Delay(30000); // Wait another 30 seconds
+                        try {
+                            await Task.Delay(30000, _cancellationTokenSource.Token); // Wait another 30 seconds
+                        } catch (OperationCanceledException) {
+                            LogMessage("Operation cancelled by user");
+                            await dhcpManager.StopDhcpServer();
+                            await RestoreNetworkConfiguration();
+                            return null;
+                        }
                         smcIp = await GetDhcpAssignedClientIp();
                     }
 
@@ -1122,6 +1208,14 @@ namespace RemoteBMC
         {
             try
             {
+                if (_cancellationTokenSource != null)
+                {
+                    // 如果正在执行操作，则中止操作
+                    _cancellationTokenSource.Cancel();
+                    LogMessage("Operation aborted by user");
+                    return;
+                }
+
                 ClearButton.IsEnabled = false;
                 LogMessage("Starting configuration cleanup...");
 
@@ -1145,4 +1239,4 @@ namespace RemoteBMC
             }
         }
     }
-} 
+}

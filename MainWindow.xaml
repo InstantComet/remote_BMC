@@ -21,7 +21,8 @@
                                        Margin="0,5"/>
                             <RadioButton x:Name="ManualDhcpRadio" 
                                        Content="As DHCP Server" 
-                                       Margin="0,5"/>
+                                       Margin="0,5"
+                                       Checked="ManualDhcpRadio_Checked"/>
                             <RadioButton x:Name="ManualIpRadio" 
                                        Content="Manual IP Setting" 
                                        Margin="0,5"/>
@@ -30,6 +31,14 @@
 
                     <DockPanel Margin="0,5">
                         <TextBlock Text="Network Interface:" Width="140"/>
+                        <Button x:Name="ClearIpConfigButton"
+                                Content="🔄"
+                                Width="30"
+                                Height="20"
+                                Margin="5,0,0,0"
+                                Click="ClearIpConfigButton_Click"
+                                DockPanel.Dock="Right"
+                                ToolTip="Clear IP configuration and switch to DHCP"/>
                         <Button x:Name="RefreshInterfacesButton"
                                 Content="⟳"
                                 Width="30"
@@ -103,4 +112,4 @@
             <Run Text="Nuo.Su@disguise.one"/>
         </TextBlock>
     </Grid>
-</Window> 
+</Window>

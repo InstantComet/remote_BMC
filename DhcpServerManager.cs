@@ -30,6 +30,26 @@ namespace RemoteBMC
                     var ipv4Properties = networkInterface.GetIPProperties().GetIPv4Properties();
                     bool isDhcpEnabled = ipv4Properties != null && ipv4Properties.IsDhcpEnabled;
 
+                    // 检查是否是手动配置但IP为空的情况
+                    if (!isDhcpEnabled)
+                    {                        
+                        var ipv4Address = networkInterface.GetIPProperties().UnicastAddresses
+                            .FirstOrDefault(addr => addr.Address.AddressFamily == AddressFamily.InterNetwork);
+                        if (ipv4Address == null)
+                        {
+                            LogMessage($"[DHCP] Interface {networkInterface.Name} is using static IP but has no IP configured");
+                            return false; // 允许继续使用DHCP服务器模式
+                        }
+                        
+                        // 检查是否已经配置为DHCP服务器IP
+                        string ipString = ipv4Address.Address.ToString();
+                        if (ipString == DHCP_SERVER_IP)
+                        {
+                            LogMessage($"[DHCP] Interface {networkInterface.Name} is already configured with DHCP server IP: {ipString}");
+                            return false; // 允许继续使用DHCP服务器模式
+                        }
+                    }
+
                     if (isDhcpEnabled)
                     {
                         // Check if interface has actually obtained a valid IP from DHCP
@@ -75,18 +95,24 @@ namespace RemoteBMC
             {
                 // 1. First check if selected interface is using DHCP
                 bool hasIpFromDhcp;
-                if (IsInterfaceUsingDhcp(selectedNic, out hasIpFromDhcp) && hasIpFromDhcp)
+                bool isDhcpEnabled = IsInterfaceUsingDhcp(selectedNic, out hasIpFromDhcp);
+                if (isDhcpEnabled && hasIpFromDhcp)
                 {
-                    LogMessage("[DHCP] Selected interface is using DHCP and has an IP address, cannot act as DHCP server");
+                    LogMessage("[DHCP] Selected interface is using DHCP and has a valid IP address, cannot act as DHCP server");
                     MessageBox.Show(
-                        "The selected network interface is using DHCP and has an IP address.\n" +
-                        "Cannot act as DHCP server on this interface.\n" +
-                        "Please join the sub-net and use the \"As DHCP Client\" mode.",
-                        "DHCP Configuration Error",
+                        "The selected network interface is using DHCP and has a valid IP address.\n" +
+                        "To avoid conflicts, you cannot run as DHCP server on this interface.\n" +
+                        "Please either:\n" +
+                        "1. Select a different network interface\n" +
+                        "2. Change the interface to use static IP\n" +
+                        "3. Use the \"As DHCP Client\" mode",
+                        "DHCP Configuration Warning",
                         MessageBoxButton.OK,
-                        MessageBoxImage.Error);
+                        MessageBoxImage.Warning);
                     return true;
                 }
+                // 如果网卡未开启DHCP或者开启了但获取到169.254开头的IP，允许继续使用DHCP服务器模式
+                return false;
 
                 // 2. Check for other DHCP servers in the network
                 using (var udpClient = new UdpClient())
@@ -439,4 +465,4 @@ namespace RemoteBMC
             logCallback?.Invoke(message);
         }
     }
-} 
+}
