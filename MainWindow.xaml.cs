@@ -15,28 +15,17 @@ namespace RemoteBMC
 {
     public partial class MainWindow : Window
     {
-        private const string SSH_PASSWORD = "remora";
         private CancellationTokenSource _cancellationTokenSource;
         private const int LOCAL_HTTP_PORT = 8880;
         private const int LOCAL_HTTPS_PORT = 8443;
         private const int REMOTE_HTTP_PORT = 80;
         private const int REMOTE_HTTPS_PORT = 443;
-        private const int SSH_PORT = 22;
-        private string[] BMC_IPS = new[] { "172.31.250.11", "172.31.240.11" };
 
         private List<NetworkInterface> networkInterfaces;
-        private List<Process> sshProcesses = new List<Process>();
-        private List<SshClient> activeSshClients = new List<SshClient>();
-        private List<ForwardedPortLocal> activeForwardedPorts = new List<ForwardedPortLocal>();
-        
-        // 添加保存原始网络配置的变量
-        private string originalIpAddress;
-        private string originalSubnetMask;
-        private string originalGateway;
-        private string lastConfiguredInterface;
-        private bool originalIsDhcp;
-
         private DhcpServerManager dhcpManager;
+        private NetworkConfigurationManager networkConfigManager;
+        private SshConnectionManager sshConnectionManager;
+        private DeviceDiscoveryManager deviceDiscoveryManager;
 
         public MainWindow()
         {
@@ -50,7 +39,11 @@ namespace RemoteBMC
             }
 
             InitializeComponent();
+            this.Closing += MainWindow_Closing;
             dhcpManager = new DhcpServerManager(LogMessage);
+            networkConfigManager = new NetworkConfigurationManager(LogMessage);
+            sshConnectionManager = new SshConnectionManager(LogMessage);
+            deviceDiscoveryManager = new DeviceDiscoveryManager(LogMessage);
             LoadNetworkInterfaces();
         }
 
@@ -105,24 +98,16 @@ namespace RemoteBMC
         {
             try
             {
-                // Store the currently selected interface name
                 string previouslySelectedInterface = NetworkInterfaceCombo.SelectedItem?.ToString();
-                
-                // Clear existing items
                 NetworkInterfaceCombo.Items.Clear();
                 
-                // Refresh the network interfaces list
-                networkInterfaces = NetworkInterface.GetAllNetworkInterfaces()
-                    .Where(ni => ni.OperationalStatus == OperationalStatus.Up &&
-                           ni.NetworkInterfaceType != NetworkInterfaceType.Loopback)
-                    .ToList();
+                networkInterfaces = networkConfigManager.GetNetworkInterfaces();
 
                 foreach (var ni in networkInterfaces)
                 {
                     NetworkInterfaceCombo.Items.Add(ni.Name);
                 }
 
-                // Try to reselect the previously selected interface
                 if (!string.IsNullOrEmpty(previouslySelectedInterface))
                 {
                     int index = NetworkInterfaceCombo.Items.IndexOf(previouslySelectedInterface);
@@ -195,6 +180,9 @@ namespace RemoteBMC
                 
                 LogMessage("Network interface has been set to DHCP client mode");
                 AutoDhcpRadio.IsChecked = true;
+                
+                // 刷新网络接口状态
+                RefreshNetworkInterfaces();
             }
             catch (Exception ex)
             {
@@ -273,6 +261,27 @@ namespace RemoteBMC
 
         private void ManualDhcpRadio_Checked(object sender, RoutedEventArgs e)
         {
+            // First check if required files exist
+            string exePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dhcpsrv.exe");
+            string iniPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dhcpsrv.ini");
+
+            if (!System.IO.File.Exists(exePath) || !System.IO.File.Exists(iniPath))
+            {
+                LogMessage("Required DHCP server files are missing");
+                MessageBox.Show(
+                    "Required files are missing:\n" +
+                    (!System.IO.File.Exists(exePath) ? "- dhcpsrv.exe\n" : "") +
+                    (!System.IO.File.Exists(iniPath) ? "- dhcpsrv.ini\n" : "") +
+                    "\nPlease ensure these files are in the same directory as the application.",
+                    "Missing Files",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                
+                // Switch back to Auto DHCP mode
+                AutoDhcpRadio.IsChecked = true;
+                return;
+            }
+
             if (NetworkInterfaceCombo.SelectedItem != null)
             {
                 var selectedNic = networkInterfaces.FirstOrDefault(ni => ni.Name == NetworkInterfaceCombo.SelectedItem.ToString());
@@ -416,7 +425,8 @@ namespace RemoteBMC
                     await Task.Delay(2000); // Wait for network configuration to take effect
 
                     // Check for other DHCP servers
-                    if (await dhcpManager.CheckExistingDhcpServer(selectedNic))
+                    bool hasDhcpServer = await dhcpManager.CheckExistingDhcpServer(selectedNic);
+                    if (hasDhcpServer)
                     {
                         await RestoreNetworkConfiguration();
                         return null;
@@ -431,7 +441,7 @@ namespace RemoteBMC
                     // Wait for DHCP server to assign IP
                     LogMessage("Waiting for SMC to obtain IP address...");
                     try {
-                        await Task.Delay(30000, _cancellationTokenSource.Token); // Wait 30 seconds
+                        await Task.Delay(20000, _cancellationTokenSource.Token); // Wait 20 seconds
                     } catch (OperationCanceledException) {
                         LogMessage("Operation cancelled by user");
                         await dhcpManager.StopDhcpServer();
@@ -448,7 +458,7 @@ namespace RemoteBMC
                         LogMessage("First search found no device, retrying...");
                         await dhcpManager.StimulateSmcDhcpRequest(selectedInterface);
                         try {
-                            await Task.Delay(30000, _cancellationTokenSource.Token); // Wait another 30 seconds
+                            await Task.Delay(20000, _cancellationTokenSource.Token); // Wait another 20 seconds
                         } catch (OperationCanceledException) {
                             LogMessage("Operation cancelled by user");
                             await dhcpManager.StopDhcpServer();
@@ -504,332 +514,22 @@ namespace RemoteBMC
 
         private async Task<string> GetDhcpAssignedClientIp()
         {
-            LogMessage("[DHCP] Starting SMC device search...");
+            string selectedInterface = NetworkInterfaceCombo.SelectedItem.ToString();
+            bool isManualDhcp = ManualDhcpRadio.IsChecked == true;
             
-            try
+            var smcIp = await deviceDiscoveryManager.GetDhcpAssignedClientIp(selectedInterface, networkInterfaces, isManualDhcp);
+            
+            if (!string.IsNullOrEmpty(smcIp))
             {
-                // 1. Get current selected network interface
-                string selectedInterface = NetworkInterfaceCombo.SelectedItem.ToString();
-                var networkInterface = networkInterfaces.FirstOrDefault(ni => ni.Name == selectedInterface);
-                if (networkInterface == null)
-                {
-                    LogMessage("[DHCP] Unable to get selected network interface");
-                    return null;
-                }
-
-                // 2. Determine search range based on mode
-                List<string> ipAddressesToScan = new List<string>();
-                
-                if (ManualDhcpRadio.IsChecked == true)
-                {
-                    // 如果是DHCP服务器模式，从DHCP池中扫描
-                    LogMessage("[DHCP] Scanning DHCP pool range (10.10.20.100-10.10.20.200)");
-                    for (int i = 100; i <= 200; i++)
-                    {
-                        ipAddressesToScan.Add($"10.10.20.{i}");
-                    }
-                }
-                else
-                {
-                    // 如果是自动检测模式，从当前子网扫描
-                    var ipProperties = networkInterface.GetIPProperties();
-                    var ipAddress = ipProperties.UnicastAddresses
-                        .FirstOrDefault(ip => ip.Address.AddressFamily == AddressFamily.InterNetwork);
-                    
-                    if (ipAddress == null)
-                    {
-                        LogMessage("[DHCP] Unable to get network interface IP address");
-                        return null;
-                    }
-
-                    string localIp = ipAddress.Address.ToString();
-                    string subnetMask = ipAddress.IPv4Mask.ToString();
-                    LogMessage($"[DHCP] Local IP: {localIp}, Subnet Mask: {subnetMask}");
-
-                    // Calculate subnet range
-                    var ipParts = localIp.Split('.');
-                    var maskParts = subnetMask.Split('.');
-                    var networkParts = new int[4];
-                    for (int i = 0; i < 4; i++)
-                    {
-                        networkParts[i] = int.Parse(ipParts[i]) & int.Parse(maskParts[i]);
-                    }
-
-                    // Add all addresses in subnet to scan list
-                    for (int i = 1; i < 255; i++)
-                    {
-                        ipAddressesToScan.Add($"{networkParts[0]}.{networkParts[1]}.{networkParts[2]}.{i}");
-                    }
-                }
-
-                // 3. Parallel scan of IP addresses
-                LogMessage($"[DHCP] Starting scan of {ipAddressesToScan.Count} addresses...");
-                var deviceList = new List<(string ip, bool isAlive)>();
-                var tasks = new List<Task>();
-                var lockObj = new object();
-
-                foreach (string ip in ipAddressesToScan)
-                {
-                    var task = Task.Run(async () =>
-                    {
-                        try
-                        {
-                            using (var tcpClient = new TcpClient())
-                            {
-                                var connectTask = tcpClient.ConnectAsync(ip, SSH_PORT);
-                                if (await Task.WhenAny(connectTask, Task.Delay(200)) == connectTask)
-                                {
-                                    lock (lockObj)
-                                    {
-                                        deviceList.Add((ip, true));
-                                        LogMessage($"[DHCP] Device found: {ip} (SSH port open)");
-                                    }
-                                }
-                            }
-                        }
-                        catch
-                        {
-                            // If SSH port is not open, try ping
-                            try
-                            {
-                                using (var ping = new Ping())
-                                {
-                                    var reply = await ping.SendPingAsync(ip, 200);
-                                    if (reply.Status == IPStatus.Success)
-                                    {
-                                        lock (lockObj)
-                                        {
-                                            deviceList.Add((ip, false));
-                                            LogMessage($"[DHCP] Device found: {ip} (Ping successful)");
-                                        }
-                                    }
-                                }
-                            }
-                            catch { }
-                        }
-                    });
-                    tasks.Add(task);
-                }
-
-                await Task.WhenAll(tasks);
-                LogMessage($"[DHCP] Scan complete, found {deviceList.Count} devices");
-
-                // 4. Try SSH connection to discovered devices
-                LogMessage("[DHCP] Starting device verification...");
-                var smcDevices = new List<(string ip, string mac, string info)>();
-
-                // Check devices with open SSH ports first
-                foreach (var device in deviceList.OrderByDescending(d => d.isAlive))
-                {
-                    LogMessage($"[DHCP] Checking {device.ip}...");
-                    try
-                    {
-                        using (var sshClient = new SshClient(device.ip, "root", SSH_PASSWORD))
-                        {
-                            sshClient.ConnectionInfo.Timeout = TimeSpan.FromSeconds(2);
-                            try
-                            {
-                                await Task.Run(() => sshClient.Connect());
-                                
-                                // Execute commands to verify SMC device
-                                var command = sshClient.CreateCommand("uname -a");
-                                string result = command.Execute();
-
-                                // Get more device information
-                                var hostnameCmd = sshClient.CreateCommand("hostname");
-                                string hostname = hostnameCmd.Execute().Trim();
-
-                                var uptimeCmd = sshClient.CreateCommand("uptime");
-                                string uptime = uptimeCmd.Execute().Trim();
-
-                                // Try to get MAC address using different methods
-                                string mac = "Unknown";
-                                try
-                                {
-                                    // First get all network interfaces
-                                    var ifconfigCmd = sshClient.CreateCommand("ifconfig -a");
-                                    string ifconfigOutput = ifconfigCmd.Execute().Trim();
-
-                                    if (string.IsNullOrEmpty(ifconfigOutput))
-                                    {
-                                        // If ifconfig not available, try ip command
-                                        var ipCmd = sshClient.CreateCommand("ip link show");
-                                        ifconfigOutput = ipCmd.Execute().Trim();
-                                    }
-
-                                    if (!string.IsNullOrEmpty(ifconfigOutput))
-                                    {
-                                        // Try different regex patterns based on command output
-                                        var patterns = new[]
-                                        {
-                                            @"HWaddr\s+([0-9A-Fa-f:]{17})",         // Traditional ifconfig format
-                                            @"ether\s+([0-9a-fA-F:]{17})",          // Modern ifconfig format
-                                            @"link/ether\s+([0-9a-fA-F:]{17})"      // ip command format
-                                        };
-
-                                        foreach (var pattern in patterns)
-                                        {
-                                            var match = System.Text.RegularExpressions.Regex.Match(ifconfigOutput, pattern);
-                                            if (match.Success)
-                                            {
-                                                mac = match.Groups[1].Value.ToUpper();
-                                                break;
-                                            }
-                                        }
-
-                                        // If still unknown, try another method
-                                        if (mac == "Unknown")
-                                        {
-                                            // Try to find MAC from /sys/class/net
-                                            var findMacCmd = sshClient.CreateCommand("cat /sys/class/net/*/address | head -n 1");
-                                            string macFromSys = findMacCmd.Execute().Trim();
-                                            if (!string.IsNullOrEmpty(macFromSys) && macFromSys.Length == 17)
-                                            {
-                                                mac = macFromSys.ToUpper();
-                                            }
-                                        }
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    LogMessage($"[DHCP] Error getting MAC address: {ex.Message}");
-                                }
-
-                                // Check if output contains SMC characteristics
-                                if (result.Contains("SMC") || result.Contains("smc"))
-                                {
-                                    string deviceInfo = $"Hostname: {hostname}\nMAC Address: {mac}\nUptime: {uptime}";
-                                    smcDevices.Add((device.ip, mac, deviceInfo));
-                                    LogMessage($"[DHCP] SMC device found: {device.ip}");
-                                    LogMessage($"[DHCP] Device information:\n{deviceInfo}");
-                                }
-                                
-                                sshClient.Disconnect();
-                            }
-                            catch
-                            {
-                                // SSH connection failed, continue to next device
-                                continue;
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        LogMessage($"[DHCP] Error checking device {device.ip}: {ex.Message}");
-                        continue;
-                    }
-                }
-
-                if (smcDevices.Count == 0)
-                {
-                    LogMessage("[DHCP] No SMC devices found");
-                    return null;
-                }
-
-                // 5. Let user select device if multiple found
-                LogMessage($"[DHCP] Found {smcDevices.Count} SMC devices");
-                var options = new List<string>();
-                foreach (var device in smcDevices)
-                {
-                    options.Add($"IP: {device.ip}\nMAC: {device.mac}\n{device.info}");
-                }
-
-                var dialog = new SelectDeviceDialog(options);
-                if (dialog.ShowDialog() == true)
-                {
-                    var selectedDevice = smcDevices[dialog.SelectedIndex];
-                    LogMessage($"[DHCP] User selected device: {selectedDevice.ip}");
-                    // Update IP address input box
-                    Dispatcher.Invoke(() => SmcIpTextBox.Text = selectedDevice.ip);
-                    return selectedDevice.ip;
-                }
-
-                LogMessage("[DHCP] User cancelled device selection");
-                return null;
+                Dispatcher.Invoke(() => SmcIpTextBox.Text = smcIp);
             }
-            catch (Exception ex)
-            {
-                LogMessage($"[DHCP] Error during search process: {ex.Message}");
-                return null;
-            }
+            
+            return smcIp;
         }
 
         private async Task<string> DetermineBmcIp(string smcIp)
         {
-            LogMessage($"[Debug] Testing management interface connectivity");
-            
-            try
-            {
-                // First test if SMC can be pinged
-                using (var ping = new Ping())
-                {
-                    var reply = await ping.SendPingAsync(smcIp, 500);
-                    if (reply.Status != IPStatus.Success)
-                    {
-                        LogMessage($"Cannot connect to SMC, please verify IP address");
-                        return null;
-                    }
-                }
-
-                // Establish SSH connection
-                using (var client = new SshClient(smcIp, "root", SSH_PASSWORD))
-                {
-                    try
-                    {
-                        client.ConnectionInfo.Timeout = TimeSpan.FromSeconds(5);
-                        await Task.Run(() => client.Connect());
-                    }
-                    catch (Exception ex)
-                    {
-                        LogMessage($"SSH connection failed: {ex.Message}");
-                        return null;
-                    }
-
-                    foreach (string ip in BMC_IPS)
-                    {
-                        LogMessage($"[Debug] Testing {ip}");
-                        try
-                        {
-                            // Use timeout parameter
-                            var pingCmd = client.CreateCommand($"ping -c 1 -W 1 {ip}");
-                            
-                            // Create cancellation token
-                            using (var cts = new CancellationTokenSource(TimeSpan.FromSeconds(2)))
-                            {
-                                try
-                                {
-                                    var pingTask = Task.Run(() => pingCmd.Execute(), cts.Token);
-                                    var result = await pingTask;
-
-                                    if (pingCmd.ExitStatus == 0)
-                                    {
-                                        LogMessage($"[Debug] Successfully pinged BMC IP: {ip}");
-                                        return ip;
-                                    }
-                                }
-                                catch (OperationCanceledException)
-                                {
-                                    LogMessage($"[Debug] {ip} test timeout, trying next");
-                                    continue;
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            LogMessage($"[Debug] Error testing {ip}: {ex.Message}");
-                        }
-                    }
-
-                    client.Disconnect();
-                }
-            }
-            catch (Exception ex)
-            {
-                LogMessage($"[Debug] Connectivity test error: {ex.Message}");
-            }
-
-            LogMessage("All management interface IPs are unreachable");
-            return null;
+            return await deviceDiscoveryManager.DetermineBmcIp(smcIp);
         }
 
         private async Task ConfigureConnection(string smcIp)
@@ -844,17 +544,20 @@ namespace RemoteBMC
 
             LogMessage($"[Debug] Using BMC IP: {bmcIp}");
 
-            // Setup SSH port forwarding
-            await Task.Run(() =>
+            try
             {
-                SetupSshForwarding(smcIp, bmcIp, LOCAL_HTTP_PORT, REMOTE_HTTP_PORT);
-                SetupSshForwarding(smcIp, bmcIp, LOCAL_HTTPS_PORT, REMOTE_HTTPS_PORT);
-            });
+                await sshConnectionManager.SetupSshForwarding(smcIp, bmcIp, LOCAL_HTTP_PORT, REMOTE_HTTP_PORT);
+                await sshConnectionManager.SetupSshForwarding(smcIp, bmcIp, LOCAL_HTTPS_PORT, REMOTE_HTTPS_PORT);
 
-            // Enable browser button and change start button text
-            OpenBrowserButton.IsEnabled = true;
-            StartButton.Content = "Reconfigure";
-            LogMessage("Port forwarding is set up, BMC interface is accessible");
+                OpenBrowserButton.IsEnabled = true;
+                StartButton.Content = "Reconfigure";
+                LogMessage("Port forwarding is set up, BMC interface is accessible");
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Failed to set up port forwarding: {ex.Message}");
+                MessageBox.Show($"Failed to set up port forwarding: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private async Task VerifyConnections(bool checkHttp, bool checkHttps)
@@ -940,48 +643,14 @@ namespace RemoteBMC
         {
             LogMessage("Cleaning up existing connections...");
 
-            // 1. Stop all port forwarding
-            foreach (var port in activeForwardedPorts)
-            {
-                try
-                {
-                    if (port.IsStarted)
-                    {
-                        port.Stop();
-                        LogMessage($"Stopped port forwarding on port {port.BoundPort}");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogMessage($"Error stopping port forward: {ex.Message}");
-                }
-            }
-            activeForwardedPorts.Clear();
+            // 1. Clean up SSH connections and port forwarding
+            await sshConnectionManager.CleanupConnections();
 
-            // 2. Disconnect all SSH connections
-            foreach (var client in activeSshClients)
-            {
-                try
-                {
-                    if (client.IsConnected)
-                    {
-                        client.Disconnect();
-                        LogMessage("Disconnected SSH client");
-                    }
-                    client.Dispose();
-                }
-                catch (Exception ex)
-                {
-                    LogMessage($"Error disconnecting SSH: {ex.Message}");
-                }
-            }
-            activeSshClients.Clear();
+            // 2. Kill processes using ports
+            await sshConnectionManager.KillPortProcess(LOCAL_HTTP_PORT);
+            await sshConnectionManager.KillPortProcess(LOCAL_HTTPS_PORT);
 
-            // 3. Kill processes using ports
-            KillPortProcess(LOCAL_HTTP_PORT);
-            KillPortProcess(LOCAL_HTTPS_PORT);
-
-            // 4. Stop DHCP server if running
+            // 3. Stop DHCP server if running
             try
             {
                 await dhcpManager.StopDhcpServer();
@@ -991,8 +660,8 @@ namespace RemoteBMC
                 LogMessage($"Error stopping DHCP server: {ex.Message}");
             }
 
-            // 5. Restore network configuration if previously configured
-            await RestoreNetworkConfiguration();
+            // 4. Restore network configuration if previously configured
+            await networkConfigManager.RestoreNetworkConfiguration();
 
             LogMessage("Cleanup complete");
         }
@@ -1058,26 +727,16 @@ namespace RemoteBMC
 
             try
             {
-                var forwardedPort = new ForwardedPortLocal("127.0.0.1", (uint)localPort, bmcIp, (uint)remotePort);
-                var client = new SshClient(smcIp, "root", SSH_PASSWORD);
-                
-                client.Connect();
-                LogMessage($"SSH connection established");
-                
-                client.AddForwardedPort(forwardedPort);
-                forwardedPort.Start();
-                LogMessage($"Port forwarding started: {localPort} -> {remotePort}");
-
-                // Save client and forwardedPort for cleanup
-                activeSshClients.Add(client);
-                activeForwardedPorts.Add(forwardedPort);
+// 需要将方法声明改为 private async void SetupSshForwarding
+                sshConnectionManager.SetupSshForwarding(smcIp, bmcIp, localPort, remotePort).Wait();
+                LogMessage($"SSH connection and port forwarding established: {localPort} -> {remotePort}");
 
                 // Monitor connection status
-                Task.Run(() =>
+                
                 {
                     try
                     {
-                        while (client.IsConnected)
+                        while (sshConnectionManager.IsConnected)
                         {
                             Task.Delay(1000).Wait();
                         }
@@ -1087,7 +746,7 @@ namespace RemoteBMC
                     {
                         // Ignore exceptions
                     }
-                });
+                } 
             }
             catch (Exception ex)
             {
@@ -1097,102 +756,12 @@ namespace RemoteBMC
 
         private void SaveNetworkConfiguration(string interfaceName)
         {
-            try
-            {
-                var networkInterface = networkInterfaces.FirstOrDefault(ni => ni.Name == interfaceName);
-                if (networkInterface != null)
-                {
-                    var ipProperties = networkInterface.GetIPProperties();
-                    var ipAddress = ipProperties.UnicastAddresses
-                        .FirstOrDefault(ip => ip.Address.AddressFamily == AddressFamily.InterNetwork);
-                    
-                    if (ipAddress != null)
-                    {
-                        // Check if DHCP mode
-                        originalIsDhcp = networkInterface.GetIPProperties().GetIPv4Properties().IsDhcpEnabled;
-                        
-                        originalIpAddress = ipAddress.Address.ToString();
-                        originalSubnetMask = ipAddress.IPv4Mask.ToString();
-                        
-                        // Save default gateway
-                        var gateway = ipProperties.GatewayAddresses
-                            .FirstOrDefault(g => g.Address.AddressFamily == AddressFamily.InterNetwork);
-                        originalGateway = gateway?.Address.ToString();
-                        
-                        lastConfiguredInterface = interfaceName;
-                        
-                        LogMessage("[Network Config] Original configuration saved");
-                        LogMessage($"[Network Config] Configuration Mode: {(originalIsDhcp ? "DHCP" : "Static")}");
-                        LogMessage($"[Network Config] Original IP: {originalIpAddress}");
-                        LogMessage($"[Network Config] Original Subnet Mask: {originalSubnetMask}");
-                        LogMessage($"[Network Config] Original Gateway: {originalGateway ?? "None"}");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                LogMessage($"[Network Config] Error saving network configuration: {ex.Message}");
-            }
+            networkConfigManager.SaveNetworkConfiguration(interfaceName);
         }
 
         private async Task RestoreNetworkConfiguration()
         {
-            if (string.IsNullOrEmpty(lastConfiguredInterface))
-            {
-                return;
-            }
-
-            try
-            {
-                LogMessage("[Network Config] Restoring original network configuration...");
-                
-                var process = new Process
-                {
-                    StartInfo = new ProcessStartInfo
-                    {
-                        FileName = "netsh",
-                        Arguments = originalIsDhcp ?
-                            $"interface ip set address \"{lastConfiguredInterface}\" dhcp" :
-                            $"interface ip set address \"{lastConfiguredInterface}\" static {originalIpAddress} {originalSubnetMask}" + 
-                            (string.IsNullOrEmpty(originalGateway) ? "" : $" {originalGateway} 1"),
-                        UseShellExecute = false,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true,
-                        CreateNoWindow = true,
-                        Verb = "runas"
-                    }
-                };
-                
-                process.Start();
-                await WaitForProcessExit(process);
-                
-                if (process.ExitCode != 0)
-                {
-                    string error = await process.StandardError.ReadToEndAsync();
-                    LogMessage($"[Network Config] Failed to restore network configuration: {error}");
-                }
-                else
-                {
-                    if (originalIsDhcp)
-                    {
-                        // If DHCP mode, wait for IP address assignment
-                        LogMessage("[Network Config] Waiting for DHCP to obtain IP address...");
-                        await Task.Delay(5000); // Wait 5 seconds for DHCP
-                    }
-                    
-                    LogMessage("[Network Config] Network configuration restored");
-                    // Clear saved configuration
-                    originalIpAddress = null;
-                    originalSubnetMask = null;
-                    originalGateway = null;
-                    lastConfiguredInterface = null;
-                    originalIsDhcp = false;
-                }
-            }
-            catch (Exception ex)
-            {
-                LogMessage($"[Network Config] Error restoring network configuration: {ex.Message}");
-            }
+            await networkConfigManager.RestoreNetworkConfiguration();
         }
 
         private async Task WaitForProcessExit(Process process)
@@ -1236,6 +805,31 @@ namespace RemoteBMC
             finally
             {
                 ClearButton.IsEnabled = true;
+            }
+        }
+
+        private async void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                // 防止窗口立即关闭，等待清理完成
+                e.Cancel = true;
+                
+                // 显示等待提示
+                LogMessage("Cleaning up before exit...");
+                IsEnabled = false; // 禁用窗口输入
+                
+                // 执行清理操作
+                await CleanupExistingConnections();
+                
+                // 确保程序真正退出
+                Application.Current.Shutdown();
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Error during cleanup: {ex.Message}");
+                // 发生错误时仍然允许程序退出
+                Application.Current.Shutdown();
             }
         }
     }

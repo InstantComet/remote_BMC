@@ -1,0 +1,7 @@
+[03/21/2025 11:19:49] DHCP Server V2.5.2.3 started as Service
+[03/21/2025 11:19:49] NetworkAdapter Initialization returns 0
+[03/21/2025 11:19:49] Adapter 0 with IP address 172.28.224.1 found but not used
+[03/21/2025 11:19:49] Adapter 1 with IP address 10.10.10.43 found but not used
+[03/21/2025 11:19:49] Adapter 2 with IP address 192.168.0.1 found but not used
+[03/21/2025 11:20:04] DHCP Server is terminating (ignore error messages that follow)
+[03/21/2025 11:20:04] DHCP Server terminated

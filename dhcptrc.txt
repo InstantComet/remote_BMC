@@ -1,1725 +1,271 @@
-[03/19/2025 17:36:51] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:36:51] NetworkAdapter Initialization returns 0
-[03/19/2025 17:36:51] Adapter 0 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:36:51] Adapter 1 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:36:53] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:36:53] DHCP Server terminated
-[03/19/2025 17:36:53] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:36:53] NetworkAdapter Initialization returns 0
-[03/19/2025 17:36:53] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01171b98)
-[03/19/2025 17:36:53] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:36:53] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:36:56] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:36:56] recvfrom returns with error 10038
-[03/19/2025 17:36:56] DHCP Server terminated
-[03/19/2025 17:36:56] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:36:56] NetworkAdapter Initialization returns 0
-[03/19/2025 17:36:56] Adapter 0 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:36:56] Adapter 1 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:36:57] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:36:57] DHCP Server terminated
-[03/19/2025 17:36:57] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:36:57] NetworkAdapter Initialization returns 0
-[03/19/2025 17:36:57] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:36:57] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:36:57] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:37:04] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:37:04] DHCP Server terminated
-[03/19/2025 17:37:06] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:37:06] NetworkAdapter Initialization returns 0
-[03/19/2025 17:37:06] Adapter 0 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:37:08] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:37:08] DHCP Server terminated
-[03/19/2025 17:37:08] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:37:08] NetworkAdapter Initialization returns 0
-[03/19/2025 17:37:08] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:37:08] Adapter 1 with IP address 10.10.20.1 found (pAdap=0x01104e58)
-[03/19/2025 17:37:08] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:37:11] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:37:11] recvfrom returns with error 10038
-[03/19/2025 17:37:11] DHCP Server terminated
-[03/19/2025 17:37:11] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:37:11] NetworkAdapter Initialization returns 0
-[03/19/2025 17:37:11] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:37:11] Adapter 1 with IP address 10.10.20.1 found (pAdap=0x01104e58)
-[03/19/2025 17:37:11] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:37:17] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:37:17] recvfrom returns with error 10038
-[03/19/2025 17:37:17] DHCP Server terminated
-[03/19/2025 17:37:17] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:37:17] NetworkAdapter Initialization returns 0
-[03/19/2025 17:37:17] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:37:17] Adapter 1 with IP address 10.10.20.1 found (pAdap=0x01104e58)
-[03/19/2025 17:37:17] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:37:17] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:37:17] recvfrom returns with error 10038
-[03/19/2025 17:37:17] DHCP Server terminated
-[03/19/2025 17:38:12] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:38:12] NetworkAdapter Initialization returns 0
-[03/19/2025 17:38:12] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x010d50d8)
-[03/19/2025 17:38:12] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:38:12] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:38:12] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:38:22] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:38:22] recvfrom returns with error 10038
-[03/19/2025 17:38:22] DHCP Server terminated
-[03/19/2025 17:38:35] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:38:35] NetworkAdapter Initialization returns 0
-[03/19/2025 17:38:35] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x010750d8)
-[03/19/2025 17:38:35] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:38:35] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:38:35] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:38:40] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:38:40] recvfrom returns with error 10038
-[03/19/2025 17:38:40] DHCP Server terminated
-[03/19/2025 17:38:40] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:38:40] NetworkAdapter Initialization returns 0
-[03/19/2025 17:38:40] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:38:40] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:38:40] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:38:45] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:38:45] DHCP Server terminated
-[03/19/2025 17:39:17] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:39:17] NetworkAdapter Initialization returns 0
-[03/19/2025 17:39:17] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x013450d8)
-[03/19/2025 17:39:17] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:39:17] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:39:17] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:39:24] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:39:24] recvfrom returns with error 10038
-[03/19/2025 17:39:24] DHCP Server terminated
-[03/19/2025 17:39:24] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:39:24] NetworkAdapter Initialization returns 0
-[03/19/2025 17:39:24] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:39:24] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:39:24] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:39:27] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:39:27] DHCP Server terminated
-[03/19/2025 17:39:40] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:39:40] NetworkAdapter Initialization returns 0
-[03/19/2025 17:39:40] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x010750d8)
-[03/19/2025 17:39:40] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:39:40] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:39:40] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:39:50] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:39:50] recvfrom returns with error 10038
-[03/19/2025 17:39:50] DHCP Server terminated
-[03/19/2025 17:40:29] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:40:29] NetworkAdapter Initialization returns 0
-[03/19/2025 17:40:29] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x005e50d8)
-[03/19/2025 17:40:29] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:40:29] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:40:29] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:41:29] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:41:29] recvfrom returns with error 10038
-[03/19/2025 17:41:29] DHCP Server terminated
-[03/19/2025 17:41:44] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:41:44] NetworkAdapter Initialization returns 0
-[03/19/2025 17:41:44] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x012250d8)
-[03/19/2025 17:41:44] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:41:44] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:41:44] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:41:49] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:41:49] recvfrom returns with error 10038
-[03/19/2025 17:41:49] DHCP Server terminated
-[03/19/2025 17:41:49] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:41:49] NetworkAdapter Initialization returns 0
-[03/19/2025 17:41:49] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:41:49] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:41:49] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:41:56] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:41:56] DHCP Server terminated
-[03/19/2025 17:41:56] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:41:56] NetworkAdapter Initialization returns 0
-[03/19/2025 17:41:56] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01223e40)
-[03/19/2025 17:41:56] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:41:56] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:41:56] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:41:58] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 17:41:58] DHCP message = DHCPDISCOVER
-[03/19/2025 17:41:58]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 17:41:58] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 17:41:58] Client B8-27-EB-5F-8C-65 is not configured
-[03/19/2025 17:41:58] Perform auto configuration
-[03/19/2025 17:41:58] IPPOOL_1: 10.10.20.100-200
-[03/19/2025 17:41:58] Auto configuration succeeded: IP-Addr = 10.10.20.101
-[03/19/2025 17:41:58] Response: offer the configured IP address (lease time = 86400)
-[03/19/2025 17:41:58] Sending a broadcast response to the client
-[03/19/2025 17:41:58] Connection 0: sending top queue packet
-[03/19/2025 17:41:58] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 17:41:58] DHCP message = DHCPREQUEST
-[03/19/2025 17:41:58]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 17:41:58] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 17:41:58] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 17:41:58] Response: hand out the configured IP address (lease time = 86400)
-[03/19/2025 17:41:58] Sending a broadcast response to the client
-[03/19/2025 17:41:58] Connection 0: sending top queue packet
-[03/19/2025 17:42:14] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:42:14] recvfrom returns with error 10038
-[03/19/2025 17:42:14] DHCP Server terminated
-[03/19/2025 17:44:03] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:44:03] NetworkAdapter Initialization returns 0
-[03/19/2025 17:44:03] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x011950d8)
-[03/19/2025 17:44:03] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:44:03] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:44:03] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:44:07] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:44:07] recvfrom returns with error 10038
-[03/19/2025 17:44:07] DHCP Server terminated
-[03/19/2025 17:44:07] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:44:07] NetworkAdapter Initialization returns 0
-[03/19/2025 17:44:07] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:44:07] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:44:07] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:44:14] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:44:14] DHCP Server terminated
-[03/19/2025 17:44:14] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:44:14] NetworkAdapter Initialization returns 0
-[03/19/2025 17:44:14] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:44:14] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:44:14] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:44:18] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:44:18] DHCP Server terminated
-[03/19/2025 17:44:18] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:44:18] NetworkAdapter Initialization returns 0
-[03/19/2025 17:44:18] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01193e40)
-[03/19/2025 17:44:18] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:44:18] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:44:18] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:44:21] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 17:44:21] DHCP message = DHCPDISCOVER
-[03/19/2025 17:44:21]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 17:44:21] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 17:44:21] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 17:44:21] Response: offer the configured IP address (lease time = 86400)
-[03/19/2025 17:44:21] Sending a broadcast response to the client
-[03/19/2025 17:44:21] Connection 0: sending top queue packet
-[03/19/2025 17:44:21] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 17:44:21] DHCP message = DHCPREQUEST
-[03/19/2025 17:44:21]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 17:44:21] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 17:44:21] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 17:44:22] Response: hand out the configured IP address (lease time = 86400)
-[03/19/2025 17:44:22] Sending a broadcast response to the client
-[03/19/2025 17:44:22] Connection 0: sending top queue packet
-[03/19/2025 17:45:41] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:45:41] recvfrom returns with error 10038
-[03/19/2025 17:45:41] DHCP Server terminated
-[03/19/2025 17:47:53] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:47:53] NetworkAdapter Initialization returns 0
-[03/19/2025 17:47:53] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x005a50d8)
-[03/19/2025 17:47:53] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:47:53] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:47:53] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:47:58] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:47:58] recvfrom returns with error 10038
-[03/19/2025 17:47:58] DHCP Server terminated
-[03/19/2025 17:47:58] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:47:58] NetworkAdapter Initialization returns 0
-[03/19/2025 17:47:58] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:47:58] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:47:58] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:48:05] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:48:05] DHCP Server terminated
-[03/19/2025 17:48:05] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:48:06] NetworkAdapter Initialization returns 0
-[03/19/2025 17:48:06] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:48:06] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:48:06] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:48:09] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:48:09] DHCP Server terminated
-[03/19/2025 17:48:09] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:48:09] NetworkAdapter Initialization returns 0
-[03/19/2025 17:48:09] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x005a3e40)
-[03/19/2025 17:48:09] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:48:09] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:48:09] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:48:12] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 17:48:12] DHCP message = DHCPDISCOVER
-[03/19/2025 17:48:12]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 17:48:12] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 17:48:12] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 17:48:12] Response: offer the configured IP address (lease time = 86400)
-[03/19/2025 17:48:12] Sending a broadcast response to the client
-[03/19/2025 17:48:12] Connection 0: sending top queue packet
-[03/19/2025 17:48:12] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 17:48:12] DHCP message = DHCPREQUEST
-[03/19/2025 17:48:12]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 17:48:12] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 17:48:12] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 17:48:13] Response: hand out the configured IP address (lease time = 86400)
-[03/19/2025 17:48:13] Sending a broadcast response to the client
-[03/19/2025 17:48:13] Connection 0: sending top queue packet
-[03/19/2025 17:48:57] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:48:57] recvfrom returns with error 10038
-[03/19/2025 17:48:57] DHCP Server terminated
-[03/19/2025 17:55:31] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:55:32] NetworkAdapter Initialization returns 0
-[03/19/2025 17:55:32] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x011550d8)
-[03/19/2025 17:55:32] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:55:32] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:55:32] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:55:37] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:55:37] recvfrom returns with error 10038
-[03/19/2025 17:55:37] DHCP Server terminated
-[03/19/2025 17:55:37] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:55:37] NetworkAdapter Initialization returns 0
-[03/19/2025 17:55:37] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:55:37] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:55:37] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:55:44] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:55:44] DHCP Server terminated
-[03/19/2025 17:55:44] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:55:44] NetworkAdapter Initialization returns 0
-[03/19/2025 17:55:44] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:55:44] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:55:44] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:55:51] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:55:51] DHCP Server terminated
-[03/19/2025 17:55:51] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 17:55:51] NetworkAdapter Initialization returns 0
-[03/19/2025 17:55:51] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01153e40)
-[03/19/2025 17:55:51] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 17:55:51] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 17:55:51] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 17:55:59] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 17:55:59] DHCP message = DHCPDISCOVER
-[03/19/2025 17:55:59]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 17:55:59] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 17:55:59] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 17:55:59] Response: offer the configured IP address (lease time = 86400)
-[03/19/2025 17:55:59] Sending a broadcast response to the client
-[03/19/2025 17:55:59] Connection 0: sending top queue packet
-[03/19/2025 17:55:59] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 17:55:59] DHCP message = DHCPREQUEST
-[03/19/2025 17:55:59]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 17:55:59] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 17:55:59] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 17:56:00] Response: hand out the configured IP address (lease time = 86400)
-[03/19/2025 17:56:00] Sending a broadcast response to the client
-[03/19/2025 17:56:00] Connection 0: sending top queue packet
-[03/19/2025 17:57:43] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 17:57:43] recvfrom returns with error 10038
-[03/19/2025 17:57:43] DHCP Server terminated
-[03/19/2025 18:14:25] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:14:26] NetworkAdapter Initialization returns 0
-[03/19/2025 18:14:26] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x010e50d8)
-[03/19/2025 18:14:26] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:14:26] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:14:26] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:14:28] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:14:28] recvfrom returns with error 10038
-[03/19/2025 18:14:28] DHCP Server terminated
-[03/19/2025 18:14:28] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:14:28] NetworkAdapter Initialization returns 0
-[03/19/2025 18:14:28] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:14:28] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:14:28] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:14:35] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:14:35] DHCP Server terminated
-[03/19/2025 18:14:35] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:14:36] NetworkAdapter Initialization returns 0
-[03/19/2025 18:14:36] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:14:36] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:14:36] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:14:37] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:14:37] DHCP Server terminated
-[03/19/2025 18:14:37] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:14:37] NetworkAdapter Initialization returns 0
-[03/19/2025 18:14:37] Adapter 0 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:14:37] Adapter 1 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:14:39] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:14:39] DHCP Server terminated
-[03/19/2025 18:14:39] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:14:39] NetworkAdapter Initialization returns 0
-[03/19/2025 18:14:39] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x010e1b98)
-[03/19/2025 18:14:39] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:14:39] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:14:42] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:14:42] recvfrom returns with error 10038
-[03/19/2025 18:14:42] DHCP Server terminated
-[03/19/2025 18:14:42] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:14:42] NetworkAdapter Initialization returns 0
-[03/19/2025 18:14:42] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x010e1bd8)
-[03/19/2025 18:14:42] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:14:42] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:14:42] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:14:42] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 18:14:42] DHCP message = DHCPREQUEST
-[03/19/2025 18:14:42]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 18:14:42] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 18:14:42] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 18:14:43] Response: hand out the configured IP address (lease time = 86400)
-[03/19/2025 18:14:43] Sending a broadcast response to the client
-[03/19/2025 18:14:43] Connection 0: sending top queue packet
-[03/19/2025 18:15:21] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:15:21] recvfrom returns with error 10038
-[03/19/2025 18:15:21] DHCP Server terminated
-[03/19/2025 18:15:21] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:15:21] NetworkAdapter Initialization returns 0
-[03/19/2025 18:15:21] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:15:21] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:15:21] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:15:28] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:15:28] DHCP Server terminated
-[03/19/2025 18:15:28] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:15:28] NetworkAdapter Initialization returns 0
-[03/19/2025 18:15:28] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x010e1bd8)
-[03/19/2025 18:15:28] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:15:28] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:15:28] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:15:31] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:15:31] recvfrom returns with error 10038
-[03/19/2025 18:15:31] DHCP Server terminated
-[03/19/2025 18:15:31] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:15:31] NetworkAdapter Initialization returns 0
-[03/19/2025 18:15:31] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:15:31] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:15:31] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:15:37] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:15:37] DHCP Server terminated
-[03/19/2025 18:15:37] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:15:37] NetworkAdapter Initialization returns 0
-[03/19/2025 18:15:37] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x010e1bd8)
-[03/19/2025 18:15:37] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:15:37] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:15:37] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:15:44] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:15:44] recvfrom returns with error 10038
-[03/19/2025 18:15:44] DHCP Server terminated
-[03/19/2025 18:15:52] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:15:52] NetworkAdapter Initialization returns 0
-[03/19/2025 18:15:52] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x011650d8)
-[03/19/2025 18:15:52] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:15:52] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:15:52] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:15:55] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:15:55] recvfrom returns with error 10038
-[03/19/2025 18:15:55] DHCP Server terminated
-[03/19/2025 18:15:55] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:15:55] NetworkAdapter Initialization returns 0
-[03/19/2025 18:15:55] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:15:55] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:15:55] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:16:02] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:16:02] DHCP Server terminated
-[03/19/2025 18:16:02] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:16:02] NetworkAdapter Initialization returns 0
-[03/19/2025 18:16:02] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:16:02] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:16:02] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:16:08] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:16:08] DHCP Server terminated
-[03/19/2025 18:16:08] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:16:08] NetworkAdapter Initialization returns 0
-[03/19/2025 18:16:08] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:16:08] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:16:08] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:16:12] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:16:12] DHCP Server terminated
-[03/19/2025 18:16:12] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:16:12] NetworkAdapter Initialization returns 0
-[03/19/2025 18:16:12] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01161bd8)
-[03/19/2025 18:16:12] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:16:12] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:16:12] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:16:22] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:16:22] recvfrom returns with error 10038
-[03/19/2025 18:16:22] DHCP Server terminated
-[03/19/2025 18:16:30] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:16:31] NetworkAdapter Initialization returns 0
-[03/19/2025 18:16:31] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x010050d8)
-[03/19/2025 18:16:31] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:16:31] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:16:31] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:16:33] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:16:33] recvfrom returns with error 10038
-[03/19/2025 18:16:33] DHCP Server terminated
-[03/19/2025 18:16:33] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:16:33] NetworkAdapter Initialization returns 0
-[03/19/2025 18:16:33] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:16:33] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:16:33] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:16:51] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:16:51] DHCP Server terminated
-[03/19/2025 18:16:51] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:16:51] NetworkAdapter Initialization returns 0
-[03/19/2025 18:16:51] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:16:51] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:16:51] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:16:53] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:16:53] DHCP Server terminated
-[03/19/2025 18:16:53] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:16:53] NetworkAdapter Initialization returns 0
-[03/19/2025 18:16:53] Adapter 0 with IP address 10.10.10.99 found but not used
-[03/19/2025 18:16:53] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:16:53] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:16:56] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:16:56] DHCP Server terminated
-[03/19/2025 18:16:56] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:16:56] NetworkAdapter Initialization returns 0
-[03/19/2025 18:16:56] Adapter 0 with IP address 10.10.10.99 found but not used
-[03/19/2025 18:16:56] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:16:56] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:16:56] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:17:11] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:17:11] DHCP Server terminated
-[03/19/2025 18:17:16] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:17:16] NetworkAdapter Initialization returns 0
-[03/19/2025 18:17:16] Adapter 0 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:17:16] Adapter 1 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:17:19] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:17:19] DHCP Server terminated
-[03/19/2025 18:17:19] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:17:19] NetworkAdapter Initialization returns 0
-[03/19/2025 18:17:19] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:17:19] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:17:19] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:17:25] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:17:25] DHCP Server terminated
-[03/19/2025 18:17:25] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:17:26] NetworkAdapter Initialization returns 0
-[03/19/2025 18:17:26] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:17:26] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:17:26] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:17:29] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:17:29] DHCP Server terminated
-[03/19/2025 18:17:29] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:17:29] NetworkAdapter Initialization returns 0
-[03/19/2025 18:17:29] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01049fb8)
-[03/19/2025 18:17:29] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:17:29] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:17:29] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:17:40] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 18:17:40] DHCP message = DHCPDISCOVER
-[03/19/2025 18:17:40]    requested options: 1 3 6 15 31 33 43 44 46 47 119 121 249 252
-[03/19/2025 18:17:40] Lookup client data for physical address "2C-16-DB-AB-58-5F" / client_id "2C-16-DB-AB-58-5F"
-[03/19/2025 18:17:40] Client 2C-16-DB-AB-58-5F is configured with the IP address 10.10.20.100
-[03/19/2025 18:17:41] Response: offer the configured IP address (lease time = 86400)
-[03/19/2025 18:17:41] Sending a broadcast response to the client
-[03/19/2025 18:17:41] Connection 0: sending top queue packet
-[03/19/2025 18:17:41] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 18:17:41] DHCP message = DHCPREQUEST
-[03/19/2025 18:17:41]    requested options: 1 3 6 15 31 33 43 44 46 47 119 121 249 252
-[03/19/2025 18:17:41] Lookup client data for physical address "2C-16-DB-AB-58-5F" / client_id "2C-16-DB-AB-58-5F"
-[03/19/2025 18:17:41] Client 2C-16-DB-AB-58-5F is configured with the IP address 10.10.20.100
-[03/19/2025 18:17:41] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:17:42] Client is looking for a different DHCP server
-[03/19/2025 18:17:42] DHCP Request ignored
-[03/19/2025 18:17:42] DHCP Server terminated
-[03/19/2025 18:17:42] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:17:42] NetworkAdapter Initialization returns 0
-[03/19/2025 18:17:42] Adapter 0 with IP address 10.10.10.99 found but not used
-[03/19/2025 18:17:42] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:17:42] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:17:42] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:17:45] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:17:45] DHCP Server terminated
-[03/19/2025 18:17:45] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:17:45] NetworkAdapter Initialization returns 0
-[03/19/2025 18:17:45] Adapter 0 with IP address 10.10.10.99 found but not used
-[03/19/2025 18:17:45] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:17:45] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:17:45] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:18:13] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:18:13] DHCP Server terminated
-[03/19/2025 18:18:13] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:18:13] NetworkAdapter Initialization returns 0
-[03/19/2025 18:18:13] Adapter 0 with IP address 10.10.10.99 found but not used
-[03/19/2025 18:18:13] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:18:13] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:18:31] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:18:31] DHCP Server terminated
-[03/19/2025 18:19:58] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:19:58] NetworkAdapter Initialization returns 0
-[03/19/2025 18:19:58] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x011650d8)
-[03/19/2025 18:19:58] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:19:58] Adapter 2 with IP address 192.168.8.103 found but not used
-[03/19/2025 18:19:58] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:20:00] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:20:00] recvfrom returns with error 10038
-[03/19/2025 18:20:00] DHCP Server terminated
-[03/19/2025 18:20:00] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:20:00] NetworkAdapter Initialization returns 0
-[03/19/2025 18:20:00] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:20:00] Adapter 1 with IP address 192.168.8.103 found but not used
-[03/19/2025 18:20:00] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:20:07] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:20:07] DHCP Server terminated
-[03/19/2025 18:20:07] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:20:08] NetworkAdapter Initialization returns 0
-[03/19/2025 18:20:08] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:20:08] Adapter 1 with IP address 192.168.8.103 found but not used
-[03/19/2025 18:20:08] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:20:11] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:20:11] DHCP Server terminated
-[03/19/2025 18:20:11] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:20:11] NetworkAdapter Initialization returns 0
-[03/19/2025 18:20:11] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01163e40)
-[03/19/2025 18:20:11] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:20:11] Adapter 2 with IP address 192.168.8.103 found but not used
-[03/19/2025 18:20:11] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:20:38] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:20:38] recvfrom returns with error 10038
-[03/19/2025 18:20:38] DHCP Server terminated
-[03/19/2025 18:20:38] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:20:38] NetworkAdapter Initialization returns 0
-[03/19/2025 18:20:38] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:20:38] Adapter 1 with IP address 192.168.8.103 found but not used
-[03/19/2025 18:20:38] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:20:45] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:20:45] DHCP Server terminated
-[03/19/2025 18:20:45] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:20:46] NetworkAdapter Initialization returns 0
-[03/19/2025 18:20:46] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:20:46] Adapter 1 with IP address 192.168.8.103 found but not used
-[03/19/2025 18:20:46] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:20:48] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:20:48] DHCP Server terminated
-[03/19/2025 18:20:48] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:20:48] NetworkAdapter Initialization returns 0
-[03/19/2025 18:20:48] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:20:48] Adapter 1 with IP address 192.168.8.103 found but not used
-[03/19/2025 18:20:48] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:20:51] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:20:51] DHCP Server terminated
-[03/19/2025 18:20:51] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:20:51] NetworkAdapter Initialization returns 0
-[03/19/2025 18:20:51] Adapter 0 with IP address 10.10.10.99 found but not used
-[03/19/2025 18:20:51] Adapter 1 with IP address 192.168.8.103 found but not used
-[03/19/2025 18:20:51] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:20:55] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:20:55] DHCP Server terminated
-[03/19/2025 18:20:55] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:20:55] NetworkAdapter Initialization returns 0
-[03/19/2025 18:20:55] Adapter 0 with IP address 10.10.10.99 found but not used
-[03/19/2025 18:20:55] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:20:55] Adapter 2 with IP address 192.168.8.103 found but not used
-[03/19/2025 18:20:55] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:21:08] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:21:08] DHCP Server terminated
-[03/19/2025 18:21:08] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:21:08] NetworkAdapter Initialization returns 0
-[03/19/2025 18:21:08] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:21:08] Adapter 1 with IP address 192.168.8.103 found but not used
-[03/19/2025 18:21:08] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:23:45] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:23:45] DHCP Server terminated
-[03/19/2025 18:42:30] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:42:30] NetworkAdapter Initialization returns 0
-[03/19/2025 18:42:30] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x012150d8)
-[03/19/2025 18:42:30] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:42:30] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:42:30] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:42:32] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:42:32] recvfrom returns with error 10038
-[03/19/2025 18:42:32] DHCP Server terminated
-[03/19/2025 18:42:32] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:42:32] NetworkAdapter Initialization returns 0
-[03/19/2025 18:42:32] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:42:32] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:42:32] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:42:39] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:42:39] DHCP Server terminated
-[03/19/2025 18:42:39] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:42:39] NetworkAdapter Initialization returns 0
-[03/19/2025 18:42:39] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:42:39] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:42:39] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:42:43] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:42:43] DHCP Server terminated
-[03/19/2025 18:42:43] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:42:43] NetworkAdapter Initialization returns 0
-[03/19/2025 18:42:43] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01213e40)
-[03/19/2025 18:42:43] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:42:43] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:42:43] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:42:47] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 18:42:47] DHCP message = DHCPDISCOVER
-[03/19/2025 18:42:47]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 18:42:47] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 18:42:47] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 18:42:47] Response: offer the configured IP address (lease time = 86400)
-[03/19/2025 18:42:47] Sending a broadcast response to the client
-[03/19/2025 18:42:47] Connection 0: sending top queue packet
-[03/19/2025 18:42:47] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 18:42:47] DHCP message = DHCPREQUEST
-[03/19/2025 18:42:47]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 18:42:47] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 18:42:47] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 18:42:47] Response: hand out the configured IP address (lease time = 86400)
-[03/19/2025 18:42:47] Sending a broadcast response to the client
-[03/19/2025 18:42:47] Connection 0: sending top queue packet
-[03/19/2025 18:43:10] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:43:10] recvfrom returns with error 10038
-[03/19/2025 18:43:10] DHCP Server terminated
-[03/19/2025 18:43:10] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:43:10] NetworkAdapter Initialization returns 0
-[03/19/2025 18:43:10] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:43:10] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:43:10] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:43:17] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:43:17] DHCP Server terminated
-[03/19/2025 18:43:17] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:43:17] NetworkAdapter Initialization returns 0
-[03/19/2025 18:43:17] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:43:17] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:43:17] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:43:21] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:43:21] DHCP Server terminated
-[03/19/2025 18:43:21] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:43:21] NetworkAdapter Initialization returns 0
-[03/19/2025 18:43:21] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01211bd8)
-[03/19/2025 18:43:21] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:43:21] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:43:21] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:43:24] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 18:43:24] DHCP message = DHCPREQUEST
-[03/19/2025 18:43:24]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 18:43:24] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 18:43:24] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 18:43:24] Response: hand out the configured IP address (lease time = 86400)
-[03/19/2025 18:43:24] Sending a broadcast response to the client
-[03/19/2025 18:43:24] Connection 0: sending top queue packet
-[03/19/2025 18:43:46] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:43:46] recvfrom returns with error 10038
-[03/19/2025 18:43:46] DHCP Server terminated
-[03/19/2025 18:44:29] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:44:29] NetworkAdapter Initialization returns 0
-[03/19/2025 18:44:29] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x010b50d8)
-[03/19/2025 18:44:29] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:44:29] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:44:29] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:44:31] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:44:31] recvfrom returns with error 10038
-[03/19/2025 18:44:31] DHCP Server terminated
-[03/19/2025 18:44:31] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:44:31] NetworkAdapter Initialization returns 0
-[03/19/2025 18:44:31] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:44:31] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:44:31] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:44:38] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:44:38] DHCP Server terminated
-[03/19/2025 18:44:38] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:44:39] NetworkAdapter Initialization returns 0
-[03/19/2025 18:44:39] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:44:39] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:44:39] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:44:42] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:44:42] DHCP Server terminated
-[03/19/2025 18:44:42] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:44:42] NetworkAdapter Initialization returns 0
-[03/19/2025 18:44:42] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x010b3e40)
-[03/19/2025 18:44:42] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:44:42] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:44:42] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:44:45] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 18:44:45] DHCP message = DHCPREQUEST
-[03/19/2025 18:44:45]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 18:44:45] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 18:44:45] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 18:44:45] Response: hand out the configured IP address (lease time = 86400)
-[03/19/2025 18:44:45] Sending a broadcast response to the client
-[03/19/2025 18:44:45] Connection 0: sending top queue packet
-[03/19/2025 18:45:16] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:45:16] recvfrom returns with error 10038
-[03/19/2025 18:45:16] DHCP Server terminated
-[03/19/2025 18:45:16] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:45:16] NetworkAdapter Initialization returns 0
-[03/19/2025 18:45:16] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:45:16] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:45:16] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:45:23] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:45:23] DHCP Server terminated
-[03/19/2025 18:45:23] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:45:23] NetworkAdapter Initialization returns 0
-[03/19/2025 18:45:23] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:45:23] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:45:23] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:45:27] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:45:27] DHCP Server terminated
-[03/19/2025 18:45:27] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:45:27] NetworkAdapter Initialization returns 0
-[03/19/2025 18:45:27] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x010b1bd8)
-[03/19/2025 18:45:27] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:45:27] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:45:27] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:45:27] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 18:45:27] DHCP message = DHCPREQUEST
-[03/19/2025 18:45:27]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 18:45:27] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 18:45:27] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 18:45:27] Response: hand out the configured IP address (lease time = 86400)
-[03/19/2025 18:45:27] Sending a broadcast response to the client
-[03/19/2025 18:45:27] Connection 0: sending top queue packet
-[03/19/2025 18:46:19] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:46:19] recvfrom returns with error 10038
-[03/19/2025 18:46:19] DHCP Server terminated
-[03/19/2025 18:46:19] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:46:19] NetworkAdapter Initialization returns 0
-[03/19/2025 18:46:19] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:46:19] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:46:19] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:46:23] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:46:23] DHCP Server terminated
-[03/19/2025 18:46:23] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:46:23] NetworkAdapter Initialization returns 0
-[03/19/2025 18:46:23] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x010b1bd8)
-[03/19/2025 18:46:23] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:46:23] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:46:23] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:48:31] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:48:31] recvfrom returns with error 10038
-[03/19/2025 18:48:31] DHCP Server terminated
-[03/19/2025 18:48:39] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:48:39] NetworkAdapter Initialization returns 0
-[03/19/2025 18:48:39] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x012852f8)
-[03/19/2025 18:48:39] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:48:39] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:48:39] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:48:43] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:48:43] recvfrom returns with error 10038
-[03/19/2025 18:48:43] DHCP Server terminated
-[03/19/2025 18:48:43] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:48:43] NetworkAdapter Initialization returns 0
-[03/19/2025 18:48:43] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:48:43] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:48:43] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:48:50] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:48:50] DHCP Server terminated
-[03/19/2025 18:48:50] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:48:50] NetworkAdapter Initialization returns 0
-[03/19/2025 18:48:50] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:48:50] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:48:50] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:48:53] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:48:53] DHCP Server terminated
-[03/19/2025 18:48:53] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:48:53] NetworkAdapter Initialization returns 0
-[03/19/2025 18:48:53] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x012804b0)
-[03/19/2025 18:48:53] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:48:53] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:48:53] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:48:57] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 18:48:57] DHCP message = DHCPREQUEST
-[03/19/2025 18:48:57]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 18:48:57] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 18:48:57] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 18:48:57] Response: hand out the configured IP address (lease time = 86400)
-[03/19/2025 18:48:57] Sending a broadcast response to the client
-[03/19/2025 18:48:57] Connection 0: sending top queue packet
-[03/19/2025 18:49:32] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:49:32] recvfrom returns with error 10038
-[03/19/2025 18:49:32] DHCP Server terminated
-[03/19/2025 18:49:32] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:49:32] NetworkAdapter Initialization returns 0
-[03/19/2025 18:49:32] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:49:32] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:49:32] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:49:39] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:49:39] DHCP Server terminated
-[03/19/2025 18:49:39] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:49:39] NetworkAdapter Initialization returns 0
-[03/19/2025 18:49:39] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01281bd8)
-[03/19/2025 18:49:39] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:49:39] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:49:39] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:49:59] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:49:59] recvfrom returns with error 10038
-[03/19/2025 18:49:59] DHCP Server terminated
-[03/19/2025 18:50:36] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:50:36] NetworkAdapter Initialization returns 0
-[03/19/2025 18:50:36] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x010350d8)
-[03/19/2025 18:50:36] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:50:36] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:50:36] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:50:39] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:50:39] recvfrom returns with error 10038
-[03/19/2025 18:50:39] DHCP Server terminated
-[03/19/2025 18:50:39] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:50:40] NetworkAdapter Initialization returns 0
-[03/19/2025 18:50:40] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:50:40] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:50:40] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:50:46] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:50:46] DHCP Server terminated
-[03/19/2025 18:50:46] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:50:47] NetworkAdapter Initialization returns 0
-[03/19/2025 18:50:47] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:50:47] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:50:47] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:50:48] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:50:48] DHCP Server terminated
-[03/19/2025 18:50:48] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:50:49] NetworkAdapter Initialization returns 0
-[03/19/2025 18:50:49] Adapter 0 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:50:49] Adapter 1 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:50:50] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:50:50] DHCP Server terminated
-[03/19/2025 18:50:50] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:50:50] NetworkAdapter Initialization returns 0
-[03/19/2025 18:50:50] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01031b98)
-[03/19/2025 18:50:50] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:50:50] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:50:50] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:50:53] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:50:53] recvfrom returns with error 10038
-[03/19/2025 18:50:53] DHCP Server terminated
-[03/19/2025 18:50:53] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:50:53] NetworkAdapter Initialization returns 0
-[03/19/2025 18:50:53] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01031bd8)
-[03/19/2025 18:50:53] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:50:53] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:50:53] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:50:58] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:50:58] recvfrom returns with error 10038
-[03/19/2025 18:50:58] DHCP Server terminated
-[03/19/2025 18:50:58] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:50:58] NetworkAdapter Initialization returns 0
-[03/19/2025 18:50:58] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:50:58] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:50:58] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:51:01] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:51:01] DHCP Server terminated
-[03/19/2025 18:51:01] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:51:01] NetworkAdapter Initialization returns 0
-[03/19/2025 18:51:01] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01031bd8)
-[03/19/2025 18:51:01] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:51:01] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:51:01] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:51:17] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:51:17] recvfrom returns with error 10038
-[03/19/2025 18:51:17] DHCP Server terminated
-[03/19/2025 18:57:21] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:57:21] NetworkAdapter Initialization returns 0
-[03/19/2025 18:57:21] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x011250d8)
-[03/19/2025 18:57:21] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:57:21] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:57:21] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:57:23] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:57:23] recvfrom returns with error 10038
-[03/19/2025 18:57:23] DHCP Server terminated
-[03/19/2025 18:57:23] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:57:23] NetworkAdapter Initialization returns 0
-[03/19/2025 18:57:23] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:57:23] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:57:23] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:57:30] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:57:30] DHCP Server terminated
-[03/19/2025 18:57:30] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:57:30] NetworkAdapter Initialization returns 0
-[03/19/2025 18:57:30] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:57:30] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:57:30] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:57:33] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:57:33] DHCP Server terminated
-[03/19/2025 18:57:33] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:57:33] NetworkAdapter Initialization returns 0
-[03/19/2025 18:57:33] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01123e40)
-[03/19/2025 18:57:33] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:57:33] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:57:33] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:57:34] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 18:57:34] DHCP message = DHCPDISCOVER
-[03/19/2025 18:57:34]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 18:57:34] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 18:57:34] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 18:57:34] Response: offer the configured IP address (lease time = 86400)
-[03/19/2025 18:57:34] Sending a broadcast response to the client
-[03/19/2025 18:57:34] Connection 0: sending top queue packet
-[03/19/2025 18:57:34] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 18:57:34] DHCP message = DHCPREQUEST
-[03/19/2025 18:57:34]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 18:57:34] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 18:57:34] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 18:57:34] Response: hand out the configured IP address (lease time = 86400)
-[03/19/2025 18:57:34] Sending a broadcast response to the client
-[03/19/2025 18:57:34] Connection 0: sending top queue packet
-[03/19/2025 18:57:52] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:57:52] recvfrom returns with error 10038
-[03/19/2025 18:57:52] DHCP Server terminated
-[03/19/2025 18:57:52] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:57:52] NetworkAdapter Initialization returns 0
-[03/19/2025 18:57:52] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:57:52] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:57:52] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:57:59] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:57:59] DHCP Server terminated
-[03/19/2025 18:57:59] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:57:59] NetworkAdapter Initialization returns 0
-[03/19/2025 18:57:59] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:57:59] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:57:59] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:58:03] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:58:03] DHCP Server terminated
-[03/19/2025 18:58:03] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:58:03] NetworkAdapter Initialization returns 0
-[03/19/2025 18:58:03] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01121bd8)
-[03/19/2025 18:58:03] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:58:03] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:58:03] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:58:06] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 18:58:06] DHCP message = DHCPREQUEST
-[03/19/2025 18:58:06]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 18:58:06] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 18:58:06] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 18:58:06] Response: hand out the configured IP address (lease time = 86400)
-[03/19/2025 18:58:06] Sending a broadcast response to the client
-[03/19/2025 18:58:06] Connection 0: sending top queue packet
-[03/19/2025 18:58:19] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:58:19] recvfrom returns with error 10038
-[03/19/2025 18:58:19] DHCP Server terminated
-[03/19/2025 18:59:04] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:59:04] NetworkAdapter Initialization returns 0
-[03/19/2025 18:59:04] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x011850d8)
-[03/19/2025 18:59:04] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:59:04] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:59:04] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:59:06] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:59:06] recvfrom returns with error 10038
-[03/19/2025 18:59:06] DHCP Server terminated
-[03/19/2025 18:59:06] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:59:07] NetworkAdapter Initialization returns 0
-[03/19/2025 18:59:07] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:59:07] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:59:07] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:59:13] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:59:13] DHCP Server terminated
-[03/19/2025 18:59:13] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:59:14] NetworkAdapter Initialization returns 0
-[03/19/2025 18:59:14] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:59:14] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:59:14] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:59:20] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:59:20] DHCP Server terminated
-[03/19/2025 18:59:20] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:59:20] NetworkAdapter Initialization returns 0
-[03/19/2025 18:59:20] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01183e40)
-[03/19/2025 18:59:20] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:59:20] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:59:20] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:59:20] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 18:59:20] DHCP message = DHCPREQUEST
-[03/19/2025 18:59:20]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 18:59:20] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 18:59:20] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 18:59:20] Response: hand out the configured IP address (lease time = 86400)
-[03/19/2025 18:59:20] Sending a broadcast response to the client
-[03/19/2025 18:59:20] Connection 0: sending top queue packet
-[03/19/2025 18:59:35] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:59:35] recvfrom returns with error 10038
-[03/19/2025 18:59:35] DHCP Server terminated
-[03/19/2025 18:59:35] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:59:36] NetworkAdapter Initialization returns 0
-[03/19/2025 18:59:36] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:59:36] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:59:36] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:59:49] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:59:49] DHCP Server terminated
-[03/19/2025 18:59:49] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:59:49] NetworkAdapter Initialization returns 0
-[03/19/2025 18:59:49] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:59:49] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:59:49] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 18:59:53] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 18:59:53] DHCP Server terminated
-[03/19/2025 18:59:53] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 18:59:53] NetworkAdapter Initialization returns 0
-[03/19/2025 18:59:53] Adapter 0 with IP address 169.254.5.235 found but not used
-[03/19/2025 18:59:53] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 18:59:53] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 18:59:53] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:01:31] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:01:31] DHCP Server terminated
-[03/19/2025 19:01:40] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:01:40] NetworkAdapter Initialization returns 0
-[03/19/2025 19:01:40] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x012850d8)
-[03/19/2025 19:01:40] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:01:40] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:01:40] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:01:42] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:01:42] recvfrom returns with error 10038
-[03/19/2025 19:01:42] DHCP Server terminated
-[03/19/2025 19:01:42] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:01:42] NetworkAdapter Initialization returns 0
-[03/19/2025 19:01:42] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:01:42] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:01:42] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:01:49] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:01:49] DHCP Server terminated
-[03/19/2025 19:01:49] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:01:49] NetworkAdapter Initialization returns 0
-[03/19/2025 19:01:49] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:01:49] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:01:49] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:01:56] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:01:56] DHCP Server terminated
-[03/19/2025 19:01:56] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:01:56] NetworkAdapter Initialization returns 0
-[03/19/2025 19:01:56] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01283e40)
-[03/19/2025 19:01:56] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:01:56] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:01:56] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:01:57] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 19:01:57] DHCP message = DHCPDISCOVER
-[03/19/2025 19:01:57]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 19:01:57] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 19:01:57] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 19:01:57] Response: offer the configured IP address (lease time = 86400)
-[03/19/2025 19:01:57] Sending a broadcast response to the client
-[03/19/2025 19:01:57] Connection 0: sending top queue packet
-[03/19/2025 19:01:57] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 19:01:57] DHCP message = DHCPREQUEST
-[03/19/2025 19:01:57]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 19:01:57] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 19:01:57] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 19:01:58] Response: hand out the configured IP address (lease time = 86400)
-[03/19/2025 19:01:58] Sending a broadcast response to the client
-[03/19/2025 19:01:58] Connection 0: sending top queue packet
-[03/19/2025 19:02:30] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 19:02:30] DHCP message = DHCPDISCOVER
-[03/19/2025 19:02:30]    requested options: 1 3 6 15 31 33 43 44 46 47 119 121 249 252
-[03/19/2025 19:02:30] Lookup client data for physical address "2C-16-DB-AB-58-5F" / client_id "2C-16-DB-AB-58-5F"
-[03/19/2025 19:02:30] Client 2C-16-DB-AB-58-5F is configured with the IP address 10.10.20.100
-[03/19/2025 19:02:31] Response: offer the configured IP address (lease time = 86400)
-[03/19/2025 19:02:31] Sending a broadcast response to the client
-[03/19/2025 19:02:31] Connection 0: sending top queue packet
-[03/19/2025 19:02:31] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:02:32] recvfrom returns with error 10038
-[03/19/2025 19:02:32] DHCP Server terminated
-[03/19/2025 19:02:32] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:02:32] NetworkAdapter Initialization returns 0
-[03/19/2025 19:02:32] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:02:32] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:02:32] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:02:38] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:02:38] DHCP Server terminated
-[03/19/2025 19:02:38] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:02:38] NetworkAdapter Initialization returns 0
-[03/19/2025 19:02:38] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:02:38] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:02:38] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:02:41] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:02:41] DHCP Server terminated
-[03/19/2025 19:02:41] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:02:42] NetworkAdapter Initialization returns 0
-[03/19/2025 19:02:42] Adapter 0 with IP address 169.254.5.235 found but not used
-[03/19/2025 19:02:42] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:02:42] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:02:42] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:02:48] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:02:48] DHCP Server terminated
-[03/19/2025 19:02:56] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:02:56] NetworkAdapter Initialization returns 0
-[03/19/2025 19:02:56] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x013050d8)
-[03/19/2025 19:02:56] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:02:56] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:02:56] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:02:59] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:02:59] recvfrom returns with error 10038
-[03/19/2025 19:02:59] DHCP Server terminated
-[03/19/2025 19:02:59] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:02:59] NetworkAdapter Initialization returns 0
-[03/19/2025 19:02:59] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:02:59] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:02:59] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:03:06] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:03:06] DHCP Server terminated
-[03/19/2025 19:03:06] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:03:06] NetworkAdapter Initialization returns 0
-[03/19/2025 19:03:06] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:03:06] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:03:06] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:03:09] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:03:09] DHCP Server terminated
-[03/19/2025 19:03:09] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:03:09] NetworkAdapter Initialization returns 0
-[03/19/2025 19:03:09] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01303e40)
-[03/19/2025 19:03:09] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:03:09] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:03:09] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:03:14] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 19:03:14] DHCP message = DHCPREQUEST
-[03/19/2025 19:03:14]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 19:03:14] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 19:03:14] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 19:03:14] Response: hand out the configured IP address (lease time = 86400)
-[03/19/2025 19:03:14] Sending a broadcast response to the client
-[03/19/2025 19:03:14] Connection 0: sending top queue packet
-[03/19/2025 19:03:28] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:03:28] recvfrom returns with error 10038
-[03/19/2025 19:03:28] DHCP Server terminated
-[03/19/2025 19:03:28] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:03:28] NetworkAdapter Initialization returns 0
-[03/19/2025 19:03:28] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:03:28] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:03:28] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:04:42] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:04:42] DHCP Server terminated
-[03/19/2025 19:07:40] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:07:40] NetworkAdapter Initialization returns 0
-[03/19/2025 19:07:40] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x011550d8)
-[03/19/2025 19:07:40] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:07:40] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:07:40] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:07:45] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:07:45] recvfrom returns with error 10038
-[03/19/2025 19:07:45] DHCP Server terminated
-[03/19/2025 19:07:45] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:07:46] NetworkAdapter Initialization returns 0
-[03/19/2025 19:07:46] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:07:46] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:07:46] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:07:52] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:07:52] DHCP Server terminated
-[03/19/2025 19:07:52] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:07:53] NetworkAdapter Initialization returns 0
-[03/19/2025 19:07:53] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:07:53] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:07:53] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:07:56] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:07:56] DHCP Server terminated
-[03/19/2025 19:07:56] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:07:56] NetworkAdapter Initialization returns 0
-[03/19/2025 19:07:56] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01153e40)
-[03/19/2025 19:07:56] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:07:56] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:07:56] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:07:59] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 19:07:59] DHCP message = DHCPDISCOVER
-[03/19/2025 19:07:59]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 19:07:59] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 19:07:59] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 19:07:59] Response: offer the configured IP address (lease time = 86400)
-[03/19/2025 19:07:59] Sending a broadcast response to the client
-[03/19/2025 19:07:59] Connection 0: sending top queue packet
-[03/19/2025 19:07:59] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 19:07:59] DHCP message = DHCPREQUEST
-[03/19/2025 19:07:59]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 19:07:59] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 19:07:59] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 19:07:59] Response: hand out the configured IP address (lease time = 86400)
-[03/19/2025 19:07:59] Sending a broadcast response to the client
-[03/19/2025 19:07:59] Connection 0: sending top queue packet
-[03/19/2025 19:08:26] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:08:26] recvfrom returns with error 10038
-[03/19/2025 19:08:26] DHCP Server terminated
-[03/19/2025 19:08:26] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:08:26] NetworkAdapter Initialization returns 0
-[03/19/2025 19:08:26] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:08:26] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:08:26] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:08:33] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:08:33] DHCP Server terminated
-[03/19/2025 19:08:33] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:08:33] NetworkAdapter Initialization returns 0
-[03/19/2025 19:08:33] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:08:33] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:08:33] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:08:37] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:08:37] DHCP Server terminated
-[03/19/2025 19:08:37] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:08:37] NetworkAdapter Initialization returns 0
-[03/19/2025 19:08:37] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01151bd8)
-[03/19/2025 19:08:37] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:08:37] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:08:37] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:08:40] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 19:08:40] DHCP message = DHCPREQUEST
-[03/19/2025 19:08:40]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 19:08:40] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 19:08:40] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 19:08:41] Response: hand out the configured IP address (lease time = 86400)
-[03/19/2025 19:08:41] Sending a broadcast response to the client
-[03/19/2025 19:08:41] Connection 0: sending top queue packet
-[03/19/2025 19:08:48] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 19:08:48] DHCP message = DHCPDISCOVER
-[03/19/2025 19:08:48]    requested options: 1 3 6 15 31 33 43 44 46 47 119 121 249 252
-[03/19/2025 19:08:48] Lookup client data for physical address "2C-16-DB-AB-58-5F" / client_id "2C-16-DB-AB-58-5F"
-[03/19/2025 19:08:48] Client 2C-16-DB-AB-58-5F is configured with the IP address 10.10.20.100
-[03/19/2025 19:08:48] Response: offer the configured IP address (lease time = 86400)
-[03/19/2025 19:08:48] Sending a broadcast response to the client
-[03/19/2025 19:08:48] Connection 0: sending top queue packet
-[03/19/2025 19:08:49] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:08:49] recvfrom returns with error 10038
-[03/19/2025 19:08:49] DHCP Server terminated
-[03/19/2025 19:08:49] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:08:49] NetworkAdapter Initialization returns 0
-[03/19/2025 19:08:49] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:08:49] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:08:49] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:08:55] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:08:55] DHCP Server terminated
-[03/19/2025 19:08:55] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:08:55] NetworkAdapter Initialization returns 0
-[03/19/2025 19:08:55] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:08:55] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:08:55] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:08:58] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:08:58] DHCP Server terminated
-[03/19/2025 19:08:58] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:08:58] NetworkAdapter Initialization returns 0
-[03/19/2025 19:08:58] Adapter 0 with IP address 169.254.5.235 found but not used
-[03/19/2025 19:08:58] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:08:58] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:08:58] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:10:43] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:10:43] DHCP Server terminated
-[03/19/2025 19:10:52] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:10:52] NetworkAdapter Initialization returns 0
-[03/19/2025 19:10:52] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x010350d8)
-[03/19/2025 19:10:52] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:10:52] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:10:52] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:10:55] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:10:55] recvfrom returns with error 10038
-[03/19/2025 19:10:55] DHCP Server terminated
-[03/19/2025 19:10:55] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:10:55] NetworkAdapter Initialization returns 0
-[03/19/2025 19:10:55] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:10:55] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:10:55] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:11:02] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:11:02] DHCP Server terminated
-[03/19/2025 19:11:02] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:11:03] NetworkAdapter Initialization returns 0
-[03/19/2025 19:11:03] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:11:03] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:11:03] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:11:06] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:11:06] DHCP Server terminated
-[03/19/2025 19:11:06] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:11:06] NetworkAdapter Initialization returns 0
-[03/19/2025 19:11:06] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01033e40)
-[03/19/2025 19:11:06] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:11:06] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:11:06] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:11:09] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 19:11:09] DHCP message = DHCPREQUEST
-[03/19/2025 19:11:09]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/19/2025 19:11:09] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/19/2025 19:11:09] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/19/2025 19:11:09] Response: hand out the configured IP address (lease time = 86400)
-[03/19/2025 19:11:09] Sending a broadcast response to the client
-[03/19/2025 19:11:09] Connection 0: sending top queue packet
-[03/19/2025 19:11:40] Adapter 0 has recognized an incoming DHCP request
-[03/19/2025 19:11:40] DHCP message = DHCPDISCOVER
-[03/19/2025 19:11:40]    requested options: 1 3 6 15 31 33 43 44 46 47 119 121 249 252
-[03/19/2025 19:11:40] Lookup client data for physical address "2C-16-DB-AB-58-5F" / client_id "2C-16-DB-AB-58-5F"
-[03/19/2025 19:11:40] Client 2C-16-DB-AB-58-5F is configured with the IP address 10.10.20.100
-[03/19/2025 19:11:40] Response: offer the configured IP address (lease time = 86400)
-[03/19/2025 19:11:40] Sending a broadcast response to the client
-[03/19/2025 19:11:40] Connection 0: sending top queue packet
-[03/19/2025 19:11:41] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:11:41] recvfrom returns with error 10038
-[03/19/2025 19:11:41] DHCP Server terminated
-[03/19/2025 19:11:41] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:11:41] NetworkAdapter Initialization returns 0
-[03/19/2025 19:11:41] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:11:41] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:11:41] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:11:47] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:11:47] DHCP Server terminated
-[03/19/2025 19:11:47] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:11:47] NetworkAdapter Initialization returns 0
-[03/19/2025 19:11:47] Adapter 0 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:11:47] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:11:47] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:11:50] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:11:50] DHCP Server terminated
-[03/19/2025 19:11:50] DHCP Server V2.5.2.3 started as Service
-[03/19/2025 19:11:50] NetworkAdapter Initialization returns 0
-[03/19/2025 19:11:50] Adapter 0 with IP address 169.254.5.235 found but not used
-[03/19/2025 19:11:50] Adapter 1 with IP address 172.26.208.1 found but not used
-[03/19/2025 19:11:50] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/19/2025 19:11:50] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/19/2025 19:13:07] DHCP Server is terminating (ignore error messages that follow)
-[03/19/2025 19:13:07] DHCP Server terminated
-[03/20/2025 14:13:30] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:13:30] NetworkAdapter Initialization returns 0
-[03/20/2025 14:13:30] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x010150d8)
-[03/20/2025 14:13:30] Adapter 1 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:13:30] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:13:30] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:13:32] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:13:32] recvfrom returns with error 10038
-[03/20/2025 14:13:32] DHCP Server terminated
-[03/20/2025 14:13:32] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:13:32] NetworkAdapter Initialization returns 0
-[03/20/2025 14:13:32] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:13:32] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:13:32] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:13:39] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:13:39] DHCP Server terminated
-[03/20/2025 14:13:39] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:13:39] NetworkAdapter Initialization returns 0
-[03/20/2025 14:13:39] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:13:39] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:13:39] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:13:42] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:13:42] DHCP Server terminated
-[03/20/2025 14:13:42] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:13:43] NetworkAdapter Initialization returns 0
-[03/20/2025 14:13:43] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01013e40)
-[03/20/2025 14:13:43] Adapter 1 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:13:43] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:13:43] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:13:47] Adapter 0 has recognized an incoming DHCP request
-[03/20/2025 14:13:47] DHCP message = DHCPDISCOVER
-[03/20/2025 14:13:47]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/20/2025 14:13:47] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/20/2025 14:13:47] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/20/2025 14:13:47] Response: offer the configured IP address (lease time = 86400)
-[03/20/2025 14:13:47] Sending a broadcast response to the client
-[03/20/2025 14:13:47] Connection 0: sending top queue packet
-[03/20/2025 14:13:47] Adapter 0 has recognized an incoming DHCP request
-[03/20/2025 14:13:47] DHCP message = DHCPREQUEST
-[03/20/2025 14:13:47]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/20/2025 14:13:47] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/20/2025 14:13:47] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/20/2025 14:13:48] Response: hand out the configured IP address (lease time = 86400)
-[03/20/2025 14:13:48] Sending a broadcast response to the client
-[03/20/2025 14:13:48] Connection 0: sending top queue packet
-[03/20/2025 14:13:57] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:13:57] recvfrom returns with error 10038
-[03/20/2025 14:13:57] DHCP Server terminated
-[03/20/2025 14:13:57] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:13:57] NetworkAdapter Initialization returns 0
-[03/20/2025 14:13:57] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:13:57] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:13:57] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:14:03] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:14:03] DHCP Server terminated
-[03/20/2025 14:14:03] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:14:03] NetworkAdapter Initialization returns 0
-[03/20/2025 14:14:03] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01011bd8)
-[03/20/2025 14:14:03] Adapter 1 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:14:03] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:14:03] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:14:05] Adapter 0 has recognized an incoming DHCP request
-[03/20/2025 14:14:05] DHCP message = DHCPDISCOVER
-[03/20/2025 14:14:05]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/20/2025 14:14:05] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/20/2025 14:14:05] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/20/2025 14:14:05] Response: offer the configured IP address (lease time = 86400)
-[03/20/2025 14:14:05] Sending a broadcast response to the client
-[03/20/2025 14:14:05] Connection 0: sending top queue packet
-[03/20/2025 14:14:05] Adapter 0 has recognized an incoming DHCP request
-[03/20/2025 14:14:05] DHCP message = DHCPREQUEST
-[03/20/2025 14:14:05]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/20/2025 14:14:05] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/20/2025 14:14:05] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/20/2025 14:14:06] Response: hand out the configured IP address (lease time = 86400)
-[03/20/2025 14:14:06] Sending a broadcast response to the client
-[03/20/2025 14:14:06] Connection 0: sending top queue packet
-[03/20/2025 14:14:11] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:14:11] recvfrom returns with error 10038
-[03/20/2025 14:14:11] DHCP Server terminated
-[03/20/2025 14:14:11] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:14:11] NetworkAdapter Initialization returns 0
-[03/20/2025 14:14:11] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:14:11] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:14:11] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:14:18] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:14:18] DHCP Server terminated
-[03/20/2025 14:14:18] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:14:19] NetworkAdapter Initialization returns 0
-[03/20/2025 14:14:19] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:14:19] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:14:19] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:14:22] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:14:22] DHCP Server terminated
-[03/20/2025 14:14:22] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:14:22] NetworkAdapter Initialization returns 0
-[03/20/2025 14:14:22] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01011bd8)
-[03/20/2025 14:14:22] Adapter 1 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:14:22] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:14:22] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:14:24] Adapter 0 has recognized an incoming DHCP request
-[03/20/2025 14:14:24] DHCP message = DHCPREQUEST
-[03/20/2025 14:14:24]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/20/2025 14:14:24] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/20/2025 14:14:24] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/20/2025 14:14:24] Response: hand out the configured IP address (lease time = 86400)
-[03/20/2025 14:14:24] Sending a broadcast response to the client
-[03/20/2025 14:14:24] Connection 0: sending top queue packet
-[03/20/2025 14:14:51] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:14:51] recvfrom returns with error 10038
-[03/20/2025 14:14:51] DHCP Server terminated
-[03/20/2025 14:24:54] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:24:54] NetworkAdapter Initialization returns 0
-[03/20/2025 14:24:54] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:24:54] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:24:54] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:24:56] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:24:56] DHCP Server terminated
-[03/20/2025 14:24:56] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:24:56] NetworkAdapter Initialization returns 0
-[03/20/2025 14:24:56] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:24:56] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:24:56] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:25:03] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:25:03] DHCP Server terminated
-[03/20/2025 14:25:03] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:25:03] NetworkAdapter Initialization returns 0
-[03/20/2025 14:25:03] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:25:03] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:25:03] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:25:09] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:25:09] DHCP Server terminated
-[03/20/2025 14:25:09] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:25:09] NetworkAdapter Initialization returns 0
-[03/20/2025 14:25:09] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:25:09] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:25:09] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:25:34] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:25:34] DHCP Server terminated
-[03/20/2025 14:25:34] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:25:34] NetworkAdapter Initialization returns 0
-[03/20/2025 14:25:34] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:25:34] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:25:34] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:25:41] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:25:41] DHCP Server terminated
-[03/20/2025 14:25:41] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:25:41] NetworkAdapter Initialization returns 0
-[03/20/2025 14:25:41] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:25:41] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:25:41] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:25:47] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:25:47] DHCP Server terminated
-[03/20/2025 14:25:47] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:25:47] NetworkAdapter Initialization returns 0
-[03/20/2025 14:25:47] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:25:47] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:25:47] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:26:10] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:26:10] DHCP Server terminated
-[03/20/2025 14:33:32] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:33:32] NetworkAdapter Initialization returns 0
-[03/20/2025 14:33:32] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:33:32] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:33:32] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:33:34] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:33:34] DHCP Server terminated
-[03/20/2025 14:33:34] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:33:34] NetworkAdapter Initialization returns 0
-[03/20/2025 14:33:34] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01121b98)
-[03/20/2025 14:33:34] Adapter 1 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:33:34] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:33:34] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:33:37] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:33:37] recvfrom returns with error 10038
-[03/20/2025 14:33:37] DHCP Server terminated
-[03/20/2025 14:33:37] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:33:37] NetworkAdapter Initialization returns 0
-[03/20/2025 14:33:37] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:33:37] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:33:37] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:33:44] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:33:44] DHCP Server terminated
-[03/20/2025 14:33:44] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:33:44] NetworkAdapter Initialization returns 0
-[03/20/2025 14:33:44] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:33:44] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:33:44] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:33:47] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:33:47] DHCP Server terminated
-[03/20/2025 14:33:47] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:33:48] NetworkAdapter Initialization returns 0
-[03/20/2025 14:33:48] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01125118)
-[03/20/2025 14:33:48] Adapter 1 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:33:48] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:33:48] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:33:50] Adapter 0 has recognized an incoming DHCP request
-[03/20/2025 14:33:50] DHCP message = DHCPDISCOVER
-[03/20/2025 14:33:50]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/20/2025 14:33:50] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/20/2025 14:33:50] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/20/2025 14:33:50] Response: offer the configured IP address (lease time = 86400)
-[03/20/2025 14:33:50] Sending a broadcast response to the client
-[03/20/2025 14:33:50] Connection 0: sending top queue packet
-[03/20/2025 14:33:50] Adapter 0 has recognized an incoming DHCP request
-[03/20/2025 14:33:50] DHCP message = DHCPREQUEST
-[03/20/2025 14:33:50]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/20/2025 14:33:50] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/20/2025 14:33:50] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/20/2025 14:33:50] Response: hand out the configured IP address (lease time = 86400)
-[03/20/2025 14:33:50] Sending a broadcast response to the client
-[03/20/2025 14:33:50] Connection 0: sending top queue packet
-[03/20/2025 14:34:18] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:34:18] recvfrom returns with error 10038
-[03/20/2025 14:34:18] DHCP Server terminated
-[03/20/2025 14:34:18] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:34:19] NetworkAdapter Initialization returns 0
-[03/20/2025 14:34:19] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01125118)
-[03/20/2025 14:34:19] Adapter 1 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:34:19] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:34:19] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:34:22] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:34:22] recvfrom returns with error 10038
-[03/20/2025 14:34:22] DHCP Server terminated
-[03/20/2025 14:34:22] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:34:22] NetworkAdapter Initialization returns 0
-[03/20/2025 14:34:22] Adapter 0 with IP address 169.254.85.136 found but not used
-[03/20/2025 14:34:22] Adapter 1 with IP address 10.10.20.1 found (pAdap=0x01125118)
-[03/20/2025 14:34:22] Adapter 2 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:34:22] Adapter 3 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:34:22] Adapter 4 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:34:33] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:34:33] recvfrom returns with error 10038
-[03/20/2025 14:34:33] DHCP Server terminated
-[03/20/2025 14:34:33] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:34:33] NetworkAdapter Initialization returns 0
-[03/20/2025 14:34:33] Adapter 0 with IP address 169.254.85.136 found but not used
-[03/20/2025 14:34:33] Adapter 1 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:34:33] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:34:33] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:34:36] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:34:36] DHCP Server terminated
-[03/20/2025 14:36:29] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:36:29] NetworkAdapter Initialization returns 0
-[03/20/2025 14:36:29] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:36:29] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:36:29] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:36:31] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:36:31] DHCP Server terminated
-[03/20/2025 14:36:31] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:36:32] NetworkAdapter Initialization returns 0
-[03/20/2025 14:36:32] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01051b98)
-[03/20/2025 14:36:32] Adapter 1 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:36:32] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:36:32] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:36:35] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:36:35] recvfrom returns with error 10038
-[03/20/2025 14:36:35] DHCP Server terminated
-[03/20/2025 14:36:35] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:36:35] NetworkAdapter Initialization returns 0
-[03/20/2025 14:36:35] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:36:35] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:36:35] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:36:37] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:36:37] DHCP Server terminated
-[03/20/2025 14:36:37] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:36:38] NetworkAdapter Initialization returns 0
-[03/20/2025 14:36:38] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:36:38] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:36:38] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:36:44] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:36:44] DHCP Server terminated
-[03/20/2025 14:36:44] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:36:44] NetworkAdapter Initialization returns 0
-[03/20/2025 14:36:44] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01055118)
-[03/20/2025 14:36:44] Adapter 1 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:36:44] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:36:44] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:36:45] Adapter 0 has recognized an incoming DHCP request
-[03/20/2025 14:36:45] DHCP message = DHCPDISCOVER
-[03/20/2025 14:36:45]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/20/2025 14:36:45] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/20/2025 14:36:45] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/20/2025 14:36:45] Response: offer the configured IP address (lease time = 86400)
-[03/20/2025 14:36:45] Sending a broadcast response to the client
-[03/20/2025 14:36:45] Connection 0: sending top queue packet
-[03/20/2025 14:36:45] Adapter 0 has recognized an incoming DHCP request
-[03/20/2025 14:36:45] DHCP message = DHCPREQUEST
-[03/20/2025 14:36:45]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
-[03/20/2025 14:36:45] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
-[03/20/2025 14:36:45] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
-[03/20/2025 14:36:45] Response: hand out the configured IP address (lease time = 86400)
-[03/20/2025 14:36:45] Sending a broadcast response to the client
-[03/20/2025 14:36:45] Connection 0: sending top queue packet
-[03/20/2025 14:39:10] Adapter 0 has recognized an incoming DHCP request
-[03/20/2025 14:39:10] DHCP message = DHCPDISCOVER
-[03/20/2025 14:39:10]    requested options: 1 3 6 15 31 33 43 44 46 47 119 121 249 252
-[03/20/2025 14:39:10] Lookup client data for physical address "00-E0-4C-6F-28-55" / client_id "00-E0-4C-6F-28-55"
-[03/20/2025 14:39:10] Client 00-E0-4C-6F-28-55 is not configured
-[03/20/2025 14:39:10] Perform auto configuration
-[03/20/2025 14:39:10] IPPOOL_1: 10.10.20.100-200
-[03/20/2025 14:39:10] Auto configuration succeeded: IP-Addr = 10.10.20.102
-[03/20/2025 14:39:10] Response: offer the configured IP address (lease time = 86400)
-[03/20/2025 14:39:10] Sending a broadcast response to the client
-[03/20/2025 14:39:10] Connection 0: sending top queue packet
-[03/20/2025 14:39:11] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:39:11] recvfrom returns with error 10038
-[03/20/2025 14:39:11] DHCP Server terminated
-[03/20/2025 14:39:11] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:39:11] NetworkAdapter Initialization returns 0
-[03/20/2025 14:39:11] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:39:11] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:39:11] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:39:17] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:39:17] DHCP Server terminated
-[03/20/2025 14:39:17] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:39:17] NetworkAdapter Initialization returns 0
-[03/20/2025 14:39:17] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:39:17] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:39:17] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:39:20] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:39:20] DHCP Server terminated
-[03/20/2025 14:39:20] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:39:21] NetworkAdapter Initialization returns 0
-[03/20/2025 14:39:21] Adapter 0 with IP address 169.254.85.136 found but not used
-[03/20/2025 14:39:21] Adapter 1 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:39:21] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:39:21] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:39:25] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:39:25] DHCP Server terminated
-[03/20/2025 14:39:28] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:39:28] NetworkAdapter Initialization returns 0
-[03/20/2025 14:39:28] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:39:28] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:39:28] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:39:29] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:39:29] DHCP Server terminated
-[03/20/2025 14:39:29] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:39:30] NetworkAdapter Initialization returns 0
-[03/20/2025 14:39:30] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01271b98)
-[03/20/2025 14:39:30] Adapter 1 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:39:30] Adapter 2 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:39:30] Adapter 3 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:39:33] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:39:33] recvfrom returns with error 10038
-[03/20/2025 14:39:33] DHCP Server terminated
-[03/20/2025 14:39:33] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:39:33] NetworkAdapter Initialization returns 0
-[03/20/2025 14:39:33] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:39:33] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:39:33] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:39:35] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:39:35] DHCP Server terminated
-[03/20/2025 14:47:02] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:47:02] NetworkAdapter Initialization returns 0
-[03/20/2025 14:47:02] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:47:02] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:47:02] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:47:04] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:47:04] DHCP Server terminated
-[03/20/2025 14:47:04] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:47:04] NetworkAdapter Initialization returns 0
-[03/20/2025 14:47:04] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:47:04] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:47:04] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:47:06] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:47:06] DHCP Server terminated
-[03/20/2025 14:49:31] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:49:31] NetworkAdapter Initialization returns 0
-[03/20/2025 14:49:31] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:49:31] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:49:31] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:49:33] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:49:33] DHCP Server terminated
-[03/20/2025 14:49:33] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:49:34] NetworkAdapter Initialization returns 0
-[03/20/2025 14:49:34] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:49:34] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:49:34] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:49:36] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:49:36] DHCP Server terminated
-[03/20/2025 14:49:36] DHCP Server V2.5.2.3 started as Service
-[03/20/2025 14:49:36] NetworkAdapter Initialization returns 0
-[03/20/2025 14:49:36] Adapter 0 with IP address 172.17.208.1 found but not used
-[03/20/2025 14:49:36] Adapter 1 with IP address 10.10.10.43 found but not used
-[03/20/2025 14:49:36] Adapter 2 with IP address 192.168.0.1 found but not used
-[03/20/2025 14:49:37] DHCP Server is terminating (ignore error messages that follow)
-[03/20/2025 14:49:37] DHCP Server terminated
+[03/20/2025 15:24:19] Adapter 0 has recognized an incoming DHCP request
+[03/20/2025 15:24:19] DHCP message = DHCPDISCOVER
+[03/20/2025 15:24:19]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
+[03/20/2025 15:24:19] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
+[03/20/2025 15:24:19] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
+[03/20/2025 15:24:20] Response: offer the configured IP address (lease time = 86400)
+[03/20/2025 15:24:20] Sending a broadcast response to the client
+[03/20/2025 15:24:20] Connection 0: sending top queue packet
+[03/20/2025 15:24:20] Adapter 0 has recognized an incoming DHCP request
+[03/20/2025 15:24:20] DHCP message = DHCPREQUEST
+[03/20/2025 15:24:20]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
+[03/20/2025 15:24:20] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
+[03/20/2025 15:24:20] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
+[03/20/2025 15:24:20] Response: hand out the configured IP address (lease time = 86400)
+[03/20/2025 15:24:20] Sending a broadcast response to the client
+[03/20/2025 15:24:20] Connection 0: sending top queue packet
+[03/20/2025 15:24:38] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 15:24:38] recvfrom returns with error 10038
+[03/20/2025 15:24:38] DHCP Server terminated
+[03/20/2025 15:24:38] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 15:24:38] NetworkAdapter Initialization returns 0
+[03/20/2025 15:24:38] Adapter 0 with IP address 169.254.217.31 found but not used
+[03/20/2025 15:24:38] Adapter 1 with IP address 10.10.10.43 found but not used
+[03/20/2025 15:24:38] Adapter 2 with IP address 192.168.0.1 found but not used
+[03/20/2025 15:24:41] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 15:24:41] DHCP Server terminated
+[03/20/2025 15:24:41] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 15:24:41] NetworkAdapter Initialization returns 0
+[03/20/2025 15:24:41] Adapter 0 with IP address 169.254.217.31 found but not used
+[03/20/2025 15:24:41] Adapter 1 with IP address 10.10.10.43 found but not used
+[03/20/2025 15:24:41] Adapter 2 with IP address 192.168.0.1 found but not used
+[03/20/2025 15:24:45] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 15:24:45] DHCP Server terminated
+[03/20/2025 15:26:14] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 15:26:14] NetworkAdapter Initialization returns 0
+[03/20/2025 15:26:14] Adapter 0 with IP address 169.254.217.31 found but not used
+[03/20/2025 15:26:14] Adapter 1 with IP address 10.10.10.43 found but not used
+[03/20/2025 15:26:14] Adapter 2 with IP address 192.168.0.1 found but not used
+[03/20/2025 15:26:16] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 15:26:16] DHCP Server terminated
+[03/20/2025 15:26:16] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 15:26:16] NetworkAdapter Initialization returns 0
+[03/20/2025 15:26:16] Adapter 0 with IP address 169.254.217.31 found but not used
+[03/20/2025 15:26:16] Adapter 1 with IP address 10.10.10.43 found but not used
+[03/20/2025 15:26:16] Adapter 2 with IP address 192.168.0.1 found but not used
+[03/20/2025 15:26:19] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 15:26:19] DHCP Server terminated
+[03/20/2025 15:26:19] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 15:26:19] NetworkAdapter Initialization returns 0
+[03/20/2025 15:26:19] Adapter 0 with IP address 169.254.217.31 found but not used
+[03/20/2025 15:26:19] Adapter 1 with IP address 10.10.10.43 found but not used
+[03/20/2025 15:26:19] Adapter 2 with IP address 192.168.0.1 found but not used
+[03/20/2025 15:26:25] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 15:26:25] DHCP Server terminated
+[03/20/2025 15:26:25] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 15:26:25] NetworkAdapter Initialization returns 0
+[03/20/2025 15:26:25] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x010650d8)
+[03/20/2025 15:26:25] Adapter 1 with IP address 169.254.217.31 found but not used
+[03/20/2025 15:26:25] Adapter 2 with IP address 10.10.10.43 found but not used
+[03/20/2025 15:26:25] Adapter 3 with IP address 192.168.0.1 found but not used
+[03/20/2025 15:26:27] Adapter 0 has recognized an incoming DHCP request
+[03/20/2025 15:26:27] DHCP message = DHCPDISCOVER
+[03/20/2025 15:26:27]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
+[03/20/2025 15:26:27] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
+[03/20/2025 15:26:27] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
+[03/20/2025 15:26:27] Response: offer the configured IP address (lease time = 86400)
+[03/20/2025 15:26:27] Sending a broadcast response to the client
+[03/20/2025 15:26:27] Connection 0: sending top queue packet
+[03/20/2025 15:26:27] Adapter 0 has recognized an incoming DHCP request
+[03/20/2025 15:26:27] DHCP message = DHCPREQUEST
+[03/20/2025 15:26:27]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
+[03/20/2025 15:26:27] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
+[03/20/2025 15:26:27] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
+[03/20/2025 15:26:27] Response: hand out the configured IP address (lease time = 86400)
+[03/20/2025 15:26:27] Sending a broadcast response to the client
+[03/20/2025 15:26:27] Connection 0: sending top queue packet
+[03/20/2025 15:26:51] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 15:26:51] recvfrom returns with error 10038
+[03/20/2025 15:26:51] DHCP Server terminated
+[03/20/2025 15:26:51] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 15:26:51] NetworkAdapter Initialization returns 0
+[03/20/2025 15:26:51] Adapter 0 with IP address 169.254.217.31 found but not used
+[03/20/2025 15:26:51] Adapter 1 with IP address 10.10.10.43 found but not used
+[03/20/2025 15:26:51] Adapter 2 with IP address 192.168.0.1 found but not used
+[03/20/2025 15:26:53] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 15:26:53] DHCP Server terminated
+[03/20/2025 15:26:53] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 15:26:53] NetworkAdapter Initialization returns 0
+[03/20/2025 15:26:53] Adapter 0 with IP address 169.254.217.31 found but not used
+[03/20/2025 15:26:53] Adapter 1 with IP address 10.10.10.43 found but not used
+[03/20/2025 15:26:54] Adapter 2 with IP address 192.168.0.1 found but not used
+[03/20/2025 15:26:59] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 15:26:59] DHCP Server terminated
+[03/20/2025 15:26:59] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 15:27:00] NetworkAdapter Initialization returns 0
+[03/20/2025 15:27:00] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x01065118)
+[03/20/2025 15:27:00] Adapter 1 with IP address 169.254.217.31 found but not used
+[03/20/2025 15:27:00] Adapter 2 with IP address 10.10.10.43 found but not used
+[03/20/2025 15:27:00] Adapter 3 with IP address 192.168.0.1 found but not used
+[03/20/2025 15:27:01] Adapter 0 has recognized an incoming DHCP request
+[03/20/2025 15:27:01] DHCP message = DHCPDISCOVER
+[03/20/2025 15:27:01]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
+[03/20/2025 15:27:01] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
+[03/20/2025 15:27:01] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
+[03/20/2025 15:27:01] Response: offer the configured IP address (lease time = 86400)
+[03/20/2025 15:27:01] Sending a broadcast response to the client
+[03/20/2025 15:27:01] Connection 0: sending top queue packet
+[03/20/2025 15:27:01] Adapter 0 has recognized an incoming DHCP request
+[03/20/2025 15:27:01] DHCP message = DHCPREQUEST
+[03/20/2025 15:27:01]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
+[03/20/2025 15:27:01] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
+[03/20/2025 15:27:01] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
+[03/20/2025 15:27:02] Response: hand out the configured IP address (lease time = 86400)
+[03/20/2025 15:27:02] Sending a broadcast response to the client
+[03/20/2025 15:27:02] Connection 0: sending top queue packet
+[03/20/2025 15:27:22] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 15:27:22] recvfrom returns with error 10038
+[03/20/2025 15:27:22] DHCP Server terminated
+[03/20/2025 15:35:11] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 15:35:12] NetworkAdapter Initialization returns 0
+[03/20/2025 15:35:12] Adapter 0 with IP address 169.254.217.31 found but not used
+[03/20/2025 15:35:12] Adapter 1 with IP address 10.10.10.43 found but not used
+[03/20/2025 15:35:12] Adapter 2 with IP address 192.168.0.1 found but not used
+[03/20/2025 15:35:13] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 15:35:13] DHCP Server terminated
+[03/20/2025 15:35:13] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 15:35:13] NetworkAdapter Initialization returns 0
+[03/20/2025 15:35:13] Adapter 0 with IP address 169.254.217.31 found but not used
+[03/20/2025 15:35:13] Adapter 1 with IP address 10.10.10.43 found but not used
+[03/20/2025 15:35:13] Adapter 2 with IP address 192.168.0.1 found but not used
+[03/20/2025 15:35:16] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 15:35:16] DHCP Server terminated
+[03/20/2025 15:35:16] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 15:35:16] NetworkAdapter Initialization returns 0
+[03/20/2025 15:35:16] Adapter 0 with IP address 169.254.217.31 found but not used
+[03/20/2025 15:35:16] Adapter 1 with IP address 10.10.10.43 found but not used
+[03/20/2025 15:35:16] Adapter 2 with IP address 192.168.0.1 found but not used
+[03/20/2025 15:35:19] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 15:35:19] DHCP Server terminated
+[03/20/2025 15:35:36] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 15:35:37] NetworkAdapter Initialization returns 0
+[03/20/2025 15:35:37] Adapter 0 with IP address 169.254.217.31 found but not used
+[03/20/2025 15:35:37] Adapter 1 with IP address 10.10.10.43 found but not used
+[03/20/2025 15:35:37] Adapter 2 with IP address 192.168.0.1 found but not used
+[03/20/2025 15:35:38] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 15:35:38] DHCP Server terminated
+[03/20/2025 15:35:38] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 15:35:39] NetworkAdapter Initialization returns 0
+[03/20/2025 15:35:39] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x010d1b98)
+[03/20/2025 15:35:39] Adapter 1 with IP address 169.254.217.31 found but not used
+[03/20/2025 15:35:39] Adapter 2 with IP address 10.10.10.43 found but not used
+[03/20/2025 15:35:39] Adapter 3 with IP address 192.168.0.1 found but not used
+[03/20/2025 15:35:42] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 15:35:42] recvfrom returns with error 10038
+[03/20/2025 15:35:42] DHCP Server terminated
+[03/20/2025 15:35:42] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 15:35:42] NetworkAdapter Initialization returns 0
+[03/20/2025 15:35:42] Adapter 0 with IP address 169.254.217.31 found but not used
+[03/20/2025 15:35:42] Adapter 1 with IP address 10.10.10.43 found but not used
+[03/20/2025 15:35:42] Adapter 2 with IP address 192.168.0.1 found but not used
+[03/20/2025 15:35:44] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 15:35:44] DHCP Server terminated
+[03/20/2025 15:35:44] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 15:35:45] NetworkAdapter Initialization returns 0
+[03/20/2025 15:35:45] Adapter 0 with IP address 169.254.217.31 found but not used
+[03/20/2025 15:35:45] Adapter 1 with IP address 10.10.10.43 found but not used
+[03/20/2025 15:35:45] Adapter 2 with IP address 192.168.0.1 found but not used
+[03/20/2025 15:35:51] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 15:35:51] DHCP Server terminated
+[03/20/2025 15:35:51] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 15:35:51] NetworkAdapter Initialization returns 0
+[03/20/2025 15:35:51] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x010d5118)
+[03/20/2025 15:35:51] Adapter 1 with IP address 169.254.217.31 found but not used
+[03/20/2025 15:35:51] Adapter 2 with IP address 10.10.10.43 found but not used
+[03/20/2025 15:35:51] Adapter 3 with IP address 192.168.0.1 found but not used
+[03/20/2025 15:35:59] Adapter 0 has recognized an incoming DHCP request
+[03/20/2025 15:35:59] DHCP message = DHCPDISCOVER
+[03/20/2025 15:35:59]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
+[03/20/2025 15:35:59] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
+[03/20/2025 15:35:59] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
+[03/20/2025 15:35:59] Response: offer the configured IP address (lease time = 86400)
+[03/20/2025 15:35:59] Sending a broadcast response to the client
+[03/20/2025 15:35:59] Connection 0: sending top queue packet
+[03/20/2025 15:35:59] Adapter 0 has recognized an incoming DHCP request
+[03/20/2025 15:35:59] DHCP message = DHCPREQUEST
+[03/20/2025 15:35:59]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
+[03/20/2025 15:35:59] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
+[03/20/2025 15:35:59] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
+[03/20/2025 15:36:00] Response: hand out the configured IP address (lease time = 86400)
+[03/20/2025 15:36:00] Sending a broadcast response to the client
+[03/20/2025 15:36:00] Connection 0: sending top queue packet
+[03/20/2025 15:38:46] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 15:38:46] recvfrom returns with error 10038
+[03/20/2025 15:38:46] DHCP Server terminated
+[03/20/2025 16:24:40] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 16:24:40] NetworkAdapter Initialization returns 0
+[03/20/2025 16:24:40] Adapter 0 with IP address 169.254.217.31 found but not used
+[03/20/2025 16:24:40] Adapter 1 with IP address 10.10.10.43 found but not used
+[03/20/2025 16:24:40] Adapter 2 with IP address 192.168.0.1 found but not used
+[03/20/2025 16:24:41] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 16:24:41] DHCP Server terminated
+[03/20/2025 16:24:41] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 16:24:42] NetworkAdapter Initialization returns 0
+[03/20/2025 16:24:42] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x011f1b98)
+[03/20/2025 16:24:42] Adapter 1 with IP address 169.254.217.31 found but not used
+[03/20/2025 16:24:42] Adapter 2 with IP address 10.10.10.43 found but not used
+[03/20/2025 16:24:42] Adapter 3 with IP address 192.168.0.1 found but not used
+[03/20/2025 16:24:45] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 16:24:45] recvfrom returns with error 10038
+[03/20/2025 16:24:45] DHCP Server terminated
+[03/20/2025 16:24:45] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 16:24:45] NetworkAdapter Initialization returns 0
+[03/20/2025 16:24:45] Adapter 0 with IP address 169.254.217.31 found but not used
+[03/20/2025 16:24:45] Adapter 1 with IP address 10.10.10.43 found but not used
+[03/20/2025 16:24:45] Adapter 2 with IP address 192.168.0.1 found but not used
+[03/20/2025 16:24:47] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 16:24:47] DHCP Server terminated
+[03/20/2025 16:24:47] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 16:24:47] NetworkAdapter Initialization returns 0
+[03/20/2025 16:24:47] Adapter 0 with IP address 169.254.217.31 found but not used
+[03/20/2025 16:24:48] Adapter 1 with IP address 10.10.10.43 found but not used
+[03/20/2025 16:24:48] Adapter 2 with IP address 192.168.0.1 found but not used
+[03/20/2025 16:24:53] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 16:24:53] DHCP Server terminated
+[03/20/2025 16:24:53] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 16:24:54] NetworkAdapter Initialization returns 0
+[03/20/2025 16:24:54] Adapter 0 with IP address 10.10.20.1 found (pAdap=0x011f5118)
+[03/20/2025 16:24:54] Adapter 1 with IP address 169.254.217.31 found but not used
+[03/20/2025 16:24:54] Adapter 2 with IP address 10.10.10.43 found but not used
+[03/20/2025 16:24:54] Adapter 3 with IP address 192.168.0.1 found but not used
+[03/20/2025 16:24:56] Adapter 0 has recognized an incoming DHCP request
+[03/20/2025 16:24:56] DHCP message = DHCPREQUEST
+[03/20/2025 16:24:56]    requested options: 1 3 6 12 15 26 28 33 51 54 58 59 119 121
+[03/20/2025 16:24:56] Lookup client data for physical address "B8-27-EB-5F-8C-65" / client_id "B8-27-EB-5F-8C-65"
+[03/20/2025 16:24:56] Client B8-27-EB-5F-8C-65 is configured with the IP address 10.10.20.101
+[03/20/2025 16:24:56] Response: hand out the configured IP address (lease time = 86400)
+[03/20/2025 16:24:56] Sending a broadcast response to the client
+[03/20/2025 16:24:56] Connection 0: sending top queue packet
+[03/20/2025 16:26:50] Adapter 0 has recognized an incoming DHCP request
+[03/20/2025 16:26:50] DHCP message = DHCPDISCOVER
+[03/20/2025 16:26:50]    requested options: 1 3 6 15 31 33 43 44 46 47 119 121 249 252
+[03/20/2025 16:26:50] Lookup client data for physical address "00-E0-4C-6F-28-55" / client_id "00-E0-4C-6F-28-55"
+[03/20/2025 16:26:50] Client 00-E0-4C-6F-28-55 is configured with the IP address 10.10.20.102
+[03/20/2025 16:26:50] Response: offer the configured IP address (lease time = 86400)
+[03/20/2025 16:26:50] Sending a broadcast response to the client
+[03/20/2025 16:26:50] Connection 0: sending top queue packet
+[03/20/2025 16:26:51] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 16:26:51] recvfrom returns with error 10038
+[03/20/2025 16:26:51] DHCP Server terminated
+[03/20/2025 16:26:51] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 16:26:51] NetworkAdapter Initialization returns 0
+[03/20/2025 16:26:51] Adapter 0 with IP address 169.254.217.31 found but not used
+[03/20/2025 16:26:51] Adapter 1 with IP address 10.10.10.43 found but not used
+[03/20/2025 16:26:51] Adapter 2 with IP address 192.168.0.1 found but not used
+[03/20/2025 16:26:57] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 16:26:57] DHCP Server terminated
+[03/20/2025 16:26:57] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 16:26:57] NetworkAdapter Initialization returns 0
+[03/20/2025 16:26:57] Adapter 0 with IP address 169.254.217.31 found but not used
+[03/20/2025 16:26:57] Adapter 1 with IP address 10.10.10.43 found but not used
+[03/20/2025 16:26:57] Adapter 2 with IP address 192.168.0.1 found but not used
+[03/20/2025 16:27:00] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 16:27:00] DHCP Server terminated
+[03/20/2025 16:27:00] DHCP Server V2.5.2.3 started as Service
+[03/20/2025 16:27:01] NetworkAdapter Initialization returns 0
+[03/20/2025 16:27:01] Adapter 0 with IP address 169.254.85.136 found but not used
+[03/20/2025 16:27:01] Adapter 1 with IP address 169.254.217.31 found but not used
+[03/20/2025 16:27:01] Adapter 2 with IP address 10.10.10.43 found but not used
+[03/20/2025 16:27:01] Adapter 3 with IP address 192.168.0.1 found but not used
+[03/20/2025 16:27:47] DHCP Server is terminating (ignore error messages that follow)
+[03/20/2025 16:27:47] DHCP Server terminated

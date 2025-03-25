@@ -99,117 +99,32 @@ namespace RemoteBMC
                 if (isDhcpEnabled && hasIpFromDhcp)
                 {
                     LogMessage("[DHCP] Selected interface is using DHCP and has a valid IP address, cannot act as DHCP server");
-                    MessageBox.Show(
-                        "The selected network interface is using DHCP and has a valid IP address.\n" +
-                        "To avoid conflicts, you cannot run as DHCP server on this interface.\n" +
-                        "Please either:\n" +
-                        "1. Select a different network interface\n" +
-                        "2. Change the interface to use static IP\n" +
-                        "3. Use the \"As DHCP Client\" mode",
-                        "DHCP Configuration Warning",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Warning);
+                    await Task.Run(() => 
+                    {
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            MessageBox.Show(
+                                "The selected network interface is using DHCP and has a valid IP address.\n" +
+                                "To avoid conflicts, you cannot run as DHCP server on this interface.\n" +
+                                "Please either:\n" +
+                                "1. Select a different network interface\n" +
+                                "2. Change the interface to use static IP\n" +
+                                "3. Use the \"As DHCP Client\" mode",
+                                "DHCP Configuration Warning",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                        });
+                    });
                     return true;
                 }
                 // 如果网卡未开启DHCP或者开启了但获取到169.254开头的IP，允许继续使用DHCP服务器模式
                 return false;
-
-                // 2. Check for other DHCP servers in the network
-                using (var udpClient = new UdpClient())
-                {
-                    udpClient.EnableBroadcast = true;
-                    udpClient.Client.ReceiveTimeout = 2000; // 2 seconds timeout
-
-                    // Send multiple DHCP discover packets to ensure thorough detection
-                    for (int i = 0; i < 3; i++)
-                    {
-                        byte[] discoverPacket = BuildDhcpDiscoverPacket();
-                        await udpClient.SendAsync(discoverPacket, discoverPacket.Length, new IPEndPoint(IPAddress.Broadcast, 67));
-                        LogMessage($"[DHCP] DHCP discover packet sent (attempt {i + 1}/3)");
-
-                        try
-                        {
-                            var receiveTask = udpClient.ReceiveAsync();
-                            if (await Task.WhenAny(receiveTask, Task.Delay(2000)) == receiveTask)
-                            {
-                                var result = receiveTask.Result;
-                                if (result.Buffer.Length > 240 && result.Buffer[0] == 0x02) // DHCP Offer
-                                {
-                                    string dhcpServerIp = result.RemoteEndPoint.Address.ToString();
-                                    if (dhcpServerIp != DHCP_SERVER_IP)
-                                    {
-                                        LogMessage($"[Warning] Found existing DHCP server: {dhcpServerIp}");
-                                        MessageBox.Show(
-                                            $"Warning: DHCP server found in subnet ({dhcpServerIp})\n" +
-                                            "This may cause IP address conflicts.\n" +
-                                            "For safety, you cannot run as DHCP server when another DHCP server exists.\n" +
-                                            "Recommendations:\n" +
-                                            "1. Use automatic detection mode\n" +
-                                            "2. Disable existing DHCP server and try again\n" +
-                                            "3. Use manual IP mode",
-                                            "DHCP Server Found",
-                                            MessageBoxButton.OK,
-                                            MessageBoxImage.Warning);
-                                        return true;
-                                    }
-                                }
-                            }
-                        }
-                        catch (SocketException)
-                        {
-                            // Continue to next attempt
-                            continue;
-                        }
-                    }
-                }
-
-                // 3. Additional network safety checks
-                if (selectedNic != null)
-                {
-                    // Check if interface is connected to a network
-                    if (selectedNic.OperationalStatus != OperationalStatus.Up)
-                    {
-                        LogMessage("[DHCP] Selected interface is not connected");
-                        MessageBox.Show(
-                            "The selected network interface is not connected.\n" +
-                            "Please ensure the interface is connected before proceeding.",
-                            "Network Interface Error",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Error);
-                        return true;
-                    }
-
-                    // Check if interface has multiple IP addresses
-                    var ipv4Addresses = selectedNic.GetIPProperties().UnicastAddresses
-                        .Where(addr => addr.Address.AddressFamily == AddressFamily.InterNetwork)
-                        .ToList();
-
-                    if (ipv4Addresses.Count > 1)
-                    {
-                        LogMessage("[DHCP] Warning: Interface has multiple IP addresses");
-                        var result = MessageBox.Show(
-                            "The selected interface has multiple IP addresses.\n" +
-                            "This might cause routing issues with DHCP.\n" +
-                            "Do you want to continue?",
-                            "Multiple IP Warning",
-                            MessageBoxButton.YesNo,
-                            MessageBoxImage.Warning);
-
-                        if (result == MessageBoxResult.No)
-                        {
-                            return true;
-                        }
-                    }
-                }
             }
             catch (Exception ex)
             {
                 LogMessage($"[DHCP] Error checking for DHCP servers: {ex.Message}");
                 return true; // Return true on error to prevent DHCP server start
             }
-
-            LogMessage("[DHCP] No conflicting DHCP servers detected");
-            return false;
         }
 
         private byte[] BuildDhcpDiscoverPacket()
@@ -341,6 +256,7 @@ namespace RemoteBMC
         {
             try
             {
+                // First stop the DHCP server
                 var stopProcess = new Process
                 {
                     StartInfo = new ProcessStartInfo
@@ -358,10 +274,29 @@ namespace RemoteBMC
                 stopProcess.Start();
                 await WaitForProcessExit(stopProcess);
                 LogMessage("DHCP server service stopped");
+
+                // Then remove the DHCP server
+                var removeProcess = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = "dhcpsrv.exe",
+                        Arguments = "-remove",
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        CreateNoWindow = true,
+                        Verb = "runas"
+                    }
+                };
+                
+                removeProcess.Start();
+                await WaitForProcessExit(removeProcess);
+                LogMessage("DHCP server service removed");
             }
             catch (Exception ex)
             {
-                LogMessage($"Error stopping DHCP server: {ex.Message}");
+                LogMessage($"Error stopping/removing DHCP server: {ex.Message}");
                 throw;
             }
         }
