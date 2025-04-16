@@ -15,17 +15,43 @@
                 <StackPanel Margin="5">
                     <GroupBox Header="IP Address Configuration" Margin="0,0,0,5">
                         <StackPanel Margin="5">
-                            <RadioButton x:Name="AutoDhcpRadio" 
-                                       Content="As DHCP Client  (Join an existing sub-net)" 
-                                       IsChecked="True" 
-                                       Margin="0,5"/>
-                            <RadioButton x:Name="ManualDhcpRadio" 
-                                       Content="As DHCP Server (Direct Connect)" 
-                                       Margin="0,5"
-                                       Checked="ManualDhcpRadio_Checked"/>
-                            <RadioButton x:Name="ManualIpRadio" 
+                            <DockPanel>
+                                <Button x:Name="AutoDhcpHelpButton"
+                                        Content="?"
+                                        Width="20"
+                                        Height="20"
+                                        Margin="0,0,5,0"
+                                        Click="HelpButton_Click"
+                                        DockPanel.Dock="Left"/>
+                                <RadioButton x:Name="AutoDhcpRadio" 
+                                           Content="As DHCP Client  (Join an existing sub-net)" 
+                                           IsChecked="True" 
+                                           Margin="0,5"
+                                           GroupName="IpConfigGroup"
+                                           DockPanel.Dock="Left"/>
+                            </DockPanel>
+                            <DockPanel>
+                                <Button x:Name="ManualDhcpHelpButton"
+                                        Content="?"
+                                        Width="20"
+                                        Height="20"
+                                        Margin="0,0,5,0"
+                                        Click="HelpButton_Click"
+                                        DockPanel.Dock="Left"/>
+                                <RadioButton x:Name="ManualDhcpRadio" 
+                                           Content="As DHCP Server (Direct Connect)" 
+                                           Margin="0,5"
+                                           Checked="ManualDhcpRadio_Checked"
+                                           GroupName="IpConfigGroup"
+                                           DockPanel.Dock="Left"/>
+                            </DockPanel>
+                            <DockPanel>
+                                <RadioButton x:Name="ManualIpRadio" 
                                        Content="Manual IP Setting" 
-                                       Margin="0,5"/>
+                                       Margin="25,5,0,5"
+                                       GroupName="IpConfigGroup"
+                                       DockPanel.Dock="Left"/>
+                            </DockPanel>
                         </StackPanel>
                     </GroupBox>
 

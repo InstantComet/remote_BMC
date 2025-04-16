@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using Renci.SshNet;
 using System.Net.Sockets;
 using System.Linq;
@@ -92,6 +93,15 @@ namespace RemoteBMC
         private void LoadNetworkInterfaces()
         {
             RefreshNetworkInterfaces();
+        }
+
+        private void HelpButton_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            string imagePath = button.Name == "AutoDhcpHelpButton" ? "client.png" : "server.png";
+            var helpDialog = new HelpImageDialog(imagePath);
+            helpDialog.Owner = this;
+            helpDialog.ShowDialog();
         }
 
         private void RefreshNetworkInterfaces()
@@ -782,6 +792,15 @@ namespace RemoteBMC
                     // 如果正在执行操作，则中止操作
                     _cancellationTokenSource.Cancel();
                     LogMessage("Operation aborted by user");
+                    
+                    // 清理所有SSH连接和端口转发
+                    await CleanupExistingConnections();
+                    
+                    // 重置UI状态
+                    StartButton.IsEnabled = true;
+                    StartButton.Content = "Start Configuration";
+                    ClearButton.Content = "Clear";
+                    OpenBrowserButton.IsEnabled = false;
                     return;
                 }
 

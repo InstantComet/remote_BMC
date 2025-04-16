@@ -244,6 +244,25 @@ namespace RemoteBMC
                 startProcess.Start();
                 await WaitForProcessExit(startProcess);
                 LogMessage("DHCP server service started");
+
+                // Configure firewall exceptions
+                var firewallProcess = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = "dhcpsrv.exe",
+                        Arguments = "-configfirewall",
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        CreateNoWindow = true,
+                        Verb = "runas"
+                    }
+                };
+                
+                firewallProcess.Start();
+                await WaitForProcessExit(firewallProcess);
+                LogMessage("Firewall exceptions configured");
             }
             catch (Exception ex)
             {
@@ -256,7 +275,26 @@ namespace RemoteBMC
         {
             try
             {
-                // First stop the DHCP server
+                // First remove firewall exceptions
+                var firewallProcess = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = "dhcpsrv.exe",
+                        Arguments = "-removefirewall",
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        CreateNoWindow = true,
+                        Verb = "runas"
+                    }
+                };
+                
+                firewallProcess.Start();
+                await WaitForProcessExit(firewallProcess);
+                LogMessage("Firewall exceptions removed");
+
+                // Then stop the DHCP server
                 var stopProcess = new Process
                 {
                     StartInfo = new ProcessStartInfo
