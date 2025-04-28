@@ -141,5 +141,14 @@ namespace RemoteBMC
                 _logMessage($"Error killing process on port {port}: {ex.Message}");
             }
         }
+
+        public void SaveConnection(SshClient client)
+        {
+            if (client != null && client.IsConnected)
+            {
+                _activeSshClients.Add(client);
+                _logMessage($"SSH connection saved");
+            }
+        }
     }
 }

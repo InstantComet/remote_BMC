@@ -23,7 +23,6 @@ namespace RemoteBMC
         private const int REMOTE_HTTPS_PORT = 443;
 
         private List<NetworkInterface> networkInterfaces;
-        private DhcpServerManager dhcpManager;
         private NetworkConfigurationManager networkConfigManager;
         private SshConnectionManager sshConnectionManager;
         private DeviceDiscoveryManager deviceDiscoveryManager;
@@ -41,7 +40,6 @@ namespace RemoteBMC
 
             InitializeComponent();
             this.Closing += MainWindow_Closing;
-            dhcpManager = new DhcpServerManager(LogMessage);
             networkConfigManager = new NetworkConfigurationManager(LogMessage);
             sshConnectionManager = new SshConnectionManager(LogMessage);
             deviceDiscoveryManager = new DeviceDiscoveryManager(LogMessage);
@@ -189,7 +187,7 @@ namespace RemoteBMC
                 await WaitForProcessExit(process);
                 
                 LogMessage("Network interface has been set to DHCP client mode");
-                AutoDhcpRadio.IsChecked = true;
+                DhcpClientRadio.IsChecked = true;
                 
                 // 刷新网络接口状态
                 RefreshNetworkInterfaces();
@@ -222,30 +220,6 @@ namespace RemoteBMC
                     return;
                 }
 
-                // 只在用户选择作为DHCP服务器模式时检查DHCP状态
-                if (ManualDhcpRadio.IsChecked == true)
-                {
-                    var selectedNic = networkInterfaces.FirstOrDefault(ni => ni.Name == NetworkInterfaceCombo.SelectedItem.ToString());
-                    if (selectedNic != null)
-                    {
-                        bool hasIpFromDhcp;
-                        if (dhcpManager.IsInterfaceUsingDhcp(selectedNic, out hasIpFromDhcp) && hasIpFromDhcp)
-                        {
-                            LogMessage($"Warning: Selected interface {selectedNic.Name} is using DHCP and has a valid IP address");
-                            MessageBox.Show(
-                                "The selected network interface is currently using DHCP and has a valid IP address.\n" +
-                                "To avoid conflicts, you cannot run as DHCP server on this interface.\n" +
-                                "Please either:\n" +
-                                "1. Select a different network interface\n" +
-                                "2. Change the interface to use static IP\n",
-                                "DHCP Configuration Warning",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Warning);
-                            return;
-                        }
-                    }
-                }
-
                 string smcIp = await GetSmcIp();
                 if (string.IsNullOrEmpty(smcIp))
                 {
@@ -269,232 +243,48 @@ namespace RemoteBMC
             }
         }
 
-        private void ManualDhcpRadio_Checked(object sender, RoutedEventArgs e)
+        private void NetworkInterfaceCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // First check if required files exist
-            string exePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dhcpsrv.exe");
-            string iniPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dhcpsrv.ini");
-
-            if (!System.IO.File.Exists(exePath) || !System.IO.File.Exists(iniPath))
-            {
-                LogMessage("Required DHCP server files are missing");
-                MessageBox.Show(
-                    "Required files are missing:\n" +
-                    (!System.IO.File.Exists(exePath) ? "- dhcpsrv.exe\n" : "") +
-                    (!System.IO.File.Exists(iniPath) ? "- dhcpsrv.ini\n" : "") +
-                    "\nPlease ensure these files are in the same directory as the application.",
-                    "Missing Files",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-                
-                // Switch back to Auto DHCP mode
-                AutoDhcpRadio.IsChecked = true;
-                return;
-            }
-
+            // 当网络接口改变时，重新检查网络状态
             if (NetworkInterfaceCombo.SelectedItem != null)
             {
-                var selectedNic = networkInterfaces.FirstOrDefault(ni => ni.Name == NetworkInterfaceCombo.SelectedItem.ToString());
+                var selectedInterface = NetworkInterfaceCombo.SelectedItem.ToString();
+                var selectedNic = networkInterfaces.FirstOrDefault(ni => ni.Name == selectedInterface);
                 if (selectedNic != null)
                 {
-                    bool hasIpFromDhcp;
-                    if (dhcpManager.IsInterfaceUsingDhcp(selectedNic, out hasIpFromDhcp) && hasIpFromDhcp)
-                    {
-                        LogMessage($"Warning: Selected interface {selectedNic.Name} is using DHCP and has a valid IP address");
-                        MessageBox.Show(
-                            "The selected network interface is currently using DHCP and has a valid IP address.\n" +
-                            "To avoid conflicts, you cannot run as DHCP server on this interface.\n" +
-                            "Please either:\n" +
-                            "1. Select a different network interface\n" +
-                            "2. Change the interface to use static IP\n",
-                            "DHCP Configuration Warning",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Warning);
-                        
-                        // Switch back to Auto DHCP mode and disable Manual DHCP mode
-                        AutoDhcpRadio.IsChecked = true;
-                        ManualDhcpRadio.IsEnabled = false;
-                    }
-                    else
-                    {
-                        // If no DHCP conflict, ensure the radio button is enabled
-                        ManualDhcpRadio.IsEnabled = true;
-                    }
+                    LogMessage($"Selected network interface: {selectedInterface}");
                 }
-            }
-        }
-
-        private void NetworkInterfaceCombo_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            // Re-enable Manual DHCP mode when interface changes
-            ManualDhcpRadio.IsEnabled = true;
-            
-            // If Manual DHCP is selected, check DHCP status for the new interface
-            if (ManualDhcpRadio.IsChecked == true)
-            {
-                ManualDhcpRadio_Checked(sender, new RoutedEventArgs());
             }
         }
 
         private async Task<string> GetSmcIp()
         {
-            string selectedInterface = NetworkInterfaceCombo.SelectedItem.ToString();
-            var selectedNic = networkInterfaces.FirstOrDefault(ni => ni.Name == selectedInterface);
-
-            if (ManualIpRadio.IsChecked == true)
+            try
             {
-                if (string.IsNullOrWhiteSpace(SmcIpTextBox.Text))
-                {
-                    MessageBox.Show("Please enter SMC IP address", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return null;
-                }
-                return SmcIpTextBox.Text;
-            }
-            else if (AutoDhcpRadio.IsChecked == true)
-            {
-                LogMessage("Starting SMC device search...");
-                string smcIp = await GetDhcpAssignedClientIp();
+                LogMessage("[Network] Starting SMC device discovery...");
+                string smcIp = await deviceDiscoveryManager.FindSmcDevice();
+                
                 if (string.IsNullOrEmpty(smcIp))
                 {
-                    LogMessage("Unable to find SMC device");
+                    LogMessage("[Network] No SMC device found");
+                    MessageBox.Show("No SMC device found. Please check your connection and try again.", 
+                                  "Device Not Found", 
+                                  MessageBoxButton.OK, 
+                                  MessageBoxImage.Warning);
                     return null;
                 }
-                LogMessage($"Found SMC device, IP address: {smcIp}");
+
+                LogMessage($"[Network] SMC device found at {smcIp}");
                 return smcIp;
             }
-            else // ManualDhcpRadio.IsChecked == true
+            catch (Exception ex)
             {
-                LogMessage("Configuring network interface...");
-                try
-                {
-                    // Save current network configuration
-                    SaveNetworkConfiguration(selectedInterface);
-
-                    // 如果当前是静态IP，先尝试DHCP模式
-                    var ipv4Properties = selectedNic.GetIPProperties().GetIPv4Properties();
-                    var ipAddress = selectedNic.GetIPProperties().UnicastAddresses
-                        .FirstOrDefault(ip => ip.Address.AddressFamily == AddressFamily.InterNetwork);
-                    
-                    if (!ipv4Properties.IsDhcpEnabled && ipAddress != null && ipAddress.Address.ToString() != "10.10.20.1")
-                    {
-                        LogMessage("Interface is using static IP, trying DHCP client mode first...");
-                        
-                        // 设置为DHCP客户端模式
-                        var process = new Process
-                        {
-                            StartInfo = new ProcessStartInfo
-                            {
-                                FileName = "netsh",
-                                Arguments = $"interface ip set address \"{selectedInterface}\" dhcp",
-                                UseShellExecute = false,
-                                RedirectStandardOutput = true,
-                                RedirectStandardError = true,
-                                CreateNoWindow = true,
-                                Verb = "runas"
-                            }
-                        };
-                        
-                        process.Start();
-                        await WaitForProcessExit(process);
-                        
-                        // 等待一段时间看是否能获取到IP
-                        LogMessage("Waiting for DHCP IP assignment...(Waiting for 10s)");
-                        await Task.Delay(10000); // 等待10秒
-
-                        // 检查是否获取到了IP
-                        var newIpAddress = selectedNic.GetIPProperties().UnicastAddresses
-                            .FirstOrDefault(addr => addr.Address.AddressFamily == AddressFamily.InterNetwork);
-
-                        if (newIpAddress != null && !newIpAddress.Address.ToString().StartsWith("169.254"))
-                        {
-                            LogMessage($"Obtained IP from DHCP: {newIpAddress.Address}");
-                            MessageBox.Show(
-                                "The network interface obtained an IP address from an existing DHCP server.\n" +
-                                "To avoid conflicts, you cannot run as DHCP server on this interface.\n" +
-                                "Please join the sub-net and use the \"As DHCP Client\" mode.",
-                                "DHCP Configuration Warning",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Warning);
-                            
-                            await RestoreNetworkConfiguration();
-                            return null;
-                        }
-                        else
-                        {
-                            LogMessage("No valid IP obtained from DHCP, proceeding with DHCP server setup");
-                        }
-                    }
-
-                    // Configure network interface IP address
-                    if (!await dhcpManager.ConfigureInterface(selectedInterface))
-                    {
-                        await RestoreNetworkConfiguration();
-                        return null;
-                    }
-
-                    await Task.Delay(2000); // Wait for network configuration to take effect
-
-                    // Check for other DHCP servers
-                    bool hasDhcpServer = await dhcpManager.CheckExistingDhcpServer(selectedNic);
-                    if (hasDhcpServer)
-                    {
-                        await RestoreNetworkConfiguration();
-                        return null;
-                    }
-
-                    LogMessage("Starting DHCP server...");
-                    await dhcpManager.StartDhcpServer();
-                    
-                    // 尝试刺激SMC进行DHCP请求
-                    await dhcpManager.StimulateSmcDhcpRequest(selectedInterface);
-                    
-                    // Wait for DHCP server to assign IP
-                    LogMessage("Waiting for SMC to obtain IP address...");
-                    try {
-                        await Task.Delay(20000, _cancellationTokenSource.Token); // Wait 20 seconds
-                    } catch (OperationCanceledException) {
-                        LogMessage("Operation cancelled by user");
-                        await dhcpManager.StopDhcpServer();
-                        await RestoreNetworkConfiguration();
-                        return null;
-                    }
-
-                    // Search for SMC device in subnet
-                    var smcIp = await GetDhcpAssignedClientIp();
-                    
-                    // If first search fails, try stimulating DHCP request again
-                    if (string.IsNullOrEmpty(smcIp))
-                    {
-                        LogMessage("First search found no device, retrying...");
-                        await dhcpManager.StimulateSmcDhcpRequest(selectedInterface);
-                        try {
-                            await Task.Delay(20000, _cancellationTokenSource.Token); // Wait another 20 seconds
-                        } catch (OperationCanceledException) {
-                            LogMessage("Operation cancelled by user");
-                            await dhcpManager.StopDhcpServer();
-                            await RestoreNetworkConfiguration();
-                            return null;
-                        }
-                        smcIp = await GetDhcpAssignedClientIp();
-                    }
-
-                    if (string.IsNullOrEmpty(smcIp))
-                    {
-                        LogMessage("Unable to find SMC device");
-                        await dhcpManager.StopDhcpServer();
-                        await RestoreNetworkConfiguration();
-                        return null;
-                    }
-
-                    return smcIp;
-                }
-                catch (Exception ex)
-                {
-                    LogMessage($"Error configuring network interface: {ex.Message}");
-                    MessageBox.Show($"Error configuring network interface: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    await RestoreNetworkConfiguration();
-                    return null;
-                }
+                LogMessage($"[Network] Error during SMC device discovery: {ex.Message}");
+                MessageBox.Show($"Error during device discovery: {ex.Message}", 
+                              "Error", 
+                              MessageBoxButton.OK, 
+                              MessageBoxImage.Error);
+                return null;
             }
         }
 
@@ -525,7 +315,7 @@ namespace RemoteBMC
         private async Task<string> GetDhcpAssignedClientIp()
         {
             string selectedInterface = NetworkInterfaceCombo.SelectedItem.ToString();
-            bool isManualDhcp = ManualDhcpRadio.IsChecked == true;
+            bool isManualDhcp = ManualIpRadio.IsChecked == true;
             
             var smcIp = await deviceDiscoveryManager.GetDhcpAssignedClientIp(selectedInterface, networkInterfaces, isManualDhcp);
             
@@ -544,286 +334,226 @@ namespace RemoteBMC
 
         private async Task ConfigureConnection(string smcIp)
         {
-            string bmcIp = await DetermineBmcIp(smcIp);
-            
-            if (string.IsNullOrEmpty(bmcIp))
-            {
-                LogMessage("Unable to determine available management interface address");
-                return;
-            }
-
-            LogMessage($"[Debug] Using BMC IP: {bmcIp}");
-
             try
             {
-                await sshConnectionManager.SetupSshForwarding(smcIp, bmcIp, LOCAL_HTTP_PORT, REMOTE_HTTP_PORT);
-                await sshConnectionManager.SetupSshForwarding(smcIp, bmcIp, LOCAL_HTTPS_PORT, REMOTE_HTTPS_PORT);
+                string bmcIp = await DetermineBmcIp(smcIp);
+                if (string.IsNullOrEmpty(bmcIp))
+                {
+                    LogMessage("[Network] Unable to determine BMC IP address");
+                    MessageBox.Show("Unable to determine BMC IP address", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                LogMessage($"[Network] BMC IP address: {bmcIp}");
+
+                // Configure SSH forwarding for HTTP and HTTPS
+                await SetupSshForwarding(smcIp, bmcIp, LOCAL_HTTP_PORT, REMOTE_HTTP_PORT);
+                await SetupSshForwarding(smcIp, bmcIp, LOCAL_HTTPS_PORT, REMOTE_HTTPS_PORT);
+
+                // Verify connections
+                await VerifyConnections(true, true);
 
                 OpenBrowserButton.IsEnabled = true;
-                StartButton.Content = "Reconfigure";
-                LogMessage("Port forwarding is set up, BMC interface is accessible");
+                LogMessage("[Network] Configuration completed successfully");
             }
             catch (Exception ex)
             {
-                LogMessage($"Failed to set up port forwarding: {ex.Message}");
-                MessageBox.Show($"Failed to set up port forwarding: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                LogMessage($"[Network] Error configuring connection: {ex.Message}");
+                MessageBox.Show($"Error configuring connection: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private async Task VerifyConnections(bool checkHttp, bool checkHttps)
         {
-            LogMessage("Verifying connections...");
+            var tasks = new List<Task>();
 
-            // Give SSH connections more time to establish
-            await Task.Delay(10000);
-            
             if (checkHttp)
             {
-                try
+                tasks.Add(Task.Run(async () =>
                 {
-                    using (var client = new TcpClient())
+                    try
                     {
-                        var connectTask = client.ConnectAsync("127.0.0.1", LOCAL_HTTP_PORT);
-                        if (await Task.WhenAny(connectTask, Task.Delay(5000)) == connectTask)
+                        using (var client = new TcpClient())
                         {
-                            LogMessage($"Port {LOCAL_HTTP_PORT} connection successful");
-                        }
-                        else
-                        {
-                            LogMessage($"Port {LOCAL_HTTP_PORT} connection timeout");
+                            await client.ConnectAsync("127.0.0.1", LOCAL_HTTP_PORT);
+                            LogMessage($"[Network] HTTP forwarding verified (Port {LOCAL_HTTP_PORT})");
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    LogMessage($"Port {LOCAL_HTTP_PORT} connection failed: {ex.Message}");
-                }
+                    catch (Exception ex)
+                    {
+                        LogMessage($"[Network] HTTP forwarding verification failed: {ex.Message}");
+                        throw;
+                    }
+                }));
             }
 
             if (checkHttps)
             {
-                try
+                tasks.Add(Task.Run(async () =>
                 {
-                    using (var client = new TcpClient())
+                    try
                     {
-                        var connectTask = client.ConnectAsync("127.0.0.1", LOCAL_HTTPS_PORT);
-                        if (await Task.WhenAny(connectTask, Task.Delay(5000)) == connectTask)
+                        using (var client = new TcpClient())
                         {
-                            LogMessage($"Port {LOCAL_HTTPS_PORT} connection successful");
-                        }
-                        else
-                        {
-                            LogMessage($"Port {LOCAL_HTTPS_PORT} connection timeout");
+                            await client.ConnectAsync("127.0.0.1", LOCAL_HTTPS_PORT);
+                            LogMessage($"[Network] HTTPS forwarding verified (Port {LOCAL_HTTPS_PORT})");
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    LogMessage($"Port {LOCAL_HTTPS_PORT} connection failed: {ex.Message}");
-                }
+                    catch (Exception ex)
+                    {
+                        LogMessage($"[Network] HTTPS forwarding verification failed: {ex.Message}");
+                        throw;
+                    }
+                }));
             }
 
-            // Enable browser button regardless of port verification results
-            LogMessage("Port forwarding setup complete, you can now try to access the BMC interface");
-            OpenBrowserButton.IsEnabled = true;
+            await Task.WhenAll(tasks);
         }
 
         private void OpenBrowserButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                // Open BMC interface in system default browser
                 Process.Start(new ProcessStartInfo
                 {
-                    FileName = "https://127.0.0.1:8443",
+                    FileName = $"https://localhost:{LOCAL_HTTPS_PORT}",
                     UseShellExecute = true
                 });
             }
             catch (Exception ex)
             {
-                LogMessage($"Failed to open browser: {ex.Message}");
-                MessageBox.Show("Failed to open browser, please manually visit https://127.0.0.1:8443", 
-                              "Error", 
-                              MessageBoxButton.OK, 
-                              MessageBoxImage.Error);
+                LogMessage($"[Browser] Failed to open browser: {ex.Message}");
+                MessageBox.Show($"Failed to open browser: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private async Task CleanupExistingConnections()
         {
-            LogMessage("Cleaning up existing connections...");
-
-            // 1. Clean up SSH connections and port forwarding
-            await sshConnectionManager.CleanupConnections();
-
-            // 2. Kill processes using ports
-            await sshConnectionManager.KillPortProcess(LOCAL_HTTP_PORT);
-            await sshConnectionManager.KillPortProcess(LOCAL_HTTPS_PORT);
-
-            // 3. Stop DHCP server if running
             try
             {
-                await dhcpManager.StopDhcpServer();
+                // Kill any processes using our ports
+                KillPortProcess(LOCAL_HTTP_PORT);
+                KillPortProcess(LOCAL_HTTPS_PORT);
+
+                // Wait a bit for processes to be killed
+                await Task.Delay(1000);
+
+                LogMessage("[Network] Cleaned up existing connections");
             }
             catch (Exception ex)
             {
-                LogMessage($"Error stopping DHCP server: {ex.Message}");
+                LogMessage($"[Network] Warning during connection cleanup: {ex.Message}");
             }
-
-            // 4. Restore network configuration if previously configured
-            await networkConfigManager.RestoreNetworkConfiguration();
-
-            LogMessage("Cleanup complete");
         }
 
         private void KillPortProcess(int port)
         {
             try
             {
-                var processInfo = new ProcessStartInfo
+                var processStartInfo = new ProcessStartInfo
                 {
-                    FileName = "cmd.exe",
-                    Arguments = $"/c for /f \"tokens=5\" %a in ('netstat -aon ^| findstr :{port}') do taskkill /F /PID %a",
+                    FileName = "netstat",
+                    Arguments = $"-ano | findstr :{port}",
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
-                    RedirectStandardError = true,
                     CreateNoWindow = true
                 };
 
-                var process = Process.Start(processInfo);
-                process.WaitForExit();
+                using (var process = Process.Start(processStartInfo))
+                {
+                    string output = process.StandardOutput.ReadToEnd();
+                    foreach (string line in output.Split('\n'))
+                    {
+                        if (line.Contains($":{port}"))
+                        {
+                            string[] parts = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                            if (parts.Length > 4 && int.TryParse(parts[4], out int pid))
+                            {
+                                Process.GetProcessById(pid).Kill();
+                                LogMessage($"[Network] Killed process using port {port} (PID: {pid})");
+                            }
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
-                LogMessage($"Error terminating process on port {port}: {ex.Message}");
+                LogMessage($"[Network] Warning during port cleanup: {ex.Message}");
             }
         }
 
         private void LogMessage(string message)
         {
-            if (!Dispatcher.CheckAccess())
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                Dispatcher.Invoke(() => LogMessage(message));
-                return;
-            }
-
-            LogTextBox.AppendText($"[{DateTime.Now:HH:mm:ss}] {message}{Environment.NewLine}");
-            LogTextBox.ScrollToEnd();
+                LogTextBox.AppendText($"{DateTime.Now:HH:mm:ss.fff} {message}\n");
+                LogTextBox.ScrollToEnd();
+            });
         }
 
         protected override async void OnClosed(EventArgs e)
         {
-            await RestoreNetworkConfiguration(); // Restore network configuration when program closes
             await CleanupExistingConnections();
             base.OnClosed(e);
         }
 
-        private void SetupSshForwarding(string smcIp, string bmcIp, int localPort, int remotePort)
+        private async Task SetupSshForwarding(string smcIp, string bmcIp, int localPort, int remotePort)
         {
-            LogMessage($"Setting up port forwarding: Local {localPort} -> Remote {remotePort}");
-
-            // First check if local port is already in use
             try
             {
-                var listener = new TcpListener(IPAddress.Loopback, localPort);
-                listener.Start();
-                listener.Stop();
-            }
-            catch (SocketException)
-            {
-                LogMessage($"Port {localPort} is in use, attempting to terminate existing connection");
-                KillPortProcess(localPort);
-            }
-
-            try
-            {
-// 需要将方法声明改为 private async void SetupSshForwarding
-                sshConnectionManager.SetupSshForwarding(smcIp, bmcIp, localPort, remotePort).Wait();
-                LogMessage($"SSH connection and port forwarding established: {localPort} -> {remotePort}");
-
-                // Monitor connection status
-                
-                {
-                    try
-                    {
-                        while (sshConnectionManager.IsConnected)
-                        {
-                            Task.Delay(1000).Wait();
-                        }
-                        LogMessage($"SSH connection disconnected: {localPort} -> {remotePort}");
-                    }
-                    catch
-                    {
-                        // Ignore exceptions
-                    }
-                } 
+                await sshConnectionManager.SetupSshForwarding(smcIp, bmcIp, localPort, remotePort);
+                LogMessage($"[Network] Port forwarding set up: localhost:{localPort} -> {bmcIp}:{remotePort}");
             }
             catch (Exception ex)
             {
-                LogMessage($"Error setting up SSH forwarding: {ex.Message}");
+                LogMessage($"[Network] Error setting up port forwarding: {ex.Message}");
+                throw;
             }
-        }
-
-        private void SaveNetworkConfiguration(string interfaceName)
-        {
-            networkConfigManager.SaveNetworkConfiguration(interfaceName);
-        }
-
-        private async Task RestoreNetworkConfiguration()
-        {
-            await networkConfigManager.RestoreNetworkConfiguration();
         }
 
         private async Task WaitForProcessExit(Process process)
         {
-            var tcs = new TaskCompletionSource<bool>();
-            process.EnableRaisingEvents = true;
-            process.Exited += (sender, args) => tcs.TrySetResult(true);
-            if (process.HasExited) return;
-            await tcs.Task;
+            string output = await process.StandardOutput.ReadToEndAsync();
+            string error = await process.StandardError.ReadToEndAsync();
+            await Task.Run(() => process.WaitForExit());
+
+            if (!string.IsNullOrEmpty(error))
+            {
+                LogMessage($"Process error output: {error}");
+            }
+            if (!string.IsNullOrEmpty(output))
+            {
+                LogMessage($"Process output: {output}");
+            }
         }
 
         private async void ClearButton_Click(object sender, RoutedEventArgs e)
         {
+            if (ClearButton.Content.ToString() == "Abort")
+            {
+                _cancellationTokenSource?.Cancel();
+                return;
+            }
+
             try
             {
-                if (_cancellationTokenSource != null)
-                {
-                    // 如果正在执行操作，则中止操作
-                    _cancellationTokenSource.Cancel();
-                    LogMessage("Operation aborted by user");
-                    
-                    // 清理所有SSH连接和端口转发
-                    await CleanupExistingConnections();
-                    
-                    // 重置UI状态
-                    StartButton.IsEnabled = true;
-                    StartButton.Content = "Start Configuration";
-                    ClearButton.Content = "Clear";
-                    OpenBrowserButton.IsEnabled = false;
-                    return;
-                }
-
                 ClearButton.IsEnabled = false;
-                LogMessage("Starting configuration cleanup...");
-
-                // Clean up existing connections
-                await CleanupExistingConnections();
-
-                // Reset UI state
+                StartButton.IsEnabled = false;
                 OpenBrowserButton.IsEnabled = false;
-                StartButton.Content = "Start Configuration";
+
+                await CleanupExistingConnections();
                 LogTextBox.Clear();
-                LogMessage("Configuration cleared successfully");
+                LogMessage("[System] Configuration cleared");
             }
             catch (Exception ex)
             {
-                LogMessage($"Error during cleanup: {ex.Message}");
+                LogMessage($"[System] Error during cleanup: {ex.Message}");
                 MessageBox.Show($"Error during cleanup: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
                 ClearButton.IsEnabled = true;
+                StartButton.IsEnabled = true;
             }
         }
 
@@ -831,24 +561,11 @@ namespace RemoteBMC
         {
             try
             {
-                // 防止窗口立即关闭，等待清理完成
-                e.Cancel = true;
-                
-                // 显示等待提示
-                LogMessage("Cleaning up before exit...");
-                IsEnabled = false; // 禁用窗口输入
-                
-                // 执行清理操作
                 await CleanupExistingConnections();
-                
-                // 确保程序真正退出
-                Application.Current.Shutdown();
             }
             catch (Exception ex)
             {
-                LogMessage($"Error during cleanup: {ex.Message}");
-                // 发生错误时仍然允许程序退出
-                Application.Current.Shutdown();
+                LogMessage($"[System] Error during cleanup: {ex.Message}");
             }
         }
     }

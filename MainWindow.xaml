@@ -1,7 +1,8 @@
 <Window x:Class="RemoteBMC.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="BRISK - BMC Remote Interactive Setup Kit" Height="600" Width="800"
+        Title="BRISK-BMC Remote Interactive Setup Kit v{Version}" Height="800" Width="600"
+        WindowStartupLocation="CenterScreen"
         Icon="remote_bmc.ico">
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -15,42 +16,46 @@
                 <StackPanel Margin="5">
                     <GroupBox Header="IP Address Configuration" Margin="0,0,0,5">
                         <StackPanel Margin="5">
-                            <DockPanel>
+                            <DockPanel Margin="0,0,0,8" VerticalAlignment="Center">
+                                <Button x:Name="AutoScanHelpButton"
+                                        Content="?"
+                                        Width="20"
+                                        Height="20"
+                                        Margin="0,0,5,0"
+                                        Click="HelpButton_Click"
+                                        DockPanel.Dock="Left"
+                                        VerticalAlignment="Center"
+                                        ToolTip="Show help for direct connect mode"/>
+                                <RadioButton x:Name="AutoScanRadio" 
+                                           Content="Direct connect (169.254.x.x)" 
+                                           GroupName="IpConfigGroup" 
+                                           VerticalAlignment="Center"
+                                           VerticalContentAlignment="Center"
+                                           IsChecked="True" />
+                            </DockPanel>
+                            <DockPanel Margin="0,0,0,8" VerticalAlignment="Center">
                                 <Button x:Name="AutoDhcpHelpButton"
                                         Content="?"
                                         Width="20"
                                         Height="20"
                                         Margin="0,0,5,0"
                                         Click="HelpButton_Click"
-                                        DockPanel.Dock="Left"/>
-                                <RadioButton x:Name="AutoDhcpRadio" 
-                                           Content="As DHCP Client  (Join an existing sub-net)" 
-                                           IsChecked="True" 
-                                           Margin="0,5"
+                                        DockPanel.Dock="Left"
+                                        VerticalAlignment="Center"
+                                        ToolTip="Show help for DHCP client mode"/>
+                                <RadioButton x:Name="DhcpClientRadio" 
+                                           Content="DHCP Client" 
                                            GroupName="IpConfigGroup"
-                                           DockPanel.Dock="Left"/>
+                                           VerticalAlignment="Center"
+                                           VerticalContentAlignment="Center" />
                             </DockPanel>
-                            <DockPanel>
-                                <Button x:Name="ManualDhcpHelpButton"
-                                        Content="?"
-                                        Width="20"
-                                        Height="20"
-                                        Margin="0,0,5,0"
-                                        Click="HelpButton_Click"
-                                        DockPanel.Dock="Left"/>
-                                <RadioButton x:Name="ManualDhcpRadio" 
-                                           Content="As DHCP Server (Direct Connect)" 
-                                           Margin="0,5"
-                                           Checked="ManualDhcpRadio_Checked"
-                                           GroupName="IpConfigGroup"
-                                           DockPanel.Dock="Left"/>
-                            </DockPanel>
-                            <DockPanel>
+                            <DockPanel Margin="0,0,0,8" VerticalAlignment="Center">
+                                <Rectangle Width="20" Height="20" Margin="0,0,5,0" Fill="Transparent"/>
                                 <RadioButton x:Name="ManualIpRadio" 
-                                       Content="Manual IP Setting" 
-                                       Margin="25,5,0,5"
-                                       GroupName="IpConfigGroup"
-                                       DockPanel.Dock="Left"/>
+                                           Content="Manual IP Setting" 
+                                           GroupName="IpConfigGroup"
+                                           VerticalAlignment="Center"
+                                           VerticalContentAlignment="Center" />
                             </DockPanel>
                         </StackPanel>
                     </GroupBox>

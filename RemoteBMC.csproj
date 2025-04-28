@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <PackageReference Include="SSH.NET" Version="2020.0.2" />
-  </ItemGroup>
-
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net48</TargetFramework>
@@ -13,7 +9,24 @@
     <OutputPath>BRISK\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <ApplicationIcon>remote_bmc.ico</ApplicationIcon>
+    
+    <!-- 版本号配置 -->
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.*</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Deterministic>false</Deterministic>
+    <Company>BMC</Company>
+    <Product>BRISK</Product>
+    <Description>BMC Remote Interactive Setup Kit</Description>
+    <Copyright>Nuo.su@disguise.one</Copyright>
+    
+    <!-- WPF编译配置 -->
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SSH.NET" Version="2020.0.2" />
+  </ItemGroup>
 
   <ItemGroup>
     <Resource Include="remote_bmc.ico" />
@@ -23,7 +36,7 @@
     <Content Include="client.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="server.png">
+    <Content Include="direct.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
