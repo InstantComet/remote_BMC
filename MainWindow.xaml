@@ -43,11 +43,20 @@
                                         DockPanel.Dock="Left"
                                         VerticalAlignment="Center"
                                         ToolTip="Show help for DHCP client mode"/>
-                                <RadioButton x:Name="DhcpClientRadio" 
-                                           Content="DHCP Client" 
-                                           GroupName="IpConfigGroup"
-                                           VerticalAlignment="Center"
-                                           VerticalContentAlignment="Center" />
+                                <DockPanel>
+                                    <RadioButton x:Name="DhcpClientRadio" 
+                                               Content="DHCP Client" 
+                                               GroupName="IpConfigGroup"
+                                               VerticalAlignment="Center"
+                                               VerticalContentAlignment="Center" />
+                                    <CheckBox x:Name="OledIpConfirmCheckBox"
+                                              Content="Please confirm OLED panel shows 169.254.x.x IP"
+                                              Margin="10,0,0,0"
+                                              IsEnabled="{Binding IsChecked, ElementName=DhcpClientRadio}"
+                                              Checked="OledIpConfirmCheckBox_Checked"
+                                              Unchecked="OledIpConfirmCheckBox_Checked"
+                                              VerticalAlignment="Center"/>
+                                </DockPanel>
                             </DockPanel>
                             <DockPanel Margin="0,0,0,8" VerticalAlignment="Center">
                                 <Rectangle Width="20" Height="20" Margin="0,0,5,0" Fill="Transparent"/>

@@ -28,6 +28,43 @@ namespace RemoteBMC
         {
             try
             {
+                // 在DHCP模式下检查网卡配置
+                if (isDhcpMode && networkInterface != null)
+                {                    
+                    var ipProperties = networkInterface.GetIPProperties();
+                    var ipv4Address = ipProperties.UnicastAddresses
+                        .FirstOrDefault(addr => addr.Address.AddressFamily == AddressFamily.InterNetwork);
+
+                    if (ipv4Address != null)
+                    {
+                        string currentIp = ipv4Address.Address.ToString();
+                        if (currentIp.StartsWith("169.254."))
+                        {
+                            _logMessage("[Network] Link-local address detected in DHCP mode");
+                            MessageBox.Show(
+                                "No valid DHCP server found in current network. \nPlease consider using Direct Connection mode instead.",
+                                "Network Configuration Warning",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                            return null;
+                        }
+
+                        // 检查是否为静态IP（通过检查DHCP租约时间是否为空）
+                        var dhcpLeaseLifetime = ipv4Address.GetType().GetProperty("DhcpLeaseLifetime")?.GetValue(ipv4Address) as TimeSpan?;
+                        if (ipv4Address.PrefixLength > 0 && !dhcpLeaseLifetime.HasValue)
+                        {
+                            _logMessage("[Network] Static IP configuration detected in DHCP mode, attempting to get DHCP IP...");
+                            var dhcpIp = await GetDhcpAssignedClientIp(networkInterface.Name, new List<NetworkInterface> { networkInterface }, true);
+                            if (string.IsNullOrEmpty(dhcpIp))
+                            {
+                                _logMessage("[Network] Failed to get DHCP IP");
+                                return null;
+                            }
+                            _logMessage($"[Network] Successfully switched to DHCP mode, assigned IP: {dhcpIp}");
+                        }
+                    }
+                }
+
                 List<string> ipAddressesToScan;
                 if (networkInterface != null)
                 {
@@ -234,7 +271,7 @@ namespace RemoteBMC
                     return null;
                 }
 
-                var ipProperties = selectedNic.GetIPProperties();
+                var ipProperties = await Task.Run(() => selectedNic.GetIPProperties());
                 var ipv4Address = ipProperties.UnicastAddresses
                     .FirstOrDefault(addr => addr.Address.AddressFamily == AddressFamily.InterNetwork);
 

@@ -235,12 +235,24 @@ namespace RemoteBMC
             }
             finally
             {
-                StartButton.IsEnabled = true;
+StartButton.IsEnabled = DhcpClientRadio.IsChecked == true ? false : true;
                 ClearButton.Content = "Clear Configuration";
                 ClearButton.IsEnabled = true;
                 _cancellationTokenSource?.Dispose();
                 _cancellationTokenSource = null;
             }
+        }
+
+        private void OledIpConfirmCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            StartButton.IsEnabled = DhcpClientRadio.IsChecked == true ? OledIpConfirmCheckBox.IsChecked == true : true;
+        }
+
+        private void DhcpClientRadio_Checked(object sender, RoutedEventArgs e)
+        {
+            SmcIpTextBox.Text = string.Empty;
+            StartButton.IsEnabled = OledIpConfirmCheckBox.IsChecked == true;
+            OledIpConfirmCheckBox.IsEnabled = true;
         }
 
         private void NetworkInterfaceCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
