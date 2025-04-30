@@ -39,6 +39,7 @@ namespace RemoteBMC
             }
 
             InitializeComponent();
+            StartButton.IsEnabled = false;
             this.Closing += MainWindow_Closing;
             networkConfigManager = new NetworkConfigurationManager(LogMessage);
             sshConnectionManager = new SshConnectionManager(LogMessage);
@@ -96,7 +97,7 @@ namespace RemoteBMC
         private void HelpButton_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
-            string imagePath = button.Name == "AutoDhcpHelpButton" ? "client.png" : "server.png";
+            string imagePath = button.Name == "AutoDhcpHelpButton" ? "client.png" : "direct.png";
             var helpDialog = new HelpImageDialog(imagePath);
             helpDialog.Owner = this;
             helpDialog.ShowDialog();
@@ -235,7 +236,7 @@ namespace RemoteBMC
             }
             finally
             {
-StartButton.IsEnabled = DhcpClientRadio.IsChecked == true ? false : true;
+                StartButton.IsEnabled = DirectConnectRadio.IsChecked == true ? false : true;
                 ClearButton.Content = "Clear Configuration";
                 ClearButton.IsEnabled = true;
                 _cancellationTokenSource?.Dispose();
@@ -243,16 +244,26 @@ StartButton.IsEnabled = DhcpClientRadio.IsChecked == true ? false : true;
             }
         }
 
-        private void OledIpConfirmCheckBox_Checked(object sender, RoutedEventArgs e)
+        private void IPConfirmCheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            StartButton.IsEnabled = DhcpClientRadio.IsChecked == true ? OledIpConfirmCheckBox.IsChecked == true : true;
+            StartButton.IsEnabled = true;
+        }
+
+        private void IPConfirmCheckBox_UnChecked(object sender, RoutedEventArgs e)
+        {
+            StartButton.IsEnabled = false;
         }
 
         private void DhcpClientRadio_Checked(object sender, RoutedEventArgs e)
         {
             SmcIpTextBox.Text = string.Empty;
-            StartButton.IsEnabled = OledIpConfirmCheckBox.IsChecked == true;
-            OledIpConfirmCheckBox.IsEnabled = true;
+            StartButton.IsEnabled = DhcpClientConfirmCheckBox.IsChecked == true;
+        }
+
+        private void DirectConnectRadio_Checked(object sender, RoutedEventArgs e)
+        {
+            SmcIpTextBox.Text = string.Empty;
+            StartButton.IsEnabled = DirectConfirmCheckBox.IsChecked == true;
         }
 
         private void NetworkInterfaceCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)

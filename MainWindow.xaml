@@ -14,9 +14,9 @@
         <StackPanel Grid.Row="0" Margin="0,0,0,10">
             <GroupBox Header="Connection Configuration" Margin="0,0,0,10">
                 <StackPanel Margin="5">
-                    <GroupBox Header="IP Address Configuration" Margin="0,0,0,5">
+                    <GroupBox Header="IP Address Configuration" Margin="0,10,0,5">
                         <StackPanel Margin="5">
-                            <DockPanel Margin="0,0,0,8" VerticalAlignment="Center">
+                            <DockPanel Margin="0,5,0,8" VerticalAlignment="Center">
                                 <Button x:Name="AutoScanHelpButton"
                                         Content="?"
                                         Width="20"
@@ -26,12 +26,20 @@
                                         DockPanel.Dock="Left"
                                         VerticalAlignment="Center"
                                         ToolTip="Show help for direct connect mode"/>
-                                <RadioButton x:Name="AutoScanRadio" 
+                                <RadioButton x:Name="DirectConnectRadio" 
                                            Content="Direct connect (169.254.x.x)" 
                                            GroupName="IpConfigGroup" 
                                            VerticalAlignment="Center"
                                            VerticalContentAlignment="Center"
-                                           IsChecked="True" />
+                                           Checked="DirectConnectRadio_Checked" />
+                                           <CheckBox x:Name="DirectConfirmCheckBox"
+                                              Content="OLED panel shows 169.254.x.x IP"
+                                              Margin="0,0,7,0"
+                                              IsEnabled="{Binding IsChecked, ElementName=DirectConnectRadio}"
+                                              Checked="IPConfirmCheckBox_Checked"
+                                              Unchecked="IPConfirmCheckBox_UnChecked"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Right"/>
                             </DockPanel>
                             <DockPanel Margin="0,0,0,8" VerticalAlignment="Center">
                                 <Button x:Name="AutoDhcpHelpButton"
@@ -47,15 +55,17 @@
                                     <RadioButton x:Name="DhcpClientRadio" 
                                                Content="DHCP Client" 
                                                GroupName="IpConfigGroup"
+                                               Checked="DhcpClientRadio_Checked"
                                                VerticalAlignment="Center"
                                                VerticalContentAlignment="Center" />
-                                    <CheckBox x:Name="OledIpConfirmCheckBox"
-                                              Content="Please confirm OLED panel shows 169.254.x.x IP"
-                                              Margin="10,0,0,0"
-                                              IsEnabled="{Binding IsChecked, ElementName=DhcpClientRadio}"
-                                              Checked="OledIpConfirmCheckBox_Checked"
-                                              Unchecked="OledIpConfirmCheckBox_Checked"
-                                              VerticalAlignment="Center"/>
+                                    <CheckBox x:Name="DhcpClientConfirmCheckBox"
+                                               Content="OLED panel shows vaild subnet IP"
+                                               Margin="10,0,0,0"
+                                               IsEnabled="{Binding IsChecked, ElementName=DhcpClientRadio}"
+                                               Checked="IPConfirmCheckBox_Checked"
+                                               Unchecked="IPConfirmCheckBox_UnChecked"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Right"/>
                                 </DockPanel>
                             </DockPanel>
                             <DockPanel Margin="0,0,0,8" VerticalAlignment="Center">
