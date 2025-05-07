@@ -11,6 +11,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.Threading;
+using MaterialDesignThemes.Wpf;
+using MaterialDesignColors;
+using System.Windows.Media;
 
 namespace RemoteBMC
 {
@@ -21,6 +24,10 @@ namespace RemoteBMC
         private const int LOCAL_HTTPS_PORT = 8443;
         private const int REMOTE_HTTP_PORT = 80;
         private const int REMOTE_HTTPS_PORT = 443;
+
+        // 主题切换相关
+        private bool isDarkTheme = false;
+        private PaletteHelper paletteHelper;
 
         private List<NetworkInterface> networkInterfaces;
         private NetworkConfigurationManager networkConfigManager;
@@ -45,6 +52,20 @@ namespace RemoteBMC
             sshConnectionManager = new SshConnectionManager(LogMessage);
             deviceDiscoveryManager = new DeviceDiscoveryManager(LogMessage);
             LoadNetworkInterfaces();
+            
+            // 初始化主题管理器
+            paletteHelper = new PaletteHelper();
+            
+            // 加载保存的主题设置
+            isDarkTheme = Properties.Settings.Default.IsDarkTheme;
+            ThemeToggleButton.IsChecked = isDarkTheme;
+            
+            // 应用主题设置
+            ApplyTheme(isDarkTheme);
+            
+            // 添加主题切换事件处理
+            ThemeToggleButton.Checked += ThemeToggleButton_CheckedChanged;
+            ThemeToggleButton.Unchecked += ThemeToggleButton_CheckedChanged;
         }
 
         private bool IsRunAsAdministrator()
@@ -149,6 +170,23 @@ namespace RemoteBMC
         private void RefreshInterfacesButton_Click(object sender, RoutedEventArgs e)
         {
             RefreshNetworkInterfaces();
+        }
+
+        private void ThemeToggleButton_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            isDarkTheme = ThemeToggleButton.IsChecked ?? false;
+            ApplyTheme(isDarkTheme);
+            
+            // 保存主题设置
+            Properties.Settings.Default.IsDarkTheme = isDarkTheme;
+            Properties.Settings.Default.Save();
+        }
+
+        private void ApplyTheme(bool isDark)
+        {
+            var primaryColor = System.Windows.Media.Color.FromRgb(0, 150, 51); // Material Design Blue
+            var theme = Theme.Create(isDark ? Theme.Dark : Theme.Light, primaryColor, primaryColor);
+            paletteHelper.SetTheme(theme);
         }
 
         private async void ClearIpConfigButton_Click(object sender, RoutedEventArgs e)
@@ -532,6 +570,35 @@ namespace RemoteBMC
                 LogMessage($"[Network] Error setting up port forwarding: {ex.Message}");
                 throw;
             }
+        }
+
+        private void ThemeToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            isDarkTheme = ThemeToggleButton.IsChecked ?? false;
+            var paletteHelper = new PaletteHelper();
+            var theme = paletteHelper.GetTheme();
+
+            theme.SetBaseTheme(new MaterialDesignDarkTheme());
+            isDarkTheme = ThemeToggleButton.IsChecked ?? false;
+
+            if (isDarkTheme)
+            {
+                theme.SetBaseTheme(new MaterialDesignDarkTheme());
+            }
+            else
+            {
+                theme.SetBaseTheme(new MaterialDesignLightTheme());
+            }
+
+            // 设置主色调
+            var primaryColor = System.Windows.Media.Color.FromRgb(33, 150, 243); // Material Design Blue
+            theme.SetPrimaryColor(primaryColor);
+
+            paletteHelper.SetTheme(theme);
+
+            // 保存主题设置
+            Properties.Settings.Default.IsDarkTheme = isDarkTheme;
+            Properties.Settings.Default.Save();
         }
 
         private async Task WaitForProcessExit(Process process)
