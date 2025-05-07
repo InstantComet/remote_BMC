@@ -184,8 +184,16 @@ namespace RemoteBMC
 
         private void ApplyTheme(bool isDark)
         {
-            var primaryColor = System.Windows.Media.Color.FromRgb(0, 150, 51); // Material Design Blue
-            var theme = Theme.Create(isDark ? Theme.Dark : Theme.Light, primaryColor, primaryColor);
+            // 亮主题绿色、暗主题蓝色
+            var lightPrimary = Color.FromRgb(0, 150, 51);
+            var darkPrimary  = Color.FromRgb(33, 150, 243);
+            var primaryColor = isDark ? darkPrimary : lightPrimary;
+
+            var theme = Theme.Create(
+                isDark ? Theme.Dark : Theme.Light,
+                primaryColor,
+                primaryColor
+            );
             paletteHelper.SetTheme(theme);
         }
 
@@ -570,35 +578,6 @@ namespace RemoteBMC
                 LogMessage($"[Network] Error setting up port forwarding: {ex.Message}");
                 throw;
             }
-        }
-
-        private void ThemeToggleButton_Click(object sender, RoutedEventArgs e)
-        {
-            isDarkTheme = ThemeToggleButton.IsChecked ?? false;
-            var paletteHelper = new PaletteHelper();
-            var theme = paletteHelper.GetTheme();
-
-            theme.SetBaseTheme(new MaterialDesignDarkTheme());
-            isDarkTheme = ThemeToggleButton.IsChecked ?? false;
-
-            if (isDarkTheme)
-            {
-                theme.SetBaseTheme(new MaterialDesignDarkTheme());
-            }
-            else
-            {
-                theme.SetBaseTheme(new MaterialDesignLightTheme());
-            }
-
-            // 设置主色调
-            var primaryColor = System.Windows.Media.Color.FromRgb(33, 150, 243); // Material Design Blue
-            theme.SetPrimaryColor(primaryColor);
-
-            paletteHelper.SetTheme(theme);
-
-            // 保存主题设置
-            Properties.Settings.Default.IsDarkTheme = isDarkTheme;
-            Properties.Settings.Default.Save();
         }
 
         private async Task WaitForProcessExit(Process process)
