@@ -20,9 +20,9 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Margin="0,0,0,10">
-            <GroupBox Header="Connection Configuration" Margin="0,0,0,10">
+            <GroupBox Header="Connection Config" Margin="0,0,0,10">
                 <StackPanel Margin="5">
-                    <GroupBox Header="IP Address Configuration" Margin="0,10,0,5">
+                    <GroupBox Header="Connection Type" Margin="0,10,0,5">
                         <StackPanel Margin="5">
                             <DockPanel Margin="0,0,0,8" VerticalAlignment="Center">
                                 <Button x:Name="AutoScanHelpButton"
@@ -127,7 +127,7 @@
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Header="Port Forwarding Configuration" Margin="0,0,0,10">
+            <GroupBox Header="Port Forwarding Info" Margin="0,0,0,10">
                 <StackPanel Margin="5">
                     <DockPanel Margin="0,5">
                         <TextBlock Text="Local Ports:" Width="100"/>
@@ -157,13 +157,13 @@
                     Click="OpenBrowserButton_Click"
                     IsEnabled="False"/>
             <Button x:Name="ClearButton"
-                    Content="Clear Configuration"
+                    Content="Clear Config"
                     Width="120"
                     Height="30"
                     Margin="0,0,10,0"
                     Click="ClearButton_Click"/>
             <Button x:Name="StartButton" 
-                    Content="Start Configuration" 
+                    Content="Start Config" 
                     Width="120" 
                     Height="30"
                     Click="StartButton_Click"/>
