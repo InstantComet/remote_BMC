@@ -8,13 +8,14 @@
         <Setter Property="HeaderTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <TextBlock Text="{Binding}" Foreground="Black"/>
+                    <TextBlock Text="{Binding}" Foreground="#262626"/>
                 </DataTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="Foreground" Value="#262626"/>
     </Style>
     <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
         <Setter Property="Background" Value="White"/>
-        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Foreground" Value="#262626"/>
     </Style>
 </ResourceDictionary>

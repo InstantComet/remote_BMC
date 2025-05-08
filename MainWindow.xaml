@@ -9,9 +9,32 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         FontFamily="{materialDesign:MaterialDesignFont}"
-        Title="BRISK-BMC Remote Interactive Setup Kit v{Version}" Height="800" Width="600"
+        Title="BRISK-BMC Remote Interactive Setup Kit" Height="800" Width="600"
         WindowStartupLocation="CenterScreen"
         Icon="remote_bmc.ico">
+
+        <Window.Resources>
+        <Style x:Key="ThemeIconToggleButton"
+               TargetType="ToggleButton"
+               BasedOn="{StaticResource MaterialDesignSwitchToggleButton}">
+            <Setter Property="Content">
+                <Setter.Value>
+                    <materialDesign:PackIcon Kind="WeatherSunny"
+                                             Width="20" Height="20" />
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Content">
+                        <Setter.Value>
+                            <materialDesign:PackIcon Kind="WeatherNight"
+                                                     Width="20" Height="20" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        </Window.Resources>
     <Grid Margin="10" Style="{DynamicResource MainGridStyle}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -88,7 +111,9 @@
                             </DockPanel>
 
                     <DockPanel Margin="0,5">
-                        <TextBlock Text="Network Interface:" Width="140"/>
+                        <TextBlock Text="Network Interface:" 
+                            Width="140"
+                            Margin="5,5,0,0"/>
                         <Button x:Name="ClearIpConfigButton"
                                 Style="{StaticResource MaterialDesignIconButton}"
                                 Width="20"
@@ -115,7 +140,9 @@
                     </DockPanel>
 
                     <DockPanel Margin="0,5">
-                        <TextBlock Text="SMC IP Address:" Width="140"/>
+                        <TextBlock Text="SMC IP Address:" 
+                            Width="140"
+                            Margin="5,5,0,0"/>
                         <TextBox x:Name="SmcIpTextBox" 
                                 Margin="5,0,0,0"
                                 IsEnabled="{Binding IsChecked, ElementName=ManualIpRadio}"/>
@@ -126,9 +153,11 @@
             <GroupBox Header="Port Forwarding Info" Margin="0,10,0,10">
                 <StackPanel Margin="5">
                     <DockPanel Margin="0,5">
-                        <TextBlock Text="Local Ports:" Width="100"/>
+                        <TextBlock Text="Local Ports:" 
+                            Width="100"
+                            Margin="5,0,0,0"/>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="HTTP: 8880" Margin="5,0"/>
+                            <TextBlock Text="HTTP: 8880" Margin="0,0"/>
                             <TextBlock Text="HTTPS: 8443" Margin="15,0"/>
                         </StackPanel>
                     </DockPanel>
@@ -146,7 +175,7 @@
                     TextWrapping="Wrap"
                     VerticalScrollBarVisibility="Auto"
                     FontFamily="Consolas"
-                    Margin="0"
+                    Margin="5,0,0,0"
                     VerticalAlignment="Stretch"
                     HorizontalAlignment="Stretch"/>
         </GroupBox>
@@ -174,12 +203,12 @@
 
         <!-- Theme Toggle Button -->
         <ToggleButton Grid.Row="2"
-                      Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                      ToolTip="切换暗色/亮色主题"
+                      Style="{StaticResource ThemeIconToggleButton}"
+                      ToolTip="Toggle between Light and Dark theme"
                       x:Name="ThemeToggleButton"
                       HorizontalAlignment="Left"
                       VerticalAlignment="Center"
-                      Margin="10,0,0,0"
+                      Margin="0,0,0,0"
                       Checked="ThemeToggleButton_CheckedChanged"
                       Unchecked="ThemeToggleButton_CheckedChanged" />
 

@@ -13,9 +13,10 @@
             </Setter.Value>
         </Setter>
         <Setter Property="BorderBrush" Value="#404040"/>
+        <Setter Property="Foreground" Value="#f2f2f2"/>
     </Style>
     <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
-        <Setter Property="Background" Value="#2D2D2D"/>
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="#1E1E1E"/>
+        <Setter Property="Foreground" Value="#f2f2f2"/>
     </Style>
 </ResourceDictionary>
