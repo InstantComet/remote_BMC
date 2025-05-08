@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="{DynamicResource MaterialDesignPaper}"
+        Background="{DynamicResource WindowBackground}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
@@ -12,7 +12,7 @@
         Title="BRISK-BMC Remote Interactive Setup Kit v{Version}" Height="800" Width="600"
         WindowStartupLocation="CenterScreen"
         Icon="remote_bmc.ico">
-    <Grid Margin="10">
+    <Grid Margin="10" Style="{DynamicResource MainGridStyle}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>

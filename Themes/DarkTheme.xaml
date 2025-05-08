@@ -4,8 +4,14 @@
     <Style TargetType="Grid" x:Key="MainGridStyle">
         <Setter Property="Background" Value="#1E1E1E"/>
     </Style>
-    <Style TargetType="GroupBox">
-        <Setter Property="Foreground" Value="White"/>
+    <Style TargetType="GroupBox" BasedOn="{StaticResource MaterialDesignGroupBox}">
+        <Setter Property="HeaderTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" Foreground="White"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
         <Setter Property="BorderBrush" Value="#404040"/>
     </Style>
     <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">

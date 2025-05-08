@@ -189,12 +189,29 @@ namespace RemoteBMC
             var darkPrimary  = Color.FromRgb(33, 150, 243);
             var primaryColor = isDark ? darkPrimary : lightPrimary;
 
+            // 设置MaterialDesign主题
             var theme = Theme.Create(
                 isDark ? Theme.Dark : Theme.Light,
                 primaryColor,
                 primaryColor
             );
             paletteHelper.SetTheme(theme);
+
+            // 应用自定义主题样式
+            var themeDictionaries = Application.Current.Resources.MergedDictionaries;
+            var customThemePath = $"Themes/{(isDark ? "Dark" : "Light")}Theme.xaml";
+            var customThemeDict = new ResourceDictionary() { Source = new Uri(customThemePath, UriKind.Relative) };
+
+            // 移除旧的自定义主题
+            var oldTheme = themeDictionaries.FirstOrDefault(d => 
+                d.Source?.OriginalString?.Contains("Theme.xaml") == true);
+            if (oldTheme != null)
+            {
+                themeDictionaries.Remove(oldTheme);
+            }
+
+            // 添加新的自定义主题
+            themeDictionaries.Add(customThemeDict);
         }
 
         private async void ClearIpConfigButton_Click(object sender, RoutedEventArgs e)
