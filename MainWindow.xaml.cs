@@ -185,8 +185,8 @@ namespace RemoteBMC
         private void ApplyTheme(bool isDark)
         {
             // 亮主题绿色、暗主题蓝色
-            var lightPrimary = Color.FromRgb(0, 150, 51);
-            var darkPrimary  = Color.FromRgb(33, 150, 243);
+            var lightPrimary = Color.FromRgb(102, 204, 102);
+            var darkPrimary  = Color.FromRgb(34, 177, 76);
             var primaryColor = isDark ? darkPrimary : lightPrimary;
 
             // 设置MaterialDesign主题
