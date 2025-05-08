@@ -113,7 +113,8 @@
                     <DockPanel Margin="0,5">
                         <TextBlock Text="Network Interface:" 
                             Width="140"
-                            Margin="5,5,0,0"/>
+                            Margin="5,5,0,0"
+                            ToolTip="Select the Network Interface you are using to connect the server"/>
                         <Button x:Name="ClearIpConfigButton"
                                 Style="{StaticResource MaterialDesignIconButton}"
                                 Width="20"
@@ -121,8 +122,8 @@
                                 Margin="5,0,0,0"
                                 Click="ClearIpConfigButton_Click"
                                 DockPanel.Dock="Right"
-                                ToolTip="Clear IP configuration and switch to DHCP">
-                            <materialDesign:PackIcon Kind="Earth" Width="20" Height="20"/>
+                                ToolTip="Clear existing IP configuration and switch to DHCP">
+                            <materialDesign:PackIcon Kind="Radiotower" Width="20" Height="20"/>
                         </Button>
                         <Button x:Name="RefreshInterfacesButton"
                                 Style="{StaticResource MaterialDesignIconButton}"
@@ -142,7 +143,8 @@
                     <DockPanel Margin="0,5">
                         <TextBlock Text="SMC IP Address:" 
                             Width="140"
-                            Margin="5,5,0,0"/>
+                            Margin="5,5,0,0"
+                            ToolTip="SMC IP address will be shown here. You can enter it manually with 'Manual IP setting' mode"/>
                         <TextBox x:Name="SmcIpTextBox" 
                                 Margin="5,0,0,0"
                                 IsEnabled="{Binding IsChecked, ElementName=ManualIpRadio}"/>
