@@ -19,7 +19,7 @@ namespace RemoteBMC
 {
     public partial class MainWindow : Window
     {
-        private CancellationTokenSource _cancellationTokenSource;
+        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private const int LOCAL_HTTP_PORT = 8880;
         private const int LOCAL_HTTPS_PORT = 8443;
         private const int REMOTE_HTTP_PORT = 80;
@@ -379,7 +379,7 @@ namespace RemoteBMC
             {
                 LogMessage("[Network] Starting SMC device discovery...");
                 var selectedInterface = networkInterfaces.FirstOrDefault(ni => ni.Name == NetworkInterfaceCombo.SelectedItem.ToString());
-                string smcIp = await deviceDiscoveryManager.FindSmcDevice(selectedInterface, DhcpClientRadio.IsChecked ?? false);
+                string smcIp = await deviceDiscoveryManager.FindSmcDevice(selectedInterface, DhcpClientRadio.IsChecked ?? false, _cancellationTokenSource.Token);
                 
                 if (string.IsNullOrEmpty(smcIp))
                 {

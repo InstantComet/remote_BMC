@@ -68,12 +68,20 @@ namespace RemoteBMC
                 List<string> ipAddressesToScan;
                 if (networkInterface != null)
                 {
-                    _logMessage("[Network] Starting SMC device search in current network segment...");
-                    ipAddressesToScan = GetDhcpNetworkAddresses(networkInterface);
-                    if (ipAddressesToScan.Count == 0)
+                    if (!isDhcpMode)
                     {
-                        _logMessage("[Network] No valid IP range found in current network segment");
-                        return null;
+                        _logMessage("[Network] Direct connect mode - scanning APIPA network");
+                        ipAddressesToScan = GetLinkLocalAddresses();
+                    }
+                    else
+                    {
+                        _logMessage("[Network] Starting SMC device search in current network segment...");
+                        ipAddressesToScan = GetDhcpNetworkAddresses(networkInterface);
+                        if (ipAddressesToScan.Count == 0)
+                        {
+                            _logMessage("[Network] No valid IP range found in current network segment");
+                            return null;
+                        }
                     }
                 }
                 else
@@ -415,8 +423,11 @@ namespace RemoteBMC
                     using (var sshClient = new SshClient(device.ip, "root", SSH_PASSWORD))
                     {
                         sshClient.ConnectionInfo.Timeout = TimeSpan.FromSeconds(sshTimeout);
-                        await Task.Run(() => sshClient.Connect(), cancellationToken);
-                        var deviceInfo = await GetDeviceInformation(sshClient, cancellationToken);
+                        using (cancellationToken.Register(() => sshClient.Disconnect()))
+                        {
+                            await Task.Run(() => sshClient.Connect(), cancellationToken);
+                            cancellationToken.ThrowIfCancellationRequested();
+                            var deviceInfo = await GetDeviceInformation(sshClient, cancellationToken);
                         if (deviceInfo != null)
                         {
                             smcDevices.Add(deviceInfo.Value);
@@ -425,6 +436,7 @@ namespace RemoteBMC
                         }
                         sshClient.Disconnect();
                     }
+                }
                 }
                 catch (OperationCanceledException)
                 {
