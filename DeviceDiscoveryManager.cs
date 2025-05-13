@@ -40,7 +40,7 @@ namespace RemoteBMC
                         string currentIp = ipv4Address.Address.ToString();
                         if (currentIp.StartsWith("169.254."))
                         {
-                            _logMessage("[Network] Link-local address detected in DHCP mode");
+                            _logMessage("[Network] APIPA address detected in DHCP mode");
                             MessageBox.Show(
                                 "No valid DHCP server found in current network. \nPlease consider using Direct Connection mode instead.",
                                 "Network Configuration Warning",
@@ -97,10 +97,10 @@ namespace RemoteBMC
                         }
                     }
 
-                    // 如果没有找到任何有效的网络接口，则回退到link-local网络
+                    // 如果没有找到任何有效的网络接口，则回退到APIPA网络
                     if (ipAddressesToScan.Count == 0)
                     {
-                        _logMessage("[Network] No valid network interfaces found, falling back to link-local network...");
+                        _logMessage("[Network] No valid network interfaces found, falling back to APIPA network...");
                         _logMessage("[Network] Starting SMC device search in 169.254.x.x network...");
                         ipAddressesToScan = GetLinkLocalAddresses();
                     }
@@ -153,44 +153,23 @@ namespace RemoteBMC
 
         private List<string> GetLinkLocalAddresses()
         {
-            List<string> ipAddressesToScan = new List<string>();
-            _logMessage("[Network] Scanning link-local network (169.254.x.x)");
-            
-            // 优化扫描顺序，先扫描已知的IP地址附近的网段
-            var knownIPs = new[] { 
-                (169, 254, 24, 162),  // 已知的SMC设备IP
-                (169, 254, 5, 235)    // 当前网卡IP
-            };
+            var ipAddressesToScan = new HashSet<string>();
+            _logMessage("[Network] Generating full 169.254.0.0/16 addresses");
 
-            foreach (var (a, b, c, d) in knownIPs)
+            // 生成全量169.254.0.0/16地址
+            Parallel.For(0, 256, thirdOctet =>
             {
-                // 先扫描已知IP
-                ipAddressesToScan.Add($"{a}.{b}.{c}.{d}");
-                
-                // 然后扫描同一个C段
-                for (int i = 1; i <= 254; i++)
+                for (int fourthOctet = 1; fourthOctet < 255; fourthOctet++)
                 {
-                    if (i != d)
+                    lock (ipAddressesToScan)
                     {
-                        ipAddressesToScan.Add($"{a}.{b}.{c}.{i}");
+                        ipAddressesToScan.Add($"169.254.{thirdOctet}.{fourthOctet}");
                     }
                 }
-            }
+            });
 
-            // 最后扫描其他网段
-            for (int i = 0; i < 256; i++)
-            {
-                if (i != 24 && i != 5) // 跳过已扫描的网段
-                {
-                    for (int j = 1; j < 255; j++)
-                    {
-                        ipAddressesToScan.Add($"169.254.{i}.{j}");
-                    }
-                }
-            }
-
-            _logMessage($"[Network] Prepared {ipAddressesToScan.Count} addresses to scan");
-            return ipAddressesToScan;
+            _logMessage($"[Network] Generated {ipAddressesToScan.Count} unique addresses");
+            return ipAddressesToScan.OrderBy(ip => ip).ToList();
         }
 
         private List<string> GetDhcpNetworkAddresses(NetworkInterface networkInterface)
@@ -207,53 +186,69 @@ namespace RemoteBMC
                 return ipAddressesToScan;
             }
 
-            // 获取IP地址和子网掩码
-            byte[] ipBytes = ipv4Address.Address.GetAddressBytes();
-            byte[] maskBytes = ipv4Address.IPv4Mask.GetAddressBytes();
-
-            // 计算网络地址
-            byte[] networkBytes = new byte[4];
-            for (int i = 0; i < 4; i++)
-            {
-                networkBytes[i] = (byte)(ipBytes[i] & maskBytes[i]);
-            }
-
-            // 获取当前网段
-            string baseIp = $"{networkBytes[0]}.{networkBytes[1]}.{networkBytes[2]}";
-            int currentIp = ipBytes[3];
+            // 根据实际IP地址计算网络地址
+            var ipAddress = ipv4Address.Address;
+            var subnetMask = GetSubnetMask(ipv4Address.PrefixLength);
+            var networkAddress = GetNetworkAddress(ipAddress, subnetMask);
             
-            _logMessage($"[Network] Current IP: {ipv4Address.Address}");
-            _logMessage($"[Network] Scanning network: {baseIp}.0/24");
+            _logMessage($"[Network] Calculated network: {networkAddress}/{ipv4Address.PrefixLength}");
 
-            // 优先扫描当前IP附近的地址
-            int scanRadius = 20; // 扫描半径
-            HashSet<int> scannedIps = new HashSet<int>();
+            // 生成当前子网所有地址
+            var totalHosts = (int)Math.Pow(2, 32 - ipv4Address.PrefixLength);
+            var startIp = IpToInt(networkAddress.ToString());
+            var endIp = startIp + totalHosts - 1;
 
-            // 先扫描当前IP附近的地址
-            for (int offset = 0; offset <= scanRadius; offset++)
+            Parallel.For(startIp, endIp + 1, new ParallelOptions(), ipInt =>
             {
-                int lowerIp = currentIp - offset;
-                int upperIp = currentIp + offset;
+                if (ipInt == startIp || ipInt == endIp) return; // 排除网络地址和广播地址
+                var ip = IntToIp(ipInt);
+                lock (ipAddressesToScan)
+                {
+                    ipAddressesToScan.Add(ip);
+                }
+            });
 
-                if (lowerIp > 0 && !scannedIps.Contains(lowerIp))
-                {
-                    ipAddressesToScan.Add($"{baseIp}.{lowerIp}");
-                    scannedIps.Add(lowerIp);
-                }
-                if (upperIp < 255 && !scannedIps.Contains(upperIp))
-                {
-                    ipAddressesToScan.Add($"{baseIp}.{upperIp}");
-                    scannedIps.Add(upperIp);
-                }
+            // 添加辅助方法
+            int IpToInt(string ipAddress)
+            {
+                var bytes = IPAddress.Parse(ipAddress).GetAddressBytes();
+                return (bytes[0] << 24) | (bytes[1] << 16) | (bytes[2] << 8) | bytes[3];
             }
 
-            // 扫描剩余的地址
-            for (int i = 1; i < 255; i++)
+            string IntToIp(int ipAddress)
             {
-                if (!scannedIps.Contains(i))
+                return new IPAddress(BitConverter.GetBytes(ipAddress).Reverse().ToArray()).MapToIPv4().ToString();
+            }
+
+            IPAddress GetNetworkAddress(IPAddress address, IPAddress subnetMask)
+            {
+                var ipBytes = address.GetAddressBytes();
+                var maskBytes = subnetMask.GetAddressBytes();
+                var networkBytes = new byte[ipBytes.Length];
+                for (int i = 0; i < ipBytes.Length; i++)
                 {
-                    ipAddressesToScan.Add($"{baseIp}.{i}");
+                    networkBytes[i] = (byte)(ipBytes[i] & maskBytes[i]);
                 }
+                return new IPAddress(networkBytes);
+            }
+
+            IPAddress GetSubnetMask(int prefixLength)
+            {
+                var maskBytes = new byte[4];
+                for (int i = 0; i < 4; i++)
+                {
+                    if (prefixLength > 8)
+                    {
+                        maskBytes[i] = 0xFF;
+                        prefixLength -= 8;
+                    }
+                    else
+                    {
+                        maskBytes[i] = (byte)(0xFF << (8 - prefixLength));
+                        prefixLength = 0;
+                    }
+                }
+                return new IPAddress(maskBytes);
             }
 
             _logMessage($"[Network] Prepared {ipAddressesToScan.Count} addresses to scan in DHCP network");
@@ -298,8 +293,8 @@ namespace RemoteBMC
             var deviceList = new List<(string ip, bool isAlive)>();
             var tasks = new List<Task>();
             var lockObj = new object();
-            const int sshTimeout = 1000; // SSH连接超时时间1秒
-            const int maxConcurrentTasks = 50; // 限制并发任务数量
+            const int sshTimeout = 100; // SSH连接超时时间1秒
+            const int maxConcurrentTasks = 1000; // 限制并发任务数量
             var semaphore = new SemaphoreSlim(maxConcurrentTasks);
             var localCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
 

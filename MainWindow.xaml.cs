@@ -518,14 +518,23 @@ namespace RemoteBMC
         {
             try
             {
-                // Kill any processes using our ports
+                // 关闭所有SSH连接
+                sshConnectionManager.CloseAllConnections();
+                LogMessage("[Network] Closed all SSH connections");
+
+                // 终止端口进程
                 KillPortProcess(LOCAL_HTTP_PORT);
                 KillPortProcess(LOCAL_HTTPS_PORT);
 
-                // Wait a bit for processes to be killed
-                await Task.Delay(1000);
+                // 添加重试清理机制
+                for (int i = 0; i < 3; i++)
+                {
+                    await Task.Delay(500);
+                    KillPortProcess(LOCAL_HTTP_PORT);
+                    KillPortProcess(LOCAL_HTTPS_PORT);
+                }
 
-                LogMessage("[Network] Cleaned up existing connections");
+                LogMessage("[Network] Cleaned up all connections and processes");
             }
             catch (Exception ex)
             {
@@ -537,6 +546,7 @@ namespace RemoteBMC
         {
             try
             {
+                // 原始netstat查找逻辑
                 var processStartInfo = new ProcessStartInfo
                 {
                     FileName = "netstat",
@@ -556,7 +566,12 @@ namespace RemoteBMC
                             string[] parts = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                             if (parts.Length > 4 && int.TryParse(parts[4], out int pid))
                             {
-                                Process.GetProcessById(pid).Kill();
+                                // 添加taskkill强制终止
+                                Process.Start(new ProcessStartInfo("taskkill", $"/F /PID {pid}") 
+                                { 
+                                    CreateNoWindow = true,
+                                    UseShellExecute = false 
+                                });
                                 LogMessage($"[Network] Killed process using port {port} (PID: {pid})");
                             }
                         }

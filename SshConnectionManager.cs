@@ -150,5 +150,22 @@ namespace RemoteBMC
                 _logMessage($"SSH connection saved");
             }
         }
+
+        public void CloseAllConnections()
+        {
+            foreach (var port in _activeForwardedPorts.Where(p => p.IsStarted))
+            {
+                port.Stop();
+                port.Dispose();
+            }
+            _activeForwardedPorts.Clear();
+
+            foreach (var client in _activeSshClients.Where(c => c.IsConnected))
+            {
+                client.Disconnect();
+                client.Dispose(); 
+            }
+            _activeSshClients.Clear();
+        }
     }
 }
