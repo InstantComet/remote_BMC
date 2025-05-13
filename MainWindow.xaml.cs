@@ -272,13 +272,18 @@ namespace RemoteBMC
             }
         }
 
+        private async void AbortButton_Click(object sender, RoutedEventArgs e)
+        {
+            _cancellationTokenSource?.Cancel();
+            LogMessage("Aborted");
+        }
+
         private async void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            if (StartButton.Content.ToString() == "Abort")
-            {
-                _cancellationTokenSource?.Cancel();
-                return;
-            }
+            Dispatcher.Invoke(() => {
+                StartButton.Click -= StartButton_Click;
+                StartButton.Click += AbortButton_Click;
+            });
 
             try
             {
@@ -312,6 +317,10 @@ namespace RemoteBMC
             }
             finally
             {
+                Dispatcher.Invoke(() => {
+                    StartButton.Click -= AbortButton_Click;
+                    StartButton.Click += StartButton_Click;
+                });
                 StartButton.Content = "To BMC Web";
                 StartButton.Click -= OpenBrowserButton_Click; 
                 StartButton.Click += StartButton_Click;
