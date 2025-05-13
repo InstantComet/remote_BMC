@@ -47,6 +47,8 @@ namespace RemoteBMC
 
             InitializeComponent();
             StartButton.IsEnabled = false;
+            ClearButton.IsEnabled = false;
+            LogTextBox.Clear();
             this.Closing += MainWindow_Closing;
             networkConfigManager = new NetworkConfigurationManager(LogMessage);
             sshConnectionManager = new SshConnectionManager(LogMessage);
@@ -255,6 +257,13 @@ namespace RemoteBMC
                 
                 // 刷新网络接口状态
                 RefreshNetworkInterfaces();
+                
+                // 重置Start按钮状态
+                Dispatcher.Invoke(() => {
+                    StartButton.Content = "Start config";
+                    StartButton.Click -= OpenBrowserButton_Click; 
+                    StartButton.Click += StartButton_Click;
+                });
             }
             catch (Exception ex)
             {
@@ -265,42 +274,54 @@ namespace RemoteBMC
 
         private async void StartButton_Click(object sender, RoutedEventArgs e)
         {
+            if (StartButton.Content.ToString() == "Abort")
+            {
+                _cancellationTokenSource?.Cancel();
+                return;
+            }
+
             try
             {
-                StartButton.IsEnabled = false;
-                ClearButton.Content = "Abort";
-                ClearButton.IsEnabled = true;
-                OpenBrowserButton.IsEnabled = false;
-                
+                StartButton.Content = "Abort";
+                ClearButton.IsEnabled = false;
+       
                 _cancellationTokenSource = new CancellationTokenSource();
 
-                // Clean up existing connections
                 await CleanupExistingConnections();
                 LogTextBox.Clear();
 
                 if (NetworkInterfaceCombo.SelectedItem == null)
                 {
-                    MessageBox.Show("Please select a network interface", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("请选择网络接口", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
                 string smcIp = await GetSmcIp();
-                if (string.IsNullOrEmpty(smcIp))
-                {
-                    return;
-                }
+                if (string.IsNullOrEmpty(smcIp)) return;
 
                 await ConfigureConnection(smcIp);
             }
+            catch (OperationCanceledException)
+            {
+                LogMessage("Aborted");
+            }
             catch (Exception ex)
             {
-                LogMessage($"Error occurred: {ex.Message}");
-                MessageBox.Show($"Configuration error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                LogMessage($"发生错误: {ex.Message}");
+                MessageBox.Show($"配置错误: {ex.Message}", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
-                StartButton.IsEnabled = DirectConnectRadio.IsChecked == true ? false : true;
-                ClearButton.Content = "Clear Config";
+                StartButton.Content = "To BMC Web";
+                StartButton.Click -= OpenBrowserButton_Click; 
+                StartButton.Click += StartButton_Click;
+                StartButton.IsEnabled = true;
+                
+                // 切换按钮事件处理
+                Dispatcher.Invoke(() => {
+                    StartButton.Click -= StartButton_Click;
+                    StartButton.Click += OpenBrowserButton_Click;
+                });
                 ClearButton.IsEnabled = true;
                 _cancellationTokenSource?.Dispose();
                 _cancellationTokenSource = null;
@@ -440,8 +461,13 @@ namespace RemoteBMC
                 // Verify connections
                 await VerifyConnections(true, true);
 
-                OpenBrowserButton.IsEnabled = true;
                 LogMessage("[Network] Configuration completed successfully");
+                
+                // 切换按钮事件处理
+                Dispatcher.Invoke(() => {
+                    StartButton.Click -= StartButton_Click;
+                    StartButton.Click += OpenBrowserButton_Click;
+                });
             }
             catch (Exception ex)
             {
@@ -588,7 +614,7 @@ namespace RemoteBMC
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                LogTextBox.AppendText($"{DateTime.Now:HH:mm:ss.fff} {message}\n");
+                LogTextBox.AppendText($"{DateTime.Now:HH:mm:ss} {message}\n");
                 LogTextBox.ScrollToEnd();
             });
         }
@@ -631,17 +657,12 @@ namespace RemoteBMC
 
         private async void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ClearButton.Content.ToString() == "Abort")
-            {
-                _cancellationTokenSource?.Cancel();
-                return;
-            }
+
 
             try
             {
                 ClearButton.IsEnabled = false;
                 StartButton.IsEnabled = false;
-                OpenBrowserButton.IsEnabled = false;
 
                 await CleanupExistingConnections();
                 LogTextBox.Clear();
@@ -654,8 +675,13 @@ namespace RemoteBMC
             }
             finally
             {
-                ClearButton.IsEnabled = true;
+                StartButton.Content = "Start config";
+                StartButton.Click -= OpenBrowserButton_Click; 
+                StartButton.Click += StartButton_Click;
                 StartButton.IsEnabled = true;
+                ClearButton.IsEnabled = false;
+                _cancellationTokenSource?.Dispose();
+                _cancellationTokenSource = null;
             }
         }
 
