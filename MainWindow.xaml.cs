@@ -300,7 +300,7 @@ namespace RemoteBMC
             finally
             {
                 StartButton.IsEnabled = DirectConnectRadio.IsChecked == true ? false : true;
-                ClearButton.Content = "Clear Configuration";
+                ClearButton.Content = "Clear Config";
                 ClearButton.IsEnabled = true;
                 _cancellationTokenSource?.Dispose();
                 _cancellationTokenSource = null;
@@ -348,7 +348,8 @@ namespace RemoteBMC
             try
             {
                 LogMessage("[Network] Starting SMC device discovery...");
-                string smcIp = await deviceDiscoveryManager.FindSmcDevice();
+                var selectedInterface = networkInterfaces.FirstOrDefault(ni => ni.Name == NetworkInterfaceCombo.SelectedItem.ToString());
+                string smcIp = await deviceDiscoveryManager.FindSmcDevice(selectedInterface, DhcpClientRadio.IsChecked ?? false);
                 
                 if (string.IsNullOrEmpty(smcIp))
                 {
