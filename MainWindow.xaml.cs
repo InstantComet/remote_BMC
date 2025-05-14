@@ -19,7 +19,7 @@ namespace RemoteBMC
 {
     public partial class MainWindow : Window
     {
-        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+
         private const int LOCAL_HTTP_PORT = 8880;
         private const int LOCAL_HTTPS_PORT = 8443;
         private const int REMOTE_HTTP_PORT = 80;
@@ -257,13 +257,6 @@ namespace RemoteBMC
                 
                 // 刷新网络接口状态
                 RefreshNetworkInterfaces();
-                
-                // 重置Start按钮状态
-                Dispatcher.Invoke(() => {
-                    StartButton.Content = "Start config";
-                    StartButton.Click -= OpenBrowserButton_Click; 
-                    StartButton.Click += StartButton_Click;
-                });
             }
             catch (Exception ex)
             {
@@ -272,68 +265,88 @@ namespace RemoteBMC
             }
         }
 
-        private async void AbortButton_Click(object sender, RoutedEventArgs e)
-        {
-            _cancellationTokenSource?.Cancel();
-            LogMessage("Aborted");
-        }
+
+// 类成员
+        private bool isConfigured = false;
 
         private async void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            Dispatcher.Invoke(() => {
-                StartButton.Click -= StartButton_Click;
-                StartButton.Click += AbortButton_Click;
-            });
+            if (!isConfigured)
+            {
+                // —— 配置分支 —— 
+                StartButton.IsEnabled = false;
+                ClearButton.IsEnabled = false;
+                StartButton.Content = "Working...";
+
+                try
+                {
+                    await CleanupExistingConnections();
+
+                    if (NetworkInterfaceCombo.SelectedItem == null)
+                    {
+                        MessageBox.Show("请选择网络接口", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                        StartButton.Content = "Start config";
+                        return;
+                    }
+
+                    string smcIp = await GetSmcIp();
+                    if (string.IsNullOrEmpty(smcIp))
+                    {
+                        StartButton.Content = "Start config";
+                        return;
+                    }
+
+                    await ConfigureConnection(smcIp);
+
+                    // 配置成功
+                    isConfigured = true;
+                    StartButton.Content = "To BMC Web";
+                    ClearButton.IsEnabled = true;
+                }
+                catch (Exception ex)
+                {
+                    LogMessage($"发生错误: {ex.Message}");
+                    MessageBox.Show($"配置错误: {ex.Message}", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                    StartButton.Content = "Start config";
+                }
+                finally
+                {
+                    StartButton.IsEnabled = true;
+                }
+            }
+            else
+            {
+                // —— 已配置，直接打开浏览器 —— 
+                OpenBrowserButton_Click(sender, e);
+            }
+        }
+
+        private async void ClearButton_Click(object sender, RoutedEventArgs e)
+        {
+            // 重置状态
+            isConfigured = false;
+
+            ClearButton.IsEnabled = false;
+            StartButton.IsEnabled = false;
+            StartButton.Content = "Start config";
+            LogTextBox.Clear();
 
             try
             {
-                StartButton.Content = "Abort";
-                ClearButton.IsEnabled = false;
-       
-                _cancellationTokenSource = new CancellationTokenSource();
-
                 await CleanupExistingConnections();
-                LogTextBox.Clear();
-
-                if (NetworkInterfaceCombo.SelectedItem == null)
-                {
-                    MessageBox.Show("请选择网络接口", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                string smcIp = await GetSmcIp();
-                if (string.IsNullOrEmpty(smcIp)) return;
-
-                await ConfigureConnection(smcIp);
-            }
-            catch (OperationCanceledException)
-            {
-                LogMessage("Aborted");
+                LogMessage("[System] Configuration cleared");
             }
             catch (Exception ex)
             {
-                LogMessage($"发生错误: {ex.Message}");
-                MessageBox.Show($"配置错误: {ex.Message}", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                LogMessage($"[System] Error during cleanup: {ex.Message}");
+                MessageBox.Show($"Error during cleanup: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
-                Dispatcher.Invoke(() => {
-                    StartButton.Click -= AbortButton_Click;
-                    StartButton.Click += StartButton_Click;
-                });
-                StartButton.Content = "To BMC Web";
-                StartButton.Click -= OpenBrowserButton_Click; 
-                StartButton.Click += StartButton_Click;
+                // 不论成功还是失败，都在清理逻辑之后才允许 Start 可用
                 StartButton.IsEnabled = true;
-                
-                // 切换按钮事件处理
-                Dispatcher.Invoke(() => {
-                    StartButton.Click -= StartButton_Click;
-                    StartButton.Click += OpenBrowserButton_Click;
-                });
-                ClearButton.IsEnabled = true;
-                _cancellationTokenSource?.Dispose();
-                _cancellationTokenSource = null;
+                // Clear 按钮保持禁用，直到下一次配置成功再打开
+                ClearButton.IsEnabled = false;
             }
         }
 
@@ -377,13 +390,13 @@ namespace RemoteBMC
         {
             try
             {
-                LogMessage("[Network] Starting SMC device discovery...");
+                LogMessage("Starting SMC device discovery...");
                 var selectedInterface = networkInterfaces.FirstOrDefault(ni => ni.Name == NetworkInterfaceCombo.SelectedItem.ToString());
-                string smcIp = await deviceDiscoveryManager.FindSmcDevice(selectedInterface, DhcpClientRadio.IsChecked ?? false, _cancellationTokenSource.Token);
+                string smcIp = await deviceDiscoveryManager.FindSmcDevice(selectedInterface, DhcpClientRadio.IsChecked ?? false);
                 
                 if (string.IsNullOrEmpty(smcIp))
                 {
-                    LogMessage("[Network] No SMC device found");
+                    LogMessage("No SMC device found");
                     MessageBox.Show("No SMC device found. Please check your connection and try again.", 
                                   "Device Not Found", 
                                   MessageBoxButton.OK, 
@@ -391,12 +404,12 @@ namespace RemoteBMC
                     return null;
                 }
 
-                LogMessage($"[Network] SMC device found at {smcIp}");
+                LogMessage($"SMC device found at {smcIp}");
                 return smcIp;
             }
             catch (Exception ex)
             {
-                LogMessage($"[Network] Error during SMC device discovery: {ex.Message}");
+                LogMessage($"Error during SMC device discovery: {ex.Message}");
                 MessageBox.Show($"Error during device discovery: {ex.Message}", 
                               "Error", 
                               MessageBoxButton.OK, 
@@ -456,12 +469,12 @@ namespace RemoteBMC
                 string bmcIp = await DetermineBmcIp(smcIp);
                 if (string.IsNullOrEmpty(bmcIp))
                 {
-                    LogMessage("[Network] Unable to determine BMC IP address");
+                    LogMessage("Unable to determine BMC IP address");
                     MessageBox.Show("Unable to determine BMC IP address", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                LogMessage($"[Network] BMC IP address: {bmcIp}");
+                LogMessage($"BMC IP address: {bmcIp}");
 
                 // Configure SSH forwarding for HTTP and HTTPS
                 await SetupSshForwarding(smcIp, bmcIp, LOCAL_HTTP_PORT, REMOTE_HTTP_PORT);
@@ -470,17 +483,12 @@ namespace RemoteBMC
                 // Verify connections
                 await VerifyConnections(true, true);
 
-                LogMessage("[Network] Configuration completed successfully");
-                
-                // 切换按钮事件处理
-                Dispatcher.Invoke(() => {
-                    StartButton.Click -= StartButton_Click;
-                    StartButton.Click += OpenBrowserButton_Click;
-                });
+                LogMessage("Configuration completed successfully");
+            
             }
             catch (Exception ex)
             {
-                LogMessage($"[Network] Error configuring connection: {ex.Message}");
+                LogMessage($"Error configuring connection: {ex.Message}");
                 MessageBox.Show($"Error configuring connection: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -498,12 +506,12 @@ namespace RemoteBMC
                         using (var client = new TcpClient())
                         {
                             await client.ConnectAsync("127.0.0.1", LOCAL_HTTP_PORT);
-                            LogMessage($"[Network] HTTP forwarding verified (Port {LOCAL_HTTP_PORT})");
+                            LogMessage($"HTTP forwarding verified (Port {LOCAL_HTTP_PORT})");
                         }
                     }
                     catch (Exception ex)
                     {
-                        LogMessage($"[Network] HTTP forwarding verification failed: {ex.Message}");
+                        LogMessage($"HTTP forwarding verification failed: {ex.Message}");
                         throw;
                     }
                 }));
@@ -518,12 +526,12 @@ namespace RemoteBMC
                         using (var client = new TcpClient())
                         {
                             await client.ConnectAsync("127.0.0.1", LOCAL_HTTPS_PORT);
-                            LogMessage($"[Network] HTTPS forwarding verified (Port {LOCAL_HTTPS_PORT})");
+                            LogMessage($"HTTPS forwarding verified (Port {LOCAL_HTTPS_PORT})");
                         }
                     }
                     catch (Exception ex)
                     {
-                        LogMessage($"[Network] HTTPS forwarding verification failed: {ex.Message}");
+                        LogMessage($"HTTPS forwarding verification failed: {ex.Message}");
                         throw;
                     }
                 }));
@@ -555,7 +563,7 @@ namespace RemoteBMC
             {
                 // 关闭所有SSH连接
                 sshConnectionManager.CloseAllConnections();
-                LogMessage("[Network] Closed all SSH connections");
+                LogMessage("Closing all SSH connections");
 
                 // 终止端口进程
                 KillPortProcess(LOCAL_HTTP_PORT);
@@ -564,16 +572,26 @@ namespace RemoteBMC
                 // 添加重试清理机制
                 for (int i = 0; i < 3; i++)
                 {
-                    await Task.Delay(500);
+                    await Task.Delay(1000);
                     KillPortProcess(LOCAL_HTTP_PORT);
                     KillPortProcess(LOCAL_HTTPS_PORT);
                 }
+                // 检查端口是否被占用
+                var ipProperties = IPGlobalProperties.GetIPGlobalProperties();
+                var tcpListeners = ipProperties.GetActiveTcpListeners();
+                bool isHttpPortInUse = tcpListeners.Any(ep => ep.Port == LOCAL_HTTP_PORT);
+                bool isHttpsPortInUse = tcpListeners.Any(ep => ep.Port == LOCAL_HTTPS_PORT);
 
-                LogMessage("[Network] Cleaned up all connections and processes");
+                LogMessage($"Port {LOCAL_HTTP_PORT} {(isHttpPortInUse ? "is still in use" : "is free")}");
+                LogMessage($"Port {LOCAL_HTTPS_PORT} {(isHttpsPortInUse ? "is still in use" : "is free")}");
+
+                LogMessage("Cleaned up all connections and processes");
+
             }
+
             catch (Exception ex)
             {
-                LogMessage($"[Network] Warning during connection cleanup: {ex.Message}");
+                LogMessage($"Warning during connection cleanup: {ex.Message}");
             }
         }
 
@@ -607,7 +625,7 @@ namespace RemoteBMC
                                     CreateNoWindow = true,
                                     UseShellExecute = false 
                                 });
-                                LogMessage($"[Network] Killed process using port {port} (PID: {pid})");
+                                LogMessage($"Killed process using port {port} (PID: {pid})");
                             }
                         }
                     }
@@ -615,7 +633,7 @@ namespace RemoteBMC
             }
             catch (Exception ex)
             {
-                LogMessage($"[Network] Warning during port cleanup: {ex.Message}");
+                LogMessage($"Warning during port cleanup: {ex.Message}");
             }
         }
 
@@ -639,11 +657,11 @@ namespace RemoteBMC
             try
             {
                 await sshConnectionManager.SetupSshForwarding(smcIp, bmcIp, localPort, remotePort);
-                LogMessage($"[Network] Port forwarding set up: localhost:{localPort} -> {bmcIp}:{remotePort}");
+                LogMessage($"Port forwarding set up: localhost:{localPort} -> {bmcIp}:{remotePort}");
             }
             catch (Exception ex)
             {
-                LogMessage($"[Network] Error setting up port forwarding: {ex.Message}");
+                LogMessage($"Error setting up port forwarding: {ex.Message}");
                 throw;
             }
         }
@@ -661,36 +679,6 @@ namespace RemoteBMC
             if (!string.IsNullOrEmpty(output))
             {
                 LogMessage($"Process output: {output}");
-            }
-        }
-
-        private async void ClearButton_Click(object sender, RoutedEventArgs e)
-        {
-
-
-            try
-            {
-                ClearButton.IsEnabled = false;
-                StartButton.IsEnabled = false;
-
-                await CleanupExistingConnections();
-                LogTextBox.Clear();
-                LogMessage("[System] Configuration cleared");
-            }
-            catch (Exception ex)
-            {
-                LogMessage($"[System] Error during cleanup: {ex.Message}");
-                MessageBox.Show($"Error during cleanup: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            finally
-            {
-                StartButton.Content = "Start config";
-                StartButton.Click -= OpenBrowserButton_Click; 
-                StartButton.Click += StartButton_Click;
-                StartButton.IsEnabled = true;
-                ClearButton.IsEnabled = false;
-                _cancellationTokenSource?.Dispose();
-                _cancellationTokenSource = null;
             }
         }
 

@@ -12,19 +12,14 @@ using System.Linq;
 
 namespace RemoteBMC
 {
-    public class DeviceDiscoveryManager
+    public class DeviceDiscoveryManager(Action<string> logMessage)
     {
-        private readonly Action<string> _logMessage;
-        private readonly string[] _bmcIps = new[] { "172.31.250.11", "172.31.240.11" };
+        private readonly Action<string> _logMessage = logMessage;
+        private readonly string[] _bmcIps = ["172.31.250.11", "172.31.240.11"];
         private const string SSH_PASSWORD = "remora";
         private const int SSH_PORT = 22;
 
-        public DeviceDiscoveryManager(Action<string> logMessage)
-        {
-            _logMessage = logMessage;
-        }
-
-        public async Task<string> FindSmcDevice(NetworkInterface networkInterface = null, bool isDhcpMode = false, CancellationToken cancellationToken = default)
+        public async Task<string> FindSmcDevice(NetworkInterface networkInterface = null, bool isDhcpMode = false)
         {
             try
             {
@@ -40,7 +35,7 @@ namespace RemoteBMC
                         string currentIp = ipv4Address.Address.ToString();
                         if (currentIp.StartsWith("169.254."))
                         {
-                            _logMessage("[Network] APIPA address detected in DHCP mode");
+                            _logMessage("APIPA address detected in DHCP mode");
                             MessageBox.Show(
                                 "No valid DHCP server found in current network. \nPlease consider using Direct Connection mode instead.",
                                 "Network Configuration Warning",
@@ -53,14 +48,14 @@ namespace RemoteBMC
                         var dhcpLeaseLifetime = ipv4Address.GetType().GetProperty("DhcpLeaseLifetime")?.GetValue(ipv4Address) as TimeSpan?;
                         if (ipv4Address.PrefixLength > 0 && !dhcpLeaseLifetime.HasValue)
                         {
-                            _logMessage("[Network] Static IP configuration detected in DHCP mode, attempting to get DHCP IP...");
+                            _logMessage("Static IP configuration detected in DHCP mode, attempting to get DHCP IP...");
                             var dhcpIp = await GetDhcpAssignedClientIp(networkInterface.Name, new List<NetworkInterface> { networkInterface }, true);
                             if (string.IsNullOrEmpty(dhcpIp))
                             {
-                                _logMessage("[Network] Failed to get DHCP IP");
+                                _logMessage("Failed to get DHCP IP");
                                 return null;
                             }
-                            _logMessage($"[Network] Successfully switched to DHCP mode, assigned IP: {dhcpIp}");
+                            _logMessage($"Successfully switched to DHCP mode, assigned IP: {dhcpIp}");
                         }
                     }
                 }
@@ -70,23 +65,23 @@ namespace RemoteBMC
                 {
                     if (!isDhcpMode)
                     {
-                        _logMessage("[Network] Direct connect mode - scanning APIPA network");
+                        _logMessage("Direct connect mode - scanning APIPA network");
                         ipAddressesToScan = GetLinkLocalAddresses();
                     }
                     else
                     {
-                        _logMessage("[Network] Starting SMC device search in current network segment...");
+                        _logMessage("Starting SMC device search in current network segment...");
                         ipAddressesToScan = GetDhcpNetworkAddresses(networkInterface);
                         if (ipAddressesToScan.Count == 0)
                         {
-                            _logMessage("[Network] No valid IP range found in current network segment");
+                            _logMessage("No valid IP range found in current network segment");
                             return null;
                         }
                     }
                 }
                 else
                 {
-                    _logMessage("[Network] Network interface not provided, searching all active network interfaces...");
+                    _logMessage("Network interface not provided, searching all active network interfaces...");
                     ipAddressesToScan = new List<string>();
                     
                     // 获取所有活动的网络接口
@@ -100,7 +95,7 @@ namespace RemoteBMC
                         var addresses = GetDhcpNetworkAddresses(nic);
                         if (addresses.Count > 0)
                         {
-                            _logMessage($"[Network] Adding addresses from interface {nic.Name}");
+                            _logMessage($"Adding addresses from interface {nic.Name}");
                             ipAddressesToScan.AddRange(addresses);
                         }
                     }
@@ -108,53 +103,42 @@ namespace RemoteBMC
                     // 如果没有找到任何有效的网络接口，则回退到APIPA网络
                     if (ipAddressesToScan.Count == 0)
                     {
-                        _logMessage("[Network] No valid network interfaces found, falling back to APIPA network...");
-                        _logMessage("[Network] Starting SMC device search in 169.254.x.x network...");
+                        _logMessage("No valid network interfaces found, falling back to APIPA network...");
+                        _logMessage("Starting SMC device search in 169.254.x.x network...");
                         ipAddressesToScan = GetLinkLocalAddresses();
                     }
                 }
 
-                var deviceList = await ScanIpAddresses(ipAddressesToScan, isDhcpMode, cancellationToken);
-                if (cancellationToken.IsCancellationRequested)
+                var deviceList = await ScanIpAddresses(ipAddressesToScan, isDhcpMode);
+                if (deviceList.Count == 0)
                 {
-                    _logMessage("[Network] Device scanning cancelled by user");
+                    _logMessage("No devices found");
                     return null;
                 }
 
-                var smcDevices = await VerifySmcDevices(deviceList, cancellationToken);
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    _logMessage("[Network] Device verification cancelled by user");
-                    return null;
-                }
-
+                var smcDevices = await VerifySmcDevices(deviceList);
                 if (smcDevices.Count == 0)
                 {
-                    _logMessage("[Network] No SMC devices found");
+                    _logMessage("No SMC devices found");
                     return null;
                 }
 
                 // 在DHCP模式下，如果找到多个设备，让用户选择
                 if (isDhcpMode && smcDevices.Count > 1)
                 {
-                    _logMessage($"[Network] Found {smcDevices.Count} SMC devices, prompting user to select...");
+                    _logMessage($"Found {smcDevices.Count} SMC devices, prompting user to select...");
                     return await SelectSmcDevice(smcDevices);
                 }
                 
                 // 在直连模式下或只找到一个设备时，直接返回第一个设备
                 var device = smcDevices[0];
-                _logMessage($"[Network] Using {(smcDevices.Count == 1 ? "only" : "first")} found SMC device: {device.ip}");
-                _logMessage($"[Network] Device information:\n{device.info}");
+                _logMessage($"Using {(smcDevices.Count == 1 ? "only" : "first")} found SMC device: {device.ip}");
+                _logMessage($"Device information:\n{device.info}");
                 return device.ip;
-            }
-            catch (OperationCanceledException)
-            {
-                _logMessage("[Network] Operation cancelled by user");
-                return null;
             }
             catch (Exception ex)
             {
-                _logMessage($"[Network] Error during search process: {ex.Message}");
+                _logMessage($"Error during search process: {ex.Message}");
                 return null;
             }
         }
@@ -162,7 +146,7 @@ namespace RemoteBMC
         private List<string> GetLinkLocalAddresses()
         {
             var ipAddressesToScan = new HashSet<string>();
-            _logMessage("[Network] Generating full 169.254.0.0/16 addresses");
+            _logMessage("Generating full 169.254.0.0/16 addresses");
 
             // 生成全量169.254.0.0/16地址
             Parallel.For(0, 256, thirdOctet =>
@@ -176,7 +160,7 @@ namespace RemoteBMC
                 }
             });
 
-            _logMessage($"[Network] Generated {ipAddressesToScan.Count} unique addresses");
+            _logMessage($"Generated {ipAddressesToScan.Count} unique addresses");
             return ipAddressesToScan.OrderBy(ip => ip).ToList();
         }
 
@@ -190,7 +174,7 @@ namespace RemoteBMC
 
             if (ipv4Address == null)
             {
-                _logMessage("[Network] No IPv4 address found on selected interface");
+                _logMessage("No IPv4 address found on selected interface");
                 return ipAddressesToScan;
             }
 
@@ -199,7 +183,7 @@ namespace RemoteBMC
             var subnetMask = GetSubnetMask(ipv4Address.PrefixLength);
             var networkAddress = GetNetworkAddress(ipAddress, subnetMask);
             
-            _logMessage($"[Network] Calculated network: {networkAddress}/{ipv4Address.PrefixLength}");
+            _logMessage($"Calculated network: {networkAddress}/{ipv4Address.PrefixLength}");
 
             // 生成当前子网所有地址
             var totalHosts = (int)Math.Pow(2, 32 - ipv4Address.PrefixLength);
@@ -259,7 +243,7 @@ namespace RemoteBMC
                 return new IPAddress(maskBytes);
             }
 
-            _logMessage($"[Network] Prepared {ipAddressesToScan.Count} addresses to scan in DHCP network");
+            _logMessage($"Prepared {ipAddressesToScan.Count} addresses to scan in DHCP network");
             return ipAddressesToScan;
         }
 
@@ -270,7 +254,7 @@ namespace RemoteBMC
                 var selectedNic = networkInterfaces.FirstOrDefault(ni => ni.Name == selectedInterface);
                 if (selectedNic == null)
                 {
-                    _logMessage("[Network] Selected network interface not found");
+                    _logMessage("Selected network interface not found");
                     return null;
                 }
 
@@ -280,55 +264,44 @@ namespace RemoteBMC
 
                 if (ipv4Address == null)
                 {
-                    _logMessage("[Network] No IPv4 address found on selected interface");
+                    _logMessage("No IPv4 address found on selected interface");
                     return null;
                 }
 
                 string clientIp = ipv4Address.Address.ToString();
-                _logMessage($"[Network] DHCP assigned client IP: {clientIp}");
+                _logMessage($"DHCP assigned client IP: {clientIp}");
                 return clientIp;
             }
             catch (Exception ex)
             {
-                _logMessage($"[Network] Error getting DHCP assigned client IP: {ex.Message}");
+                _logMessage($"Error getting DHCP assigned client IP: {ex.Message}");
                 return null;
             }
         }
 
-        private async Task<List<(string ip, bool isAlive)>> ScanIpAddresses(List<string> ipAddressesToScan, bool isDhcpMode, CancellationToken cancellationToken)
+        private async Task<List<(string ip, bool isAlive)>> ScanIpAddresses(List<string> ipAddressesToScan, bool isDhcpMode)
         {
-            _logMessage($"[Network] Starting scan of {ipAddressesToScan.Count} addresses...");
+            _logMessage($"Starting scan of {ipAddressesToScan.Count} addresses...");
             var deviceList = new List<(string ip, bool isAlive)>();
             var tasks = new List<Task>();
             var lockObj = new object();
             const int sshTimeout = 100; // SSH连接超时时间1秒
             const int maxConcurrentTasks = 1000; // 限制并发任务数量
             var semaphore = new SemaphoreSlim(maxConcurrentTasks);
-            var localCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
 
             foreach (string ip in ipAddressesToScan)
             {
-                if (localCts.Token.IsCancellationRequested)
-                {
-                    break;
-                }
-
-                await semaphore.WaitAsync(localCts.Token);
+                await semaphore.WaitAsync();
                 var task = Task.Run(async () =>
                 {
                     try
                     {
-                        if (localCts.Token.IsCancellationRequested)
-                        {
-                            return;
-                        }
-
                         try
                         {
                             using (var tcpClient = new TcpClient())
                             {
                                 var connectTask = tcpClient.ConnectAsync(ip, SSH_PORT);
-                                if (await Task.WhenAny(connectTask, Task.Delay(sshTimeout, localCts.Token)) == connectTask)
+                                if (await Task.WhenAny(connectTask, Task.Delay(sshTimeout)) == connectTask)
                                 {
                                     if (connectTask.IsCompleted && !connectTask.IsFaulted)
                                     {
@@ -337,13 +310,13 @@ namespace RemoteBMC
                                             if (!deviceList.Any(d => d.ip == ip))
                                             {
                                                 deviceList.Add((ip, true));
-                                                _logMessage($"[Network] Device found: {ip} (SSH port open)");
+                                                _logMessage($"Device found: {ip} (SSH port open)");
                                                 
                                                 // 在非DHCP模式下，找到设备后取消其他扫描任务
                                                 if (!isDhcpMode)
                                                 {
-                                                    _logMessage("[Network] First device found, stopping further scanning...");
-                                                    localCts.Cancel();
+                                                    _logMessage("First device found, stopping further scanning...");
+                                                    return;
                                                 }
                                             }
                                         }
@@ -351,20 +324,16 @@ namespace RemoteBMC
                                 }
                             }
                         }
-                        catch (OperationCanceledException)
-                        {
-                            // 忽略取消异常
-                        }
                         catch
                         {
-                            // 忽略其他连接错误
+                            // 忽略连接错误
                         }
                     }
                     finally
                     {
                         semaphore.Release();
                     }
-                }, localCts.Token);
+                });
                 tasks.Add(task);
 
                 // 如果已经找到设备并且不是DHCP模式，立即停止添加新任务
@@ -374,20 +343,8 @@ namespace RemoteBMC
                 }
             }
 
-            try
-            {
-                await Task.WhenAll(tasks.Where(t => !t.IsCanceled));
-            }
-            catch (OperationCanceledException)
-            {
-                _logMessage("[Network] Scan stopped");
-            }
-            finally
-            {
-                localCts.Dispose();
-            }
-
-            _logMessage($"[Network] Scan complete, found {deviceList.Count} devices");
+            await Task.WhenAll(tasks);
+            _logMessage($"Scan complete, found {deviceList.Count} devices");
             
             // 按照IP地址排序，方便查看
             var sortedList = deviceList.OrderBy(d => {
@@ -399,104 +356,91 @@ namespace RemoteBMC
             
             foreach (var device in sortedList)
             {
-                _logMessage($"[Network] Found device: {device.ip}");
+                _logMessage($"Found device: {device.ip}");
             }
             
             return sortedList;
         }
 
-        private async Task<List<(string ip, string mac, string info)>> VerifySmcDevices(List<(string ip, bool isAlive)> deviceList, CancellationToken cancellationToken)
+        private async Task<List<(string ip, string mac, string info)>> VerifySmcDevices(List<(string ip, bool isAlive)> deviceList)
         {
-            _logMessage("[Network] Starting device verification...");
+            _logMessage("Starting device verification...");
             var smcDevices = new List<(string ip, string mac, string info)>();
             const int sshTimeout = 3; // SSH连接超时时间3秒
 
             foreach (var device in deviceList.OrderByDescending(d => d.isAlive))
             {
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    break;
-                }
-
                 try
                 {
                     using (var sshClient = new SshClient(device.ip, "root", SSH_PASSWORD))
                     {
                         sshClient.ConnectionInfo.Timeout = TimeSpan.FromSeconds(sshTimeout);
-                        using (cancellationToken.Register(() => sshClient.Disconnect()))
-                        {
-                            await Task.Run(() => sshClient.Connect(), cancellationToken);
-                            cancellationToken.ThrowIfCancellationRequested();
-                            var deviceInfo = await GetDeviceInformation(sshClient, cancellationToken);
+                        await Task.Run(() => sshClient.Connect());
+                        var deviceInfo = await GetDeviceInformation(sshClient);
                         if (deviceInfo != null)
                         {
                             smcDevices.Add(deviceInfo.Value);
-                            _logMessage($"[Network] SMC device found: {device.ip}");
-                            _logMessage($"[Network] Device information:\n{deviceInfo.Value.info}");
+                            _logMessage($"SMC device found: {device.ip}");
+                            _logMessage($"Device information:\n{deviceInfo.Value.info}");
                         }
                         sshClient.Disconnect();
                     }
                 }
-                }
-                catch (OperationCanceledException)
-                {
-                    throw;
-                }
                 catch (Exception ex)
                 {
-                    _logMessage($"[Network] Error checking device {device.ip}: {ex.Message}");
+                    _logMessage($"Error checking device {device.ip}: {ex.Message}");
                 }
             }
 
             return smcDevices;
         }
 
-        private async Task<(string ip, string mac, string info)?> GetDeviceInformation(SshClient sshClient, CancellationToken cancellationToken)
+        private async Task<(string ip, string mac, string info)?> GetDeviceInformation(SshClient sshClient)
         {
             try
             {
-                _logMessage($"[Network] Getting device information from {sshClient.ConnectionInfo.Host}...");
+                _logMessage($"Getting device information from {sshClient.ConnectionInfo.Host}...");
                 
                 // 只执行hostname命令来快速确认是否是SMC设备
-                _logMessage($"[Network] Executing hostname command...");
+                _logMessage($"Executing hostname command...");
                 var hostnameCmd = sshClient.CreateCommand("hostname");
-                string hostname = await Task.Run(() => hostnameCmd.Execute().Trim(), cancellationToken);
-                _logMessage($"[Network] Hostname command result: {hostname}");
+                string hostname = await Task.Run(() => hostnameCmd.Execute().Trim());
+                _logMessage($"Hostname command result: {hostname}");
 
                 if (hostname != "smc" && hostname != "remora")
                 {
-                    _logMessage($"[Network] Device is not an SMC device (hostname: {hostname})");
+                    _logMessage($"Device is not an SMC device (hostname: {hostname})");
                     return null;
                 }
 
                 // 如果是SMC设备，再获取MAC地址
-                _logMessage($"[Network] Device confirmed as SMC, getting MAC address...");
-                string mac = await GetMacAddress(sshClient, cancellationToken);
-                _logMessage($"[Network] MAC address obtained: {mac}");
+                _logMessage($"Device confirmed as SMC, getting MAC address...");
+                string mac = await GetMacAddress(sshClient);
+                _logMessage($"MAC address obtained: {mac}");
                 
                 string deviceInfo = $"Hostname: {hostname}\nMAC Address: {mac}";
                 return (sshClient.ConnectionInfo.Host, mac, deviceInfo);
             }
             catch (Exception ex)
             {
-                _logMessage($"[Network] Error getting device information: {ex.Message}");
+                _logMessage($"Error getting device information: {ex.Message}");
                 return null;
             }
         }
 
-        private async Task<string> GetMacAddress(SshClient sshClient, CancellationToken cancellationToken)
+        private async Task<string> GetMacAddress(SshClient sshClient)
         {
             try
             {
-                _logMessage("[Network] Trying to get MAC address using ifconfig...");
+                _logMessage("Trying to get MAC address using ifconfig...");
                 var ifconfigCmd = sshClient.CreateCommand("ifconfig -a");
-                string ifconfigOutput = await Task.Run(() => ifconfigCmd.Execute().Trim(), cancellationToken);
+                string ifconfigOutput = await Task.Run(() => ifconfigCmd.Execute().Trim());
 
                 if (string.IsNullOrEmpty(ifconfigOutput))
                 {
-                    _logMessage("[Network] ifconfig returned no output, trying ip link show...");
+                    _logMessage("ifconfig returned no output, trying ip link show...");
                     var ipCmd = sshClient.CreateCommand("ip link show");
-                    ifconfigOutput = await Task.Run(() => ipCmd.Execute().Trim(), cancellationToken);
+                    ifconfigOutput = await Task.Run(() => ipCmd.Execute().Trim());
                 }
 
                 if (!string.IsNullOrEmpty(ifconfigOutput))
@@ -510,26 +454,26 @@ namespace RemoteBMC
 
                     foreach (var pattern in patterns)
                     {
-                        _logMessage($"[Network] Trying to match MAC address pattern: {pattern}");
+                        _logMessage($"Trying to match MAC address pattern: {pattern}");
                         var match = System.Text.RegularExpressions.Regex.Match(ifconfigOutput, pattern);
                         if (match.Success)
                         {
                             string mac = match.Groups[1].Value.ToUpper();
-                            _logMessage($"[Network] Found MAC address using pattern {pattern}");
+                            _logMessage($"Found MAC address using pattern {pattern}");
                             return mac;
                         }
                     }
-                    _logMessage("[Network] No MAC address pattern matched in the output");
+                    _logMessage("No MAC address pattern matched in the output");
                 }
                 else
                 {
-                    _logMessage("[Network] Both ifconfig and ip link show commands returned no output");
+                    _logMessage("Both ifconfig and ip link show commands returned no output");
                 }
                 return null;
             }
             catch (Exception ex)
             {
-                _logMessage($"[Network] Error retrieving MAC address: {ex.Message}");
+                _logMessage($"Error retrieving MAC address: {ex.Message}");
                 return null;
             }
         }
@@ -542,25 +486,25 @@ namespace RemoteBMC
             {
                 try
                 {
-                    _logMessage($"[Network] Found {smcDevices.Count} SMC devices");
+                    _logMessage($"Found {smcDevices.Count} SMC devices");
                     var options = smcDevices.Select(d => $"IP: {d.ip}\n{d.info}").ToList();
 
                     var dialog = new SelectDeviceDialog(options);
                     if (dialog.ShowDialog() == true)
                     {
                         var selectedDevice = smcDevices[dialog.SelectedIndex];
-                        _logMessage($"[Network] User selected device: {selectedDevice.ip}");
+                        _logMessage($"User selected device: {selectedDevice.ip}");
                         tcs.SetResult(selectedDevice.ip);
                     }
                     else
                     {
-                        _logMessage("[Network] User cancelled device selection");
+                        _logMessage("User cancelled device selection");
                         tcs.SetResult(null);
                     }
                 }
                 catch (Exception ex)
                 {
-                    _logMessage($"[Network] Error during device selection: {ex.Message}");
+                    _logMessage($"Error during device selection: {ex.Message}");
                     tcs.SetException(ex);
                 }
             });
@@ -570,7 +514,7 @@ namespace RemoteBMC
 
         public async Task<string> DetermineBmcIp(string smcIp)
         {
-            _logMessage($"[Network] Testing management interface connectivity");
+            _logMessage($"Testing management interface connectivity");
             
             try
             {
@@ -579,7 +523,7 @@ namespace RemoteBMC
                     var reply = await ping.SendPingAsync(smcIp, 500);
                     if (reply.Status != IPStatus.Success)
                     {
-                        _logMessage($"[Network] Unable to connect to SMC device: Connection timeout");
+                        _logMessage($"Unable to connect to SMC device: Connection timeout");
                         return null;
                     }
                 }
@@ -593,40 +537,27 @@ namespace RemoteBMC
                     }
                     catch (Exception ex)
                     {
-                        _logMessage($"[Network] SSH connection failed: {ex.Message}");
+                        _logMessage($"SSH connection failed: {ex.Message}");
                         return null;
                     }
 
                     foreach (string ip in _bmcIps)
                     {
-                        _logMessage($"[Network] Testing BMC IP: {ip}");
+                        _logMessage($"Testing BMC IP: {ip}");
                         try
                         {
                             var pingCmd = client.CreateCommand($"ping -c 1 -W 1 {ip}");
                             
-                            using (var cts = new CancellationTokenSource(TimeSpan.FromSeconds(2)))
+                            var result = pingCmd.Execute();
+                            if (pingCmd.ExitStatus == 0)
                             {
-                                try
-                                {
-                                    var pingTask = Task.Run(() => pingCmd.Execute(), cts.Token);
-                                    var result = await pingTask;
-
-                                    if (pingCmd.ExitStatus == 0)
-                                    {
-                                        _logMessage($"[Network] Successfully established connection to BMC IP: {ip}");
-                                        return ip;
-                                    }
-                                }
-                                catch (OperationCanceledException)
-                                {
-                                    _logMessage($"[Network] Connection timeout for BMC IP {ip}, trying next address");
-                                    continue;
-                                }
+                                _logMessage($"Successfully established connection to BMC IP: {ip}");
+                                return ip;
                             }
                         }
                         catch (Exception ex)
                         {
-                            _logMessage($"[Network] Error testing BMC IP {ip}: {ex.Message}");
+                            _logMessage($"Error testing BMC IP {ip}: {ex.Message}");
                         }
                     }
 
@@ -635,10 +566,10 @@ namespace RemoteBMC
             }
             catch (Exception ex)
             {
-                _logMessage($"[Network] Connectivity test failed: {ex.Message}");
+                _logMessage($"Connectivity test failed: {ex.Message}");
             }
 
-            _logMessage("[Network] All BMC management interface IPs are unreachable");
+            _logMessage("All BMC management interface IPs are unreachable");
             return null;
         }
     }
