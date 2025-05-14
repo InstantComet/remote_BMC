@@ -480,7 +480,7 @@ namespace RemoteBMC
                 await VerifyConnections(true, true);
 
                 LogMessage("Configuration completed successfully!");
-                LogMessage("If the BMC web is not ready,please wait 1 minute...");
+                LogMessage("If the BMC web is not ready, please wait 1 minute and try again.");
             }
             catch (Exception ex)
             {
