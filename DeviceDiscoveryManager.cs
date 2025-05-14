@@ -48,7 +48,7 @@ namespace RemoteBMC
                         var dhcpLeaseLifetime = ipv4Address.GetType().GetProperty("DhcpLeaseLifetime")?.GetValue(ipv4Address) as TimeSpan?;
                         if (ipv4Address.PrefixLength > 0 && !dhcpLeaseLifetime.HasValue)
                         {
-                            _logMessage("Static IP configuration detected in DHCP mode, attempting to get DHCP IP...");
+                            _logMessage("Attempting to get DHCP IP...");
                             var dhcpIp = await GetDhcpAssignedClientIp(networkInterface.Name, new List<NetworkInterface> { networkInterface }, true);
                             if (string.IsNullOrEmpty(dhcpIp))
                             {
@@ -70,7 +70,7 @@ namespace RemoteBMC
                     }
                     else
                     {
-                        _logMessage("Starting SMC device search in current network segment...");
+                        _logMessage("Start search for SMC in current network segment...");
                         ipAddressesToScan = GetDhcpNetworkAddresses(networkInterface);
                         if (ipAddressesToScan.Count == 0)
                         {
@@ -183,7 +183,7 @@ namespace RemoteBMC
             var subnetMask = GetSubnetMask(ipv4Address.PrefixLength);
             var networkAddress = GetNetworkAddress(ipAddress, subnetMask);
             
-            _logMessage($"Calculated network: {networkAddress}/{ipv4Address.PrefixLength}");
+            _logMessage($"Searching for SMC in network: {networkAddress}/{ipv4Address.PrefixLength}");
 
             // 生成当前子网所有地址
             var totalHosts = (int)Math.Pow(2, 32 - ipv4Address.PrefixLength);
@@ -243,7 +243,7 @@ namespace RemoteBMC
                 return new IPAddress(maskBytes);
             }
 
-            _logMessage($"Prepared {ipAddressesToScan.Count} addresses to scan in DHCP network");
+            _logMessage($"Prepared {ipAddressesToScan.Count} addresses to scan");
             return ipAddressesToScan;
         }
 
@@ -269,7 +269,7 @@ namespace RemoteBMC
                 }
 
                 string clientIp = ipv4Address.Address.ToString();
-                _logMessage($"DHCP assigned client IP: {clientIp}");
+                _logMessage($"The IP of this PC is: {clientIp}");
                 return clientIp;
             }
             catch (Exception ex)
@@ -281,7 +281,7 @@ namespace RemoteBMC
 
         private async Task<List<(string ip, bool isAlive)>> ScanIpAddresses(List<string> ipAddressesToScan, bool isDhcpMode)
         {
-            _logMessage($"Starting scan of {ipAddressesToScan.Count} addresses...");
+            _logMessage($"Start scaning of {ipAddressesToScan.Count} addresses...");
             var deviceList = new List<(string ip, bool isAlive)>();
             var tasks = new List<Task>();
             var lockObj = new object();
@@ -344,7 +344,7 @@ namespace RemoteBMC
             }
 
             await Task.WhenAll(tasks);
-            _logMessage($"Scan complete, found {deviceList.Count} devices");
+            _logMessage($"Scan complete, {deviceList.Count} devices found");
             
             // 按照IP地址排序，方便查看
             var sortedList = deviceList.OrderBy(d => {
@@ -353,11 +353,6 @@ namespace RemoteBMC
                     (int.Parse(parts[0]) << 24) + (int.Parse(parts[1]) << 16) + (int.Parse(parts[2]) << 8) + int.Parse(parts[3]) 
                     : 0;
             }).ToList();
-            
-            foreach (var device in sortedList)
-            {
-                _logMessage($"Found device: {device.ip}");
-            }
             
             return sortedList;
         }
@@ -528,41 +523,39 @@ namespace RemoteBMC
                     }
                 }
 
-                using (var client = new SshClient(smcIp, "root", SSH_PASSWORD))
+                using var client = new SshClient(smcIp, "root", SSH_PASSWORD);
+                try
                 {
+                    client.ConnectionInfo.Timeout = TimeSpan.FromSeconds(5);
+                    await Task.Run(() => client.Connect());
+                }
+                catch (Exception ex)
+                {
+                    _logMessage($"SSH connection failed: {ex.Message}");
+                    return null;
+                }
+
+                foreach (string ip in _bmcIps)
+                {
+                    _logMessage($"Testing on potential BMC IP: {ip}");
                     try
                     {
-                        client.ConnectionInfo.Timeout = TimeSpan.FromSeconds(5);
-                        await Task.Run(() => client.Connect());
+                        var pingCmd = client.CreateCommand($"ping -c 1 -W 1 {ip}");
+
+                        var result = pingCmd.Execute();
+                        if (pingCmd.ExitStatus == 0)
+                        {
+                            _logMessage($"Successfully established connection to BMC IP: {ip}");
+                            return ip;
+                        }
                     }
                     catch (Exception ex)
                     {
-                        _logMessage($"SSH connection failed: {ex.Message}");
-                        return null;
+                        _logMessage($"Error testing BMC IP {ip}: {ex.Message}");
                     }
-
-                    foreach (string ip in _bmcIps)
-                    {
-                        _logMessage($"Testing BMC IP: {ip}");
-                        try
-                        {
-                            var pingCmd = client.CreateCommand($"ping -c 1 -W 1 {ip}");
-                            
-                            var result = pingCmd.Execute();
-                            if (pingCmd.ExitStatus == 0)
-                            {
-                                _logMessage($"Successfully established connection to BMC IP: {ip}");
-                                return ip;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            _logMessage($"Error testing BMC IP {ip}: {ex.Message}");
-                        }
-                    }
-
-                    client.Disconnect();
                 }
+
+                client.Disconnect();
             }
             catch (Exception ex)
             {

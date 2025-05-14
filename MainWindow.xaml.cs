@@ -4,13 +4,9 @@ using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using Renci.SshNet;
 using System.Net.Sockets;
 using System.Linq;
 using System.Collections.Generic;
-using System.Text;
-using System.Net;
-using System.Threading;
 using MaterialDesignThemes.Wpf;
 using MaterialDesignColors;
 using System.Windows.Media;
@@ -157,7 +153,7 @@ namespace RemoteBMC
                     NetworkInterfaceCombo.SelectedIndex = 0;
                 }
 
-                LogMessage("Network interfaces refreshed");
+                LogMessage("[Local] Network interfaces refreshed");
             }
             catch (Exception ex)
             {
@@ -334,11 +330,11 @@ namespace RemoteBMC
             try
             {
                 await CleanupExistingConnections();
-                LogMessage("[System] Configuration cleared");
+                LogMessage("[Local] Configuration cleared");
             }
             catch (Exception ex)
             {
-                LogMessage($"[System] Error during cleanup: {ex.Message}");
+                LogMessage($"[Local] Error during cleanup: {ex.Message}");
                 MessageBox.Show($"Error during cleanup: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
@@ -381,7 +377,7 @@ namespace RemoteBMC
                 var selectedNic = networkInterfaces.FirstOrDefault(ni => ni.Name == selectedInterface);
                 if (selectedNic != null)
                 {
-                    LogMessage($"Selected network interface: {selectedInterface}");
+                    LogMessage($"[Local] Selected network interface: {selectedInterface}");
                 }
             }
         }
@@ -471,20 +467,20 @@ namespace RemoteBMC
                 {
                     LogMessage("Unable to determine BMC IP address");
                     MessageBox.Show("Unable to determine BMC IP address", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
+                    throw new InvalidOperationException("Unable to determine BMC IP address");
                 }
 
-                LogMessage($"BMC IP address: {bmcIp}");
+                LogMessage($"The BMC IP address is: {bmcIp}");
 
                 // Configure SSH forwarding for HTTP and HTTPS
-                await SetupSshForwarding(smcIp, bmcIp, LOCAL_HTTP_PORT, REMOTE_HTTP_PORT);
-                await SetupSshForwarding(smcIp, bmcIp, LOCAL_HTTPS_PORT, REMOTE_HTTPS_PORT);
+                await sshConnectionManager.SetupSshForwarding(smcIp, bmcIp, LOCAL_HTTP_PORT, REMOTE_HTTP_PORT);
+                await sshConnectionManager.SetupSshForwarding(smcIp, bmcIp, LOCAL_HTTPS_PORT, REMOTE_HTTPS_PORT);
 
                 // Verify connections
                 await VerifyConnections(true, true);
 
-                LogMessage("Configuration completed successfully");
-            
+                LogMessage("Configuration completed successfully!");
+                LogMessage("If the BMC web is not ready,please wait 1 minute...");
             }
             catch (Exception ex)
             {
@@ -563,7 +559,7 @@ namespace RemoteBMC
             {
                 // 关闭所有SSH连接
                 sshConnectionManager.CloseAllConnections();
-                LogMessage("Closing all SSH connections");
+                LogMessage("[Local] Closing all SSH connections");
 
                 // 终止端口进程
                 KillPortProcess(LOCAL_HTTP_PORT);
@@ -572,7 +568,7 @@ namespace RemoteBMC
                 // 添加重试清理机制
                 for (int i = 0; i < 3; i++)
                 {
-                    await Task.Delay(1000);
+                    await Task.Delay(500);
                     KillPortProcess(LOCAL_HTTP_PORT);
                     KillPortProcess(LOCAL_HTTPS_PORT);
                 }
@@ -582,10 +578,8 @@ namespace RemoteBMC
                 bool isHttpPortInUse = tcpListeners.Any(ep => ep.Port == LOCAL_HTTP_PORT);
                 bool isHttpsPortInUse = tcpListeners.Any(ep => ep.Port == LOCAL_HTTPS_PORT);
 
-                LogMessage($"Port {LOCAL_HTTP_PORT} {(isHttpPortInUse ? "is still in use" : "is free")}");
-                LogMessage($"Port {LOCAL_HTTPS_PORT} {(isHttpsPortInUse ? "is still in use" : "is free")}");
-
-                LogMessage("Cleaned up all connections and processes");
+                LogMessage($"[Local] Port {LOCAL_HTTP_PORT} {(isHttpPortInUse ? "is still in use" : "is free")}");
+                LogMessage($"[Local] Port {LOCAL_HTTPS_PORT} {(isHttpsPortInUse ? "is still in use" : "is free")}");
 
             }
 
@@ -650,20 +644,6 @@ namespace RemoteBMC
         {
             await CleanupExistingConnections();
             base.OnClosed(e);
-        }
-
-        private async Task SetupSshForwarding(string smcIp, string bmcIp, int localPort, int remotePort)
-        {
-            try
-            {
-                await sshConnectionManager.SetupSshForwarding(smcIp, bmcIp, localPort, remotePort);
-                LogMessage($"Port forwarding set up: localhost:{localPort} -> {bmcIp}:{remotePort}");
-            }
-            catch (Exception ex)
-            {
-                LogMessage($"Error setting up port forwarding: {ex.Message}");
-                throw;
-            }
         }
 
         private async Task WaitForProcessExit(Process process)

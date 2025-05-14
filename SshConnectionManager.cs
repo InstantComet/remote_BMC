@@ -39,7 +39,7 @@ namespace RemoteBMC
                 _activeSshClients.Add(client);
                 _activeForwardedPorts.Add(forwardedPort);
 
-                _logMessage($"SSH forwarding set up: {localPort} -> {bmcIp}:{remotePort}");
+                _logMessage($"SSH forwarding set up: Localhost:{localPort} -> {bmcIp}:{remotePort}");
             }
             catch (Exception ex)
             {
