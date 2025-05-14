@@ -399,8 +399,6 @@ namespace RemoteBMC
                                   MessageBoxImage.Warning);
                     return null;
                 }
-
-                LogMessage($"SMC device found at {smcIp}");
                 return smcIp;
             }
             catch (Exception ex)

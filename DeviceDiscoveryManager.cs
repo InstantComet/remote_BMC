@@ -427,7 +427,7 @@ namespace RemoteBMC
         {
             try
             {
-                _logMessage("Trying to get MAC address using ifconfig...");
+                //_logMessage("Trying to get MAC address using ifconfig...");
                 var ifconfigCmd = sshClient.CreateCommand("ifconfig -a");
                 string ifconfigOutput = await Task.Run(() => ifconfigCmd.Execute().Trim());
 
@@ -449,12 +449,12 @@ namespace RemoteBMC
 
                     foreach (var pattern in patterns)
                     {
-                        _logMessage($"Trying to match MAC address pattern: {pattern}");
+                        //_logMessage($"Trying to match MAC address pattern: {pattern}");
                         var match = System.Text.RegularExpressions.Regex.Match(ifconfigOutput, pattern);
                         if (match.Success)
                         {
                             string mac = match.Groups[1].Value.ToUpper();
-                            _logMessage($"Found MAC address using pattern {pattern}");
+                            //_logMessage($"Found MAC address using pattern {pattern}");
                             return mac;
                         }
                     }
