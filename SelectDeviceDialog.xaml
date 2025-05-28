@@ -1,9 +1,20 @@
 <Window x:Class="RemoteBMC.SelectDeviceDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="Select SMC Device" Height="400" Width="500"
         WindowStartupLocation="CenterOwner"
-        Icon="remote_bmc.ico">
+        Icon="remote_bmc.ico"
+        Background="{DynamicResource WindowBackground}">
+    <Window.Resources>
+        <Style TargetType="ListBox">
+            <Setter Property="Background" Value="{DynamicResource WindowBackground}"/>
+            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+        </Style>
+        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+        </Style>
+    </Window.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -36,4 +47,4 @@
                     Click="CancelButton_Click"/>
         </StackPanel>
     </Grid>
-</Window> 
+</Window>
