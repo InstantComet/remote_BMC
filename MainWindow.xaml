@@ -107,7 +107,8 @@
                                            Content="Manual IP Setting" 
                                            GroupName="IpConfigGroup"
                                            VerticalAlignment="Center"
-                                           VerticalContentAlignment="Center" />
+                                           VerticalContentAlignment="Center"
+                                           Checked="ManualIpRadio_Checked" />
                             </DockPanel>
 
                     <DockPanel Margin="0,5">

@@ -368,6 +368,12 @@ namespace RemoteBMC
             StartButton.IsEnabled = DirectConfirmCheckBox.IsChecked == true;
         }
 
+        private void ManualIpRadio_Checked(object sender, RoutedEventArgs e)
+        {
+            SmcIpTextBox.Text = string.Empty;
+            StartButton.IsEnabled = true;
+        }
+
         private void NetworkInterfaceCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // 当网络接口改变时，重新检查网络状态
