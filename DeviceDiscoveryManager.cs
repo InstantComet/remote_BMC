@@ -361,7 +361,7 @@ namespace RemoteBMC
         {
             _logMessage("Starting device verification...");
             var smcDevices = new List<(string ip, string mac, string info)>();
-            const int sshTimeout = 3; // SSH连接超时时间3秒
+            const int sshTimeout = 6; // SSH连接超时时间6秒
 
             foreach (var device in deviceList.OrderByDescending(d => d.isAlive))
             {
