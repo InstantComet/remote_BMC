@@ -562,8 +562,11 @@ namespace RemoteBMC
             try
             {
                 // 关闭所有SSH连接
-                sshConnectionManager.CloseAllConnections();
-                LogMessage("[Local] Closing all SSH connections");
+                if (sshConnectionManager != null)
+                {
+                    sshConnectionManager.CloseAllConnections();
+                    LogMessage("[Local] Closing all SSH connections");
+                }
 
                 // 终止端口进程
                 KillPortProcess(LOCAL_HTTP_PORT);
