@@ -368,12 +368,6 @@ namespace RemoteBMC
             StartButton.IsEnabled = DirectConfirmCheckBox.IsChecked == true;
         }
 
-        private void ManualIpRadio_Checked(object sender, RoutedEventArgs e)
-        {
-            SmcIpTextBox.Text = string.Empty;
-            StartButton.IsEnabled = true;
-        }
-
         private void NetworkInterfaceCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // 当网络接口改变时，重新检查网络状态
@@ -445,9 +439,8 @@ namespace RemoteBMC
         private async Task<string> GetDhcpAssignedClientIp()
         {
             string selectedInterface = NetworkInterfaceCombo.SelectedItem.ToString();
-            bool isManualDhcp = ManualIpRadio.IsChecked == true;
             
-            var smcIp = await deviceDiscoveryManager.GetDhcpAssignedClientIp(selectedInterface, networkInterfaces, isManualDhcp);
+            var smcIp = await deviceDiscoveryManager.GetDhcpAssignedClientIp(selectedInterface, networkInterfaces);
             
             if (!string.IsNullOrEmpty(smcIp))
             {
@@ -469,9 +462,9 @@ namespace RemoteBMC
                 string bmcIp = await DetermineBmcIp(smcIp);
                 if (string.IsNullOrEmpty(bmcIp))
                 {
-                    LogMessage("Unable to determine BMC IP address");
-                    MessageBox.Show("Unable to determine BMC IP address", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    throw new InvalidOperationException("Unable to determine BMC IP address");
+                    LogMessage("Connected to SMC, but SMC can't talk to BMC");
+                    MessageBox.Show("Connected to SMC, but SMC can't talk to BMC", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    throw new InvalidOperationException("Connected to SMC, but SMC can't talk to BMC");
                 }
 
                 LogMessage($"The BMC IP address is: {bmcIp}");

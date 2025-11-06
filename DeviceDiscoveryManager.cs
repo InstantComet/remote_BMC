@@ -49,7 +49,7 @@ namespace RemoteBMC
                         if (ipv4Address.PrefixLength > 0 && !dhcpLeaseLifetime.HasValue)
                         {
                             _logMessage("Attempting to get DHCP IP...");
-                            var dhcpIp = await GetDhcpAssignedClientIp(networkInterface.Name, new List<NetworkInterface> { networkInterface }, true);
+                            var dhcpIp = await GetDhcpAssignedClientIp(networkInterface.Name, new List<NetworkInterface> { networkInterface });
                             if (string.IsNullOrEmpty(dhcpIp))
                             {
                                 _logMessage("Failed to get DHCP IP");
@@ -247,7 +247,8 @@ namespace RemoteBMC
             return ipAddressesToScan;
         }
 
-        public async Task<string> GetDhcpAssignedClientIp(string selectedInterface, List<NetworkInterface> networkInterfaces, bool isManualDhcp)
+        // 修改 GetDhcpAssignedClientIp 方法：
+        public async Task<string> GetDhcpAssignedClientIp(string selectedInterface, List<NetworkInterface> networkInterfaces)
         {
             try
             {
