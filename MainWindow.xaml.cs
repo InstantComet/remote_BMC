@@ -320,7 +320,6 @@ namespace RemoteBMC
             isConfigured = false;
             StartButton.Content = "Error";
             StartButton.IsEnabled = false;
-            StartButton.Foreground = new SolidColorBrush(Colors.Red);
             ClearButton.IsEnabled = true;
         }
 
