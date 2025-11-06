@@ -510,61 +510,99 @@ namespace RemoteBMC
 
         public async Task<string> DetermineBmcIp(string smcIp)
         {
-            _logMessage($"Testing management interface connectivity");
+            _logMessage($"Starting BMC IP determination process");
             
             try
             {
+                // 首先确认SMC是否可达
                 using (var ping = new Ping())
                 {
-                    var reply = await ping.SendPingAsync(smcIp, 500);
+                    _logMessage($"Checking if SMC is reachable at {smcIp}...");
+                    var reply = await ping.SendPingAsync(smcIp, 1000);
                     if (reply.Status != IPStatus.Success)
                     {
-                        _logMessage($"Unable to connect to SMC device: Connection timeout");
+                        _logMessage($"Cannot reach SMC at {smcIp}: Connection timeout");
                         return null;
                     }
+                    _logMessage($"SMC is reachable at {smcIp}");
                 }
 
-                using var client = new SshClient(smcIp, "root", SSH_PASSWORD);
+                // 修改SSH连接配置
+                var connectionInfo = new ConnectionInfo(smcIp, 
+                    "root", 
+                    new PasswordAuthenticationMethod("root", SSH_PASSWORD),
+                    new KeyboardInteractiveAuthenticationMethod("root")
+                );
+                
+                // 设置更详细的连接参数
+                connectionInfo.Timeout = TimeSpan.FromSeconds(30);        // 增加总体超时时间
+                connectionInfo.RetryAttempts = 3;                        // 添加重试次数
+                
+                // 建立SSH连接
+                _logMessage($"Establishing SSH connection to SMC with extended timeout...");
+                using var sshClient = new SshClient(connectionInfo);
+                
                 try
                 {
-                    client.ConnectionInfo.Timeout = TimeSpan.FromSeconds(5);
-                    await Task.Run(() => client.Connect());
+                    await Task.Run(() => 
+                    {
+                        sshClient.Connect();
+                        _logMessage("SSH connection established successfully");
+                    });
+
+                    if (!sshClient.IsConnected)
+                    {
+                        _logMessage("SSH connection failed to establish");
+                        return null;
+                    }
+
+                    // 首先尝试ping 172.31.250.11
+                    _logMessage("Attempting to ping primary BMC IP (172.31.250.11)...");
+                    var primaryPingCmd = sshClient.CreateCommand("ping -c 1 -W 2 172.31.250.11");
+                    var primaryResult = await Task.Run(() => primaryPingCmd.Execute());
+                    _logMessage($"Primary BMC ping command output:\n{primaryResult}");
+
+                    if (primaryPingCmd.ExitStatus == 0)
+                    {
+                        _logMessage("Successfully connected to primary BMC IP (172.31.250.11)");
+                        return "172.31.250.11";
+                    }
+
+                    // 如果第一个IP不通，尝试ping 172.31.240.11
+                    _logMessage("Primary BMC IP unreachable, trying secondary BMC IP (172.31.240.11)...");
+                    var secondaryPingCmd = sshClient.CreateCommand("ping -c 1 -W 2 172.31.240.11");
+                    var secondaryResult = await Task.Run(() => secondaryPingCmd.Execute());
+                    _logMessage($"Secondary BMC ping command output:\n{secondaryResult}");
+
+                    if (secondaryPingCmd.ExitStatus == 0)
+                    {
+                        _logMessage("Successfully connected to secondary BMC IP (172.31.240.11)");
+                        return "172.31.240.11";
+                    }
+
+                    _logMessage("Both BMC IPs are unreachable from SMC");
+                    return null;
                 }
                 catch (Exception ex)
                 {
-                    _logMessage($"SSH connection failed: {ex.Message}");
+                    _logMessage($"SSH operation failed: {ex.Message}");
+                    _logMessage($"SSH connection details: Host={smcIp}, Username=root");
+                    if (sshClient.IsConnected)
+                    {
+                        try
+                        {
+                            sshClient.Disconnect();
+                        }
+                        catch { }
+                    }
                     return null;
                 }
-
-                foreach (string ip in _bmcIps)
-                {
-                    _logMessage($"Testing on potential BMC IP: {ip}");
-                    try
-                    {
-                        var pingCmd = client.CreateCommand($"ping -c 1 -W 1 {ip}");
-
-                        var result = pingCmd.Execute();
-                        if (pingCmd.ExitStatus == 0)
-                        {
-                            _logMessage($"Successfully established connection to BMC IP: {ip}");
-                            return ip;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        _logMessage($"Error testing BMC IP {ip}: {ex.Message}");
-                    }
-                }
-
-                client.Disconnect();
             }
             catch (Exception ex)
             {
-                _logMessage($"Connectivity test failed: {ex.Message}");
+                _logMessage($"BMC IP determination process failed: {ex.Message}");
+                return null;
             }
-
-            _logMessage("All BMC management interface IPs are unreachable");
-            return null;
         }
     }
 }

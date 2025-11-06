@@ -281,33 +281,30 @@ namespace RemoteBMC
                     if (NetworkInterfaceCombo.SelectedItem == null)
                     {
                         MessageBox.Show("请选择网络接口", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                        StartButton.Content = "Start config";
+                        // 设置错误状态
+                        SetErrorState();
                         return;
                     }
 
                     string smcIp = await GetSmcIp();
                     if (string.IsNullOrEmpty(smcIp))
                     {
-                        StartButton.Content = "Start config";
+                        // 设置错误状态
+                        SetErrorState();
                         return;
                     }
 
                     await ConfigureConnection(smcIp);
 
-                    // 配置成功
-                    isConfigured = true;
-                    StartButton.Content = "To BMC Web";
-                    ClearButton.IsEnabled = true;
+                    // 注意：成功状态现在由ConfigureConnection内部设置
+                    // 不需要在这里设置按钮状态
                 }
                 catch (Exception ex)
                 {
                     LogMessage($"发生错误: {ex.Message}");
                     MessageBox.Show($"配置错误: {ex.Message}", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                    StartButton.Content = "Start config";
-                }
-                finally
-                {
-                    StartButton.IsEnabled = true;
+                    // 设置错误状态
+                    SetErrorState();
                 }
             }
             else
@@ -315,6 +312,16 @@ namespace RemoteBMC
                 // —— 已配置，直接打开浏览器 —— 
                 OpenBrowserButton_Click(sender, e);
             }
+        }
+
+        // 添加一个新方法来统一设置错误状态
+        private void SetErrorState()
+        {
+            isConfigured = false;
+            StartButton.Content = "Error";
+            StartButton.IsEnabled = false;
+            StartButton.Foreground = new SolidColorBrush(Colors.Red);
+            ClearButton.IsEnabled = true;
         }
 
         private async void ClearButton_Click(object sender, RoutedEventArgs e)
@@ -464,6 +471,13 @@ namespace RemoteBMC
                 {
                     LogMessage("Connected to SMC, but SMC can't talk to BMC");
                     MessageBox.Show("Connected to SMC, but SMC can't talk to BMC", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    
+                    // 设置错误状态
+                    isConfigured = false;
+                    StartButton.IsEnabled = false;
+                    StartButton.Content = "Error";
+                    ClearButton.IsEnabled = true; // 允许用户清除错误状态
+                    
                     throw new InvalidOperationException("Connected to SMC, but SMC can't talk to BMC");
                 }
 
@@ -476,11 +490,23 @@ namespace RemoteBMC
                 // Verify connections
                 await VerifyConnections(true, true);
 
+                // 配置成功，设置正常状态
+                isConfigured = true;
+                StartButton.Content = "To BMC Web";
+                StartButton.IsEnabled = true;
+                ClearButton.IsEnabled = true;
+
                 LogMessage("Configuration completed successfully!");
                 LogMessage("If the BMC web is not ready, please wait 1 minute and try again.");
             }
             catch (Exception ex)
             {
+                // 设置错误状态
+                isConfigured = false;
+                StartButton.Content = "Error";
+                StartButton.IsEnabled = false;
+                ClearButton.IsEnabled = true; // 允许用户清除错误状态
+
                 LogMessage($"Error configuring connection: {ex.Message}");
                 MessageBox.Show($"Error configuring connection: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
